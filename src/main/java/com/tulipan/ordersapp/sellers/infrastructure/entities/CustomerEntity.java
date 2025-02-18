@@ -8,14 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "customers")
 @Data
 @EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor
-@Table(name = "sellers")
-public class SellerEntity extends BaseEntity {
+public class CustomerEntity extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -24,10 +22,13 @@ public class SellerEntity extends BaseEntity {
   private String name;
 
   private String lastName;
-  private String address;
+
+  private String email;
 
   @Column(nullable = false)
   private String phone;
 
-  private String email;
+  private String address;
+
+  private String note;
 }

@@ -41,6 +41,7 @@ public class SellerController {
 
   @PutMapping("/{id}")
   public Seller updateSeller(@PathVariable Long id, @RequestBody Seller seller) {
+    seller.setId(id);
     return sellerService.update(seller);
   }
 
