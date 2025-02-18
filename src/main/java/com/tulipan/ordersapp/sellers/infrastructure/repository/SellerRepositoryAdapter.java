@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
+import com.tulipan.ordersapp.sellers.domain.CustomerNotFoundException;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
 import com.tulipan.ordersapp.sellers.infrastructure.entities.SellerEntity;
 
@@ -66,7 +67,13 @@ public class SellerRepositoryAdapter {
   }
 
   public Seller update(Seller seller) {
-    SellerEntity entity = toEntity(seller);
+    SellerEntity entity = sellerRepository.findById(seller.getId())
+        .orElseThrow(() -> new CustomerNotFoundException(seller.getId()));
+    entity.setName(seller.getName());
+    entity.setLastName(seller.getLastName());
+    entity.setAddress(seller.getAddress());
+    entity.setPhone(seller.getPhone());
+    entity.setEmail(seller.getEmail());
     SellerEntity updatedEntity = sellerRepository.save(entity);
     return toModel(updatedEntity);
   }
