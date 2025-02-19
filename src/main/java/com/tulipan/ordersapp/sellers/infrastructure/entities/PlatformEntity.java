@@ -5,31 +5,34 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "platforms")
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class CustomerEntity extends BaseEntity {
+public class PlatformEntity extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String name;
 
-  private String lastName;
+  private Float customerFee;
 
-  @Column(unique = true)
-  private String email;
+  private Float sellerCommission;
 
-  @Column(nullable = false, unique = true)
-  private String phone;
+  @Column(nullable = false)
+  private Boolean active = true;
 
-  private String address;
-
-  private String note;
+  @PrePersist
+  public void prePersist() {
+    if (active == null) {
+      active = true;
+    }
+  }
 }

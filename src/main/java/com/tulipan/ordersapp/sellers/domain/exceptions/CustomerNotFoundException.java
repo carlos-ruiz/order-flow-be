@@ -1,4 +1,4 @@
-package com.tulipan.ordersapp.sellers.domain;
+package com.tulipan.ordersapp.sellers.domain.exceptions;
 
 public class CustomerNotFoundException extends RuntimeException {
   public CustomerNotFoundException(Long id) {
