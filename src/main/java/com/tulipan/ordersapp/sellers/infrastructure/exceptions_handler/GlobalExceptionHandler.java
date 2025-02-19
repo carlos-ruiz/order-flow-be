@@ -5,8 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.tulipan.ordersapp.sellers.domain.CustomerNotFoundException;
-import com.tulipan.ordersapp.sellers.domain.SellerNotFoundException;
+import com.tulipan.ordersapp.sellers.domain.exceptions.CustomerNotFoundException;
+import com.tulipan.ordersapp.sellers.domain.exceptions.PlatformNotFoundException;
+import com.tulipan.ordersapp.sellers.domain.exceptions.SellerNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -18,6 +19,11 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(CustomerNotFoundException.class)
   public ResponseEntity<String> handleCustomerNotFound(CustomerNotFoundException e) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+  }
+
+  @ExceptionHandler(PlatformNotFoundException.class)
+  public ResponseEntity<String> handlePlatformNotFound(PlatformNotFoundException e) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
   }
 

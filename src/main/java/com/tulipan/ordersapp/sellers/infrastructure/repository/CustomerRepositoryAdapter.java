@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.tulipan.ordersapp.sellers.domain.CustomerNotFoundException;
+import com.tulipan.ordersapp.sellers.domain.exceptions.CustomerNotFoundException;
 import com.tulipan.ordersapp.sellers.domain.model.Customer;
 import com.tulipan.ordersapp.sellers.infrastructure.entities.CustomerEntity;
 

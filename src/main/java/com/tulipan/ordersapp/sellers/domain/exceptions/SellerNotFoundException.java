@@ -1,4 +1,4 @@
-package com.tulipan.ordersapp.sellers.domain;
+package com.tulipan.ordersapp.sellers.domain.exceptions;
 
 public class SellerNotFoundException extends RuntimeException {
   public SellerNotFoundException(Long id) {

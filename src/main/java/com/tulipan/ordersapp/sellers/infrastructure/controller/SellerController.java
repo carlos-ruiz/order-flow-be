@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tulipan.ordersapp.sellers.domain.service.SellerService;
-import com.tulipan.ordersapp.sellers.domain.SellerNotFoundException;
+import com.tulipan.ordersapp.sellers.domain.exceptions.SellerNotFoundException;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
 
 @RestController
