@@ -1,4 +1,6 @@
-package com.tulipan.ordersapp.sellers.infrastructure.entities;
+package com.tulipan.ordersapp.customers.infrastructure.entities;
+
+import com.tulipan.ordersapp.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,13 +1,13 @@
-package com.tulipan.ordersapp.sellers.application;
+package com.tulipan.ordersapp.customers.application;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.tulipan.ordersapp.sellers.domain.model.Customer;
-import com.tulipan.ordersapp.sellers.domain.service.CustomerService;
-import com.tulipan.ordersapp.sellers.infrastructure.repository.CustomerRepositoryAdapter;
+import com.tulipan.ordersapp.customers.domain.model.Customer;
+import com.tulipan.ordersapp.customers.domain.service.CustomerService;
+import com.tulipan.ordersapp.customers.infrastructure.repository.CustomerRepositoryAdapter;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {

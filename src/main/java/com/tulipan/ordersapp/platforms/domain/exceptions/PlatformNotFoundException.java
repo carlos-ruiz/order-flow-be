@@ -1,4 +1,4 @@
-package com.tulipan.ordersapp.sellers.domain.exceptions;
+package com.tulipan.ordersapp.platforms.domain.exceptions;
 
 public class PlatformNotFoundException extends RuntimeException {
   public PlatformNotFoundException(Long id) {

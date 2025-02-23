@@ -1,12 +1,12 @@
-package com.tulipan.ordersapp.sellers.infrastructure.exceptions_handler;
+package com.tulipan.ordersapp;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.tulipan.ordersapp.sellers.domain.exceptions.CustomerNotFoundException;
-import com.tulipan.ordersapp.sellers.domain.exceptions.PlatformNotFoundException;
+import com.tulipan.ordersapp.customers.domain.exceptions.CustomerNotFoundException;
+import com.tulipan.ordersapp.platforms.domain.exceptions.PlatformNotFoundException;
 import com.tulipan.ordersapp.sellers.domain.exceptions.SellerNotFoundException;
 
 @ControllerAdvice

@@ -1,4 +1,4 @@
-package com.tulipan.ordersapp.sellers.domain.model;
+package com.tulipan.ordersapp.customers.domain.model;
 
 import lombok.Data;
 

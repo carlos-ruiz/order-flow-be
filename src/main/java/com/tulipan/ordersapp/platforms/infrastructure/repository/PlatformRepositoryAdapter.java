@@ -1,13 +1,13 @@
-package com.tulipan.ordersapp.sellers.infrastructure.repository;
+package com.tulipan.ordersapp.platforms.infrastructure.repository;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.tulipan.ordersapp.sellers.domain.exceptions.PlatformNotFoundException;
-import com.tulipan.ordersapp.sellers.domain.model.Platform;
-import com.tulipan.ordersapp.sellers.infrastructure.entities.PlatformEntity;
+import com.tulipan.ordersapp.platforms.domain.exceptions.PlatformNotFoundException;
+import com.tulipan.ordersapp.platforms.domain.model.Platform;
+import com.tulipan.ordersapp.platforms.infrastructure.entities.PlatformEntity;
 
 @Component
 public class PlatformRepositoryAdapter {

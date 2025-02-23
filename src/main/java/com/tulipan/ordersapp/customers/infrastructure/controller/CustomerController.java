@@ -1,4 +1,4 @@
-package com.tulipan.ordersapp.sellers.infrastructure.controller;
+package com.tulipan.ordersapp.customers.infrastructure.controller;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tulipan.ordersapp.sellers.domain.exceptions.CustomerNotFoundException;
-import com.tulipan.ordersapp.sellers.domain.model.Customer;
-import com.tulipan.ordersapp.sellers.domain.service.CustomerService;
+import com.tulipan.ordersapp.customers.domain.exceptions.CustomerNotFoundException;
+import com.tulipan.ordersapp.customers.domain.model.Customer;
+import com.tulipan.ordersapp.customers.domain.service.CustomerService;
 
 @RestController
 @RequestMapping("/customers")

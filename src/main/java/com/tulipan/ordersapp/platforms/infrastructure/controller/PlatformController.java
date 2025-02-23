@@ -1,4 +1,4 @@
-package com.tulipan.ordersapp.sellers.infrastructure.controller;
+package com.tulipan.ordersapp.platforms.infrastructure.controller;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tulipan.ordersapp.sellers.domain.exceptions.PlatformNotFoundException;
-import com.tulipan.ordersapp.sellers.domain.model.Platform;
-import com.tulipan.ordersapp.sellers.domain.service.PlatformService;
+import com.tulipan.ordersapp.platforms.domain.exceptions.PlatformNotFoundException;
+import com.tulipan.ordersapp.platforms.domain.model.Platform;
+import com.tulipan.ordersapp.platforms.domain.service.PlatformService;
 
 @RestController
 @RequestMapping("/platforms")

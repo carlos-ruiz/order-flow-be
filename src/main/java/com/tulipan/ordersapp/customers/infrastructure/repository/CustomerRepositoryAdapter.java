@@ -1,13 +1,13 @@
-package com.tulipan.ordersapp.sellers.infrastructure.repository;
+package com.tulipan.ordersapp.customers.infrastructure.repository;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.tulipan.ordersapp.sellers.domain.exceptions.CustomerNotFoundException;
-import com.tulipan.ordersapp.sellers.domain.model.Customer;
-import com.tulipan.ordersapp.sellers.infrastructure.entities.CustomerEntity;
+import com.tulipan.ordersapp.customers.domain.exceptions.CustomerNotFoundException;
+import com.tulipan.ordersapp.customers.domain.model.Customer;
+import com.tulipan.ordersapp.customers.infrastructure.entities.CustomerEntity;
 
 @Component
 public class CustomerRepositoryAdapter {
