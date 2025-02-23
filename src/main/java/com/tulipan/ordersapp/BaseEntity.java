@@ -1,4 +1,4 @@
-package com.tulipan.ordersapp.sellers.infrastructure.entities;
+package com.tulipan.ordersapp;
 
 import java.time.LocalDateTime;
 

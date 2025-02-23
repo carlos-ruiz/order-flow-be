@@ -1,13 +1,13 @@
-package com.tulipan.ordersapp.sellers.application;
+package com.tulipan.ordersapp.platforms.application;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.tulipan.ordersapp.sellers.domain.model.Platform;
-import com.tulipan.ordersapp.sellers.domain.service.PlatformService;
-import com.tulipan.ordersapp.sellers.infrastructure.repository.PlatformRepositoryAdapter;
+import com.tulipan.ordersapp.platforms.domain.model.Platform;
+import com.tulipan.ordersapp.platforms.domain.service.PlatformService;
+import com.tulipan.ordersapp.platforms.infrastructure.repository.PlatformRepositoryAdapter;
 
 @Service
 public class PlatformServiceImpl implements PlatformService {
