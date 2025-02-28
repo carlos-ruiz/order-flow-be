@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import com.tulipan.ordersapp.customers.infrastructure.entities.CustomerEntity;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
+public interface JpaCustomerRepository extends JpaRepository<CustomerEntity, Long> {
 }

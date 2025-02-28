@@ -3,6 +3,7 @@ package com.tulipan.ordersapp.customers.infrastructure.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.tulipan.ordersapp.customers.domain.repository.CustomerRepository;
 import org.springframework.stereotype.Component;
 
 import com.tulipan.ordersapp.customers.domain.exceptions.CustomerNotFoundException;
@@ -10,11 +11,11 @@ import com.tulipan.ordersapp.customers.domain.model.Customer;
 import com.tulipan.ordersapp.customers.infrastructure.entities.CustomerEntity;
 
 @Component
-public class CustomerRepositoryAdapter {
-  private final CustomerRepository customerRepository;
+public class CustomerRepositoryAdapter implements CustomerRepository {
+  private final JpaCustomerRepository jpaCustomerRepository;
 
-  public CustomerRepositoryAdapter(CustomerRepository repository) {
-    this.customerRepository = repository;
+  public CustomerRepositoryAdapter(JpaCustomerRepository repository) {
+    this.jpaCustomerRepository = repository;
   }
 
   private CustomerEntity toEntity(Customer customer) {
@@ -43,33 +44,33 @@ public class CustomerRepositoryAdapter {
 
   public Customer save(Customer customer) {
     CustomerEntity entity = toEntity(customer);
-    CustomerEntity savedEntity = customerRepository.save(entity);
+    CustomerEntity savedEntity = jpaCustomerRepository.save(entity);
     return toModel(savedEntity);
   }
 
   public Optional<Customer> findById(Long id) {
-    return customerRepository.findById(id)
+    return jpaCustomerRepository.findById(id)
         .map(this::toModel);
   }
 
   public List<Customer> findAll() {
-    return customerRepository.findAll()
+    return jpaCustomerRepository.findAll()
         .stream()
         .map(this::toModel)
         .toList();
   }
 
   public void deleteById(Long id) {
-    customerRepository.deleteById(id);
+    jpaCustomerRepository.deleteById(id);
   }
 
   public void delete(Customer customer) {
     CustomerEntity entity = toEntity(customer);
-    customerRepository.delete(entity);
+    jpaCustomerRepository.delete(entity);
   }
 
   public Customer update(Customer customer) {
-    CustomerEntity entity = customerRepository.findById(customer.getId())
+    CustomerEntity entity = jpaCustomerRepository.findById(customer.getId())
         .orElseThrow(() -> new CustomerNotFoundException(customer.getId()));
     entity.setName(customer.getName());
     entity.setLastName(customer.getLastName());
@@ -77,7 +78,7 @@ public class CustomerRepositoryAdapter {
     entity.setPhone(customer.getPhone());
     entity.setEmail(customer.getEmail());
     entity.setNote(customer.getNote());
-    CustomerEntity updatedEntity = customerRepository.save(entity);
+    CustomerEntity updatedEntity = jpaCustomerRepository.save(entity);
     return toModel(updatedEntity);
   }
 
