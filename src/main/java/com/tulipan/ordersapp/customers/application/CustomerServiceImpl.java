@@ -1,20 +1,19 @@
 package com.tulipan.ordersapp.customers.application;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.tulipan.ordersapp.customers.domain.model.Customer;
+import com.tulipan.ordersapp.customers.domain.repository.CustomerRepository;
+import com.tulipan.ordersapp.customers.domain.service.CustomerService;
 import org.springframework.stereotype.Service;
 
-import com.tulipan.ordersapp.customers.domain.model.Customer;
-import com.tulipan.ordersapp.customers.domain.service.CustomerService;
-import com.tulipan.ordersapp.customers.infrastructure.repository.CustomerRepositoryAdapter;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-  private final CustomerRepositoryAdapter repository;
+  private final CustomerRepository repository;
 
-  public CustomerServiceImpl(CustomerRepositoryAdapter repository) {
+  public CustomerServiceImpl(CustomerRepository repository) {
     this.repository = repository;
   }
 
@@ -31,6 +30,11 @@ public class CustomerServiceImpl implements CustomerService {
   @Override
   public void delete(Customer customer) {
     repository.delete(customer);
+  }
+
+  @Override
+  public void deleteById(Long id) {
+      repository.deleteById(id);
   }
 
   @Override

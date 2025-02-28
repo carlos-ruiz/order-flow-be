@@ -1,20 +1,15 @@
-package com.tulipan.ordersapp.customers.domain.service;
+package com.tulipan.ordersapp.customers.domain.repository;
 
 import com.tulipan.ordersapp.customers.domain.model.Customer;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CustomerService {
+public interface CustomerRepository {
     Optional<Customer> findById(Long id);
-
     Customer save(Customer customer);
-
-    void delete(Customer customer);
-
-    void deleteById(Long id);
-
     Customer update(Customer customer);
-
+    void delete(Customer customer);
+    void deleteById(Long id);
     List<Customer> findAll();
 }
