@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hotspot_log version='160 1' process='23441' time_ms='1743626689587'>
+<vm_version>
+<name>
+OpenJDK 64-Bit Server VM
+</name>
+<release>
+21.0.6+10-LTS
+</release>
+<info>
+OpenJDK 64-Bit Server VM (21.0.6+10-LTS) for bsd-aarch64 JRE (21.0.6+10-LTS), built on 2025-01-14T17:06:32Z by &quot;re&quot; with clang Apple LLVM 13.1.6 (clang-1316.0.21.2.5)
+</info>
+</vm_version>
+<vm_arguments>
+<args>
+-javaagent:/Users/carlosruiz/.m2/repository/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar=destfile=/Users/carlosruiz/Documents/development/projects/ordersapp/target/jacoco.exec -javaagent:/Users/carlosruiz/.m2/repository/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar -XX:+EnableDynamicAgentLoading -Djdk.instrument.traceUsage -XX:+UnlockDiagnosticVMOptions -XX:+LogVMOutput -XX:LogFile=./vm.log -XX:+IgnoreUnrecognizedVMOptions -Xshare:off </args>
+<command>
+/Users/carlosruiz/Documents/development/projects/ordersapp/target/surefire/surefirebooter733553490001659874.jar /Users/carlosruiz/Documents/development/projects/ordersapp/target/surefire 2025-04-02T14-44-49_413-jvmRun1 surefire12228416690574235243tmp surefire_014345189862178433118tmp
+</command>
+<launcher>
+SUN_STANDARD
+</launcher>
+<properties>
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.version=21.0.6+10-LTS
+java.vm.name=OpenJDK 64-Bit Server VM
+jdk.debug=release
+sun.boot.library.path=/Users/carlosruiz/.sdkman/candidates/java/21.0.6-librca/lib
+java.library.path=/Users/carlosruiz/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+java.home=/Users/carlosruiz/.sdkman/candidates/java/21.0.6-librca
+java.class.path=/Users/carlosruiz/Documents/development/projects/ordersapp/target/surefire/surefirebooter733553490001659874.jar
+java.vm.info=mixed mode, sharing
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=21
+java.vm.vendor=BellSoft
+jdk.instrument.traceUsage=
+sun.java.command=/Users/carlosruiz/Documents/development/projects/ordersapp/target/surefire/surefirebooter733553490001659874.jar /Users/carlosruiz/Documents/development/projects/ordersapp/target/surefire 2025-04-02T14-44-49_413-jvmRun1 surefire12228416690574235243tmp surefire_014345189862178433118tmp
+sun.java.launcher=SUN_STANDARD
+</properties>
+</vm_arguments>
+<tty>
+<writer thread='6659'/>
+<blob name='MethodHandlesAdapterBlob' total_size='32448'>
+<sect index='1' capacity='32448' size='440' remaining='32008'/>
+</blob>
+<dependency_failed type='leaf_type' ctxk='java/util/HashMap' witness='java/util/LinkedHashMap' stamp='0.044'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/NavigableMap' x='java.util.TreeMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' x2='java/util/NavigableMap' x3='java.util.NavigableMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='java/util/NavigableMap' stamp='0.101'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/Comparator' x='java.lang.String$CaseInsensitiveComparator compare (Ljava/lang/Object;Ljava/lang/Object;)I' x2='java/util/Comparator' x3='java.util.Comparator compare (Ljava/lang/Object;Ljava/lang/Object;)I' witness='java/util/Comparator' stamp='0.121'/>
+<dependency_failed type='leaf_type' ctxk='java/util/WeakHashMap' witness='java/lang/ClassValue$ClassValueMap' stamp='0.122'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.133'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.133'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.133'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.133'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.133'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.133'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.133'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/nio/charset/Charset' x='sun.nio.cs.UTF_8 newDecoder ()Ljava/nio/charset/CharsetDecoder;' x2='java/nio/charset/Charset' x3='java.nio.charset.Charset newDecoder ()Ljava/nio/charset/CharsetDecoder;' witness='sun/nio/cs/US_ASCII' stamp='0.229'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='jdk/internal/loader/Resource' x='jdk/internal/loader/URLClassPath$JarLoader$2' witness='jdk/internal/loader/URLClassPath$FileLoader$1' stamp='0.285'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='jdk/internal/loader/Resource' x='jdk.internal.loader.URLClassPath$JarLoader$2 getInputStream ()Ljava/io/InputStream;' x2='jdk/internal/loader/Resource' x3='jdk.internal.loader.Resource getInputStream ()Ljava/io/InputStream;' witness='jdk/internal/loader/URLClassPath$FileLoader$1' stamp='0.285'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='jdk/internal/loader/Resource' x='jdk.internal.loader.URLClassPath$JarLoader$2 getURL ()Ljava/net/URL;' x2='jdk/internal/loader/Resource' x3='jdk.internal.loader.Resource getURL ()Ljava/net/URL;' witness='jdk/internal/loader/URLClassPath$FileLoader$1' stamp='0.285'/>
+<writer thread='28419'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='jdk/internal/loader/Resource' x='jdk.internal.loader.URLClassPath$JarLoader$2 getCodeSourceURL ()Ljava/net/URL;' x2='jdk/internal/loader/Resource' x3='jdk.internal.loader.Resource getCodeSourceURL ()Ljava/net/URL;' witness='jdk/internal/loader/URLClassPath$FileLoader$1' stamp='0.285'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='jdk/internal/loader/Resource' x='jdk.internal.loader.URLClassPath$JarLoader$2 getManifest ()Ljava/util/jar/Manifest;' x2='jdk/internal/loader/Resource' x3='jdk.internal.loader.Resource getManifest ()Ljava/util/jar/Manifest;' witness='jdk/internal/loader/URLClassPath$FileLoader$1' stamp='0.285'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='jdk/internal/loader/Resource' x='jdk.internal.loader.URLClassPath$JarLoader$2 getInputStream ()Ljava/io/InputStream;' x2='jdk/internal/loader/Resource' x3='jdk.internal.loader.Resource getInputStream ()Ljava/io/InputStream;' witness='jdk/internal/loader/URLClassPath$FileLoader$1' stamp='0.285'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='jdk/internal/loader/Resource' x='jdk.internal.loader.URLClassPath$JarLoader$2 getCodeSigners ()[Ljava/security/CodeSigner;' x2='jdk/internal/loader/Resource' x3='jdk.internal.loader.Resource getCodeSigners ()[Ljava/security/CodeSigner;' witness='jdk/internal/loader/URLClassPath$FileLoader$1' stamp='0.285'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='jdk/internal/loader/Resource' x='jdk.internal.loader.URLClassPath$JarLoader$2 getBytes ()[B' x2='jdk/internal/loader/Resource' x3='jdk.internal.loader.Resource getBytes ()[B' witness='jdk/internal/loader/URLClassPath$FileLoader$1' stamp='0.285'/>
+<writer thread='6659'/>
+<dependency_failed type='leaf_type' ctxk='java/util/LinkedHashMap' witness='org/junit/platform/commons/util/LruCache' stamp='0.334'/>
+<dependency_failed type='leaf_type' ctxk='java/util/LinkedHashMap' witness='org/junit/platform/commons/util/LruCache' stamp='0.334'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/LinkedHashMap' x='java.util.LinkedHashMap removeEldestEntry (Ljava/util/Map$Entry;)Z' x2='java/util/LinkedHashMap' x3='java.util.LinkedHashMap removeEldestEntry (Ljava/util/Map$Entry;)Z' witness='org/junit/platform/commons/util/LruCache' stamp='0.335'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.340'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/ArrayList' x='java.util.ArrayList add (Ljava/lang/Object;)Z' x2='java/util/ArrayList' x3='java.util.ArrayList add (Ljava/lang/Object;)Z' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.341'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/Deque' x='java.util.ArrayDeque add (Ljava/lang/Object;)Z' x2='java/util/Deque' x3='java.util.Deque add (Ljava/lang/Object;)Z' witness='java/util/Deque' stamp='0.390'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/Deque' x='java.util.ArrayDeque poll ()Ljava/lang/Object;' x2='java/util/Deque' x3='java.util.Deque poll ()Ljava/lang/Object;' witness='java/util/Deque' stamp='0.390'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/junit/platform/commons/function/Try' x='org.junit.platform.commons.function.Try$Success getOrThrow (Ljava/util/function/Function;)Ljava/lang/Object;' x2='org/junit/platform/commons/function/Try' x3='org.junit.platform.commons.function.Try getOrThrow (Ljava/util/function/Function;)Ljava/lang/Object;' witness='org/junit/platform/commons/function/Try$Failure' stamp='0.435'/>
+<writer thread='25603'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/ArrayList' x='java.util.ArrayList add (Ljava/lang/Object;)Z' x2='java/util/List' x3='java.util.List add (Ljava/lang/Object;)Z' witness='org/jacoco/agent/rt/internal_aeaf9ab/asm/tree/MethodNode$1' stamp='0.447'/>
+<writer thread='6659'/>
+<dependency_failed type='leaf_type' ctxk='java/util/zip/CRC32' witness='sun/util/calendar/ZoneInfoFile$Checksum' stamp='0.518'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/reflect/InvocationHandler' x='sun.reflect.annotation.AnnotationInvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' x2='java/lang/reflect/InvocationHandler' x3='java.lang.reflect.InvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' witness='java/lang/reflect/InvocationHandler' stamp='0.585'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/reflect/InvocationHandler' x='sun.reflect.annotation.AnnotationInvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' x2='java/lang/reflect/InvocationHandler' x3='java.lang.reflect.InvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' witness='java/lang/reflect/InvocationHandler' stamp='0.585'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/reflect/InvocationHandler' x='sun.reflect.annotation.AnnotationInvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' x2='java/lang/reflect/InvocationHandler' x3='java.lang.reflect.InvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' witness='java/lang/reflect/InvocationHandler' stamp='0.585'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/reflect/InvocationHandler' x='sun.reflect.annotation.AnnotationInvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' x2='java/lang/reflect/InvocationHandler' x3='java.lang.reflect.InvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' witness='java/lang/reflect/InvocationHandler' stamp='0.585'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/reflect/InvocationHandler' x='sun.reflect.annotation.AnnotationInvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' x2='java/lang/reflect/InvocationHandler' x3='java.lang.reflect.InvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' witness='java/lang/reflect/InvocationHandler' stamp='0.585'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/reflect/InvocationHandler' x='sun.reflect.annotation.AnnotationInvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' x2='java/lang/reflect/InvocationHandler' x3='java.lang.reflect.InvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' witness='java/lang/reflect/InvocationHandler' stamp='0.585'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/reflect/InvocationHandler' x='sun.reflect.annotation.AnnotationInvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' x2='java/lang/reflect/InvocationHandler' x3='java.lang.reflect.InvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' witness='java/lang/reflect/InvocationHandler' stamp='0.585'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/reflect/InvocationHandler' x='sun.reflect.annotation.AnnotationInvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' x2='java/lang/reflect/InvocationHandler' x3='java.lang.reflect.InvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' witness='java/lang/reflect/InvocationHandler' stamp='0.585'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/reflect/InvocationHandler' x='sun.reflect.annotation.AnnotationInvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' x2='java/lang/reflect/InvocationHandler' x3='java.lang.reflect.InvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' witness='java/lang/reflect/InvocationHandler' stamp='0.585'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/reflect/InvocationHandler' x='sun.reflect.annotation.AnnotationInvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' x2='java/lang/reflect/InvocationHandler' x3='java.lang.reflect.InvocationHandler invoke (Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;' witness='java/lang/reflect/InvocationHandler' stamp='0.585'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Properties' witness='org/springframework/test/context/support/TestPropertySourceUtils$SequencedProperties' stamp='0.645'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList$Itr' witness='java/util/ArrayList$ListItr' stamp='0.736'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList$Itr' witness='java/util/ArrayList$ListItr' stamp='0.736'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedReader' witness='java/io/LineNumberReader' stamp='0.843'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedReader' witness='java/io/LineNumberReader' stamp='0.843'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedReader' witness='java/io/LineNumberReader' stamp='0.843'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedReader' witness='java/io/LineNumberReader' stamp='0.843'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Collections$UnmodifiableSet' witness='java/util/Collections$UnmodifiableMap$UnmodifiableEntrySet' stamp='0.883'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/AbstractStringBuilder' x='java.lang.StringBuilder append (Ljava/lang/String;)Ljava/lang/AbstractStringBuilder;' x2='java/lang/AbstractStringBuilder' x3='java.lang.AbstractStringBuilder append (Ljava/lang/String;)Ljava/lang/AbstractStringBuilder;' witness='java/lang/StringBuffer' stamp='0.902'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/AbstractStringBuilder' x='java.lang.StringBuilder length ()I' x2='java/lang/AbstractStringBuilder' x3='java.lang.AbstractStringBuilder length ()I' witness='java/lang/StringBuffer' stamp='0.902'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/AbstractStringBuilder' x='java.lang.StringBuilder length ()I' x2='java/lang/AbstractStringBuilder' x3='java.lang.AbstractStringBuilder length ()I' witness='java/lang/StringBuffer' stamp='0.902'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/module/ModuleReader' x='jdk.internal.module.SystemModuleFinders$SystemModuleReader find (Ljava/lang/String;)Ljava/util/Optional;' x2='java/lang/module/ModuleReader' x3='java.lang.module.ModuleReader find (Ljava/lang/String;)Ljava/util/Optional;' witness='java/lang/module/ModuleReader' stamp='0.917'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/core/ResolvableType' x='org.springframework.core.ResolvableType getGenerics ()[Lorg/springframework/core/ResolvableType;' x2='org/springframework/core/ResolvableType' x3='org.springframework.core.ResolvableType getGenerics ()[Lorg/springframework/core/ResolvableType;' witness='org/springframework/core/ResolvableType$1' stamp='1.018'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayDeque' witness='org/springframework/context/annotation/ConfigurationClassParser$ImportStack' stamp='1.052'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayDeque' witness='org/springframework/context/annotation/ConfigurationClassParser$ImportStack' stamp='1.052'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayDeque' witness='org/springframework/context/annotation/ConfigurationClassParser$ImportStack' stamp='1.052'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayDeque' witness='org/springframework/context/annotation/ConfigurationClassParser$ImportStack' stamp='1.052'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayDeque' witness='org/springframework/context/annotation/ConfigurationClassParser$ImportStack' stamp='1.052'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayDeque' witness='org/springframework/context/annotation/ConfigurationClassParser$ImportStack' stamp='1.052'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayDeque' witness='org/springframework/context/annotation/ConfigurationClassParser$ImportStack' stamp='1.052'/>
+<writer thread='40451'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/HashMap' x='java.util.HashMap containsKey (Ljava/lang/Object;)Z' x2='java/util/HashMap' x3='java.util.HashMap containsKey (Ljava/lang/Object;)Z' witness='org/springframework/util/LinkedCaseInsensitiveMap$1' stamp='1.074'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/HashMap' x='java.util.HashMap containsKey (Ljava/lang/Object;)Z' x2='java/util/HashMap' x3='java.util.HashMap containsKey (Ljava/lang/Object;)Z' witness='org/springframework/util/LinkedCaseInsensitiveMap$1' stamp='1.074'/>
+<writer thread='6659'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/function/UnaryOperator' x='org.springframework.boot.context.properties.source.SpringIterableConfigurationPropertySource$$Lambda/0x000000a00022c2b8 apply (Ljava/lang/Object;)Ljava/lang/Object;' x2='java/util/function/UnaryOperator' x3='java.util.function.UnaryOperator apply (Ljava/lang/Object;)Ljava/lang/Object;' witness='java/util/function/UnaryOperator' stamp='1.181'/>
+<writer thread='40451'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/Properties' x='java.util.Properties getProperty (Ljava/lang/String;)Ljava/lang/String;' x2='java/util/Properties' x3='java.util.Properties getProperty (Ljava/lang/String;)Ljava/lang/String;' witness='sun/security/jca/ProviderList$1' stamp='1.328'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/Properties' x='java.util.Properties getProperty (Ljava/lang/String;)Ljava/lang/String;' x2='java/util/Properties' x3='java.util.Properties getProperty (Ljava/lang/String;)Ljava/lang/String;' witness='sun/security/jca/ProviderList$1' stamp='1.328'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/Properties' x='java.util.Properties getProperty (Ljava/lang/String;)Ljava/lang/String;' x2='java/util/Properties' x3='java.util.Properties getProperty (Ljava/lang/String;)Ljava/lang/String;' witness='sun/security/jca/ProviderList$1' stamp='1.328'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/util/Properties' x='java.util.Properties getProperty (Ljava/lang/String;)Ljava/lang/String;' x2='java/util/Properties' x3='java.util.Properties getProperty (Ljava/lang/String;)Ljava/lang/String;' witness='sun/security/jca/ProviderList$1' stamp='1.328'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ByteArrayOutputStream' witness='sun/security/util/DerOutputStream' stamp='1.346'/>
+<writer thread='6659'/>
+<dependency_failed type='leaf_type' ctxk='java/util/LinkedHashSet' witness='org/springframework/beans/factory/support/ManagedSet' stamp='1.500'/>
+<dependency_failed type='leaf_type' ctxk='java/util/LinkedHashSet' witness='org/springframework/beans/factory/support/ManagedSet' stamp='1.500'/>
+<dependency_failed type='leaf_type' ctxk='java/util/LinkedHashSet' witness='org/springframework/beans/factory/support/ManagedSet' stamp='1.500'/>
+<dependency_failed type='leaf_type' ctxk='java/util/LinkedHashSet' witness='org/springframework/beans/factory/support/ManagedSet' stamp='1.500'/>
+<dependency_failed type='leaf_type' ctxk='java/util/LinkedHashSet' witness='org/springframework/beans/factory/support/ManagedSet' stamp='1.500'/>
+<dependency_failed type='leaf_type' ctxk='java/util/LinkedHashSet' witness='org/springframework/beans/factory/support/ManagedSet' stamp='1.500'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/asm/ClassVisitor' x='org.springframework.core.type.classreading.SimpleAnnotationMetadataReadingVisitor visit (IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V' x2='org/springframework/asm/ClassVisitor' x3='org.springframework.asm.ClassVisitor visit (IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V' witness='org/springframework/cglib/core/DebuggingClassWriter' stamp='1.622'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/asm/ClassVisitor' x='org.springframework.core.type.classreading.SimpleAnnotationMetadataReadingVisitor visitMethod (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)Lorg/springframework/asm/MethodVisitor;' x2='org/springframework/asm/ClassVisitor' x3='org.springframework.asm.ClassVisitor visitMethod (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)Lorg/springframework/asm/MethodVisitor;' witness='org/springframework/cglib/core/DebuggingClassWriter' stamp='1.622'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/core/SerializableTypeWrapper$SerializableTypeProxy' x='org.springframework.core.$Proxy33 getTypeProvider ()Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;' x2='org/springframework/core/SerializableTypeWrapper$SerializableTypeProxy' x3='org.springframework.core.SerializableTypeWrapper$SerializableTypeProxy getTypeProvider ()Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;' witness='org/springframework/core/SerializableTypeWrapper$SerializableTypeProxy' stamp='1.701'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/core/SerializableTypeWrapper$SerializableTypeProxy' x='org.springframework.core.$Proxy33 getTypeProvider ()Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;' x2='org/springframework/core/SerializableTypeWrapper$SerializableTypeProxy' x3='org.springframework.core.SerializableTypeWrapper$SerializableTypeProxy getTypeProvider ()Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;' witness='org/springframework/core/SerializableTypeWrapper$SerializableTypeProxy' stamp='1.701'/>
+<dependency_failed type='leaf_type' ctxk='java/io/DataInputStream' witness='org/aspectj/weaver/VersionedDataInputStream' stamp='1.804'/>
+<dependency_failed type='leaf_type' ctxk='java/io/DataInputStream' witness='org/aspectj/weaver/VersionedDataInputStream' stamp='1.804'/>
+<dependency_failed type='leaf_type' ctxk='java/io/DataInputStream' witness='org/aspectj/weaver/VersionedDataInputStream' stamp='1.804'/>
+<dependency_failed type='leaf_type' ctxk='java/io/DataInputStream' witness='org/aspectj/weaver/VersionedDataInputStream' stamp='1.804'/>
+<dependency_failed type='leaf_type' ctxk='java/io/DataInputStream' witness='org/aspectj/weaver/VersionedDataInputStream' stamp='1.804'/>
+<dependency_failed type='no_finalizable_subclasses' ctxk='java/lang/Object' witness='org/hibernate/engine/jdbc/connections/internal/DriverManagerConnectionProviderImpl' stamp='1.982'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='org/h2/value/CaseInsensitiveConcurrentMap' stamp='2.318'/>
+<dependency_failed type='leaf_type' ctxk='java/util/BitSet' witness='org/h2/mvstore/tx/VersionedBitSet' stamp='2.348'/>
+<dependency_failed type='leaf_type' ctxk='java/util/BitSet' witness='org/h2/mvstore/tx/VersionedBitSet' stamp='2.348'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='net/bytebuddy/description/type/TypeDescription$AbstractBase' x='net.bytebuddy.description.type.TypeDescription$ForLoadedType getName ()Ljava/lang/String;' x2='net/bytebuddy/description/type/TypeDescription$AbstractBase' x3='net.bytebuddy.description.type.TypeDescription$AbstractBase getName ()Ljava/lang/String;' witness='net/bytebuddy/dynamic/scaffold/InstrumentedType$Default' stamp='2.957'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='net/bytebuddy/description/type/TypeDescription$AbstractBase' x='net.bytebuddy.description.type.TypeDescription$ForLoadedType getName ()Ljava/lang/String;' x2='net/bytebuddy/description/type/TypeDescription$AbstractBase' x3='net.bytebuddy.description.type.TypeDescription$AbstractBase getName ()Ljava/lang/String;' witness='net/bytebuddy/dynamic/scaffold/InstrumentedType$Default' stamp='2.957'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/transaction/interceptor/AbstractFallbackTransactionAttributeSource' x='org.springframework.transaction.interceptor.AbstractFallbackTransactionAttributeSource computeTransactionAttribute (Ljava/lang/reflect/Method;Ljava/lang/Class;)Lorg/springframework/transaction/interceptor/TransactionAttribute;' x2='org/springframework/transaction/interceptor/AbstractFallbackTransactionAttributeSource' x3='org.springframework.transaction.interceptor.AbstractFallbackTransactionAttributeSource computeTransactionAttribute (Ljava/lang/reflect/Method;Ljava/lang/Class;)Lorg/springframework/transaction/interceptor/TransactionAttribute;' witness='org/springframework/data/repository/core/support/TransactionalRepositoryProxyPostProcessor$RepositoryAnnotationTransactionAttributeSource' stamp='3.372'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/util/MultiValueMap' x='org.springframework.util.MultiValueMapAdapter isEmpty ()Z' x2='org/springframework/util/MultiValueMap' x3='org.springframework.util.MultiValueMap isEmpty ()Z' witness='org/springframework/util/MultiValueMap' stamp='3.538'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/util/MultiValueMap' x='org.springframework.util.MultiValueMapAdapter isEmpty ()Z' x2='org/springframework/util/MultiValueMap' x3='org.springframework.util.MultiValueMap isEmpty ()Z' witness='org/springframework/util/MultiValueMap' stamp='3.538'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/util/MultiValueMap' x='org.springframework.util.MultiValueMapAdapter add (Ljava/lang/Object;Ljava/lang/Object;)V' x2='org/springframework/util/MultiValueMap' x3='org.springframework.util.MultiValueMap add (Ljava/lang/Object;Ljava/lang/Object;)V' witness='org/springframework/util/MultiValueMap' stamp='3.538'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/core/MethodParameter' x='org.springframework.core.MethodParameter adaptAnnotationArray ([Ljava/lang/annotation/Annotation;)[Ljava/lang/annotation/Annotation;' x2='org/springframework/core/MethodParameter' x3='org.springframework.core.MethodParameter adaptAnnotationArray ([Ljava/lang/annotation/Annotation;)[Ljava/lang/annotation/Annotation;' witness='org/springframework/core/annotation/SynthesizingMethodParameter' stamp='3.559'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/core/MethodParameter' x='org.springframework.core.MethodParameter getMethod ()Ljava/lang/reflect/Method;' x2='org/springframework/core/MethodParameter' x3='org.springframework.core.MethodParameter getMethod ()Ljava/lang/reflect/Method;' witness='org/springframework/core/annotation/AnnotatedMethod$AnnotatedMethodParameter' stamp='3.560'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/core/MethodParameter' x='org.springframework.core.MethodParameter getContainingClass ()Ljava/lang/Class;' x2='org/springframework/core/MethodParameter' x3='org.springframework.core.MethodParameter getContainingClass ()Ljava/lang/Class;' witness='org/springframework/core/annotation/AnnotatedMethod$AnnotatedMethodParameter' stamp='3.560'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/core/MethodParameter' x='org.springframework.core.MethodParameter getContainingClass ()Ljava/lang/Class;' x2='org/springframework/core/MethodParameter' x3='org.springframework.core.MethodParameter getContainingClass ()Ljava/lang/Class;' witness='org/springframework/core/annotation/AnnotatedMethod$AnnotatedMethodParameter' stamp='3.560'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/core/MethodParameter' x='org.springframework.core.MethodParameter getMethod ()Ljava/lang/reflect/Method;' x2='org/springframework/core/MethodParameter' x3='org.springframework.core.MethodParameter getMethod ()Ljava/lang/reflect/Method;' witness='org/springframework/core/annotation/AnnotatedMethod$AnnotatedMethodParameter' stamp='3.560'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/core/MethodParameter' x='org.springframework.core.MethodParameter getMethod ()Ljava/lang/reflect/Method;' x2='org/springframework/core/MethodParameter' x3='org.springframework.core.MethodParameter getMethod ()Ljava/lang/reflect/Method;' witness='org/springframework/core/annotation/AnnotatedMethod$AnnotatedMethodParameter' stamp='3.560'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/context/support/ApplicationObjectSupport' x='java.lang.Object toString ()Ljava/lang/String;' x2='java/lang/Object' x3='java.lang.Object toString ()Ljava/lang/String;' witness='org/springframework/web/servlet/resource/ResourceHttpRequestHandler' stamp='3.653'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='org/springframework/beans/TypeConverter' x='org.springframework.beans.TypeConverterSupport convertIfNecessary (Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;' x2='org/springframework/beans/TypeConverter' x3='org.springframework.beans.TypeConverter convertIfNecessary (Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;' witness='org/springframework/beans/TypeConverter' stamp='3.682'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/instrument/ClassFileTransformer' x='org.jacoco.agent.rt.internal_aeaf9ab.CoverageTransformer transform (Ljava/lang/ClassLoader;Ljava/lang/String;Ljava/lang/Class;Ljava/security/ProtectionDomain;[B)[B' x2='java/lang/instrument/ClassFileTransformer' x3='java.lang.instrument.ClassFileTransformer transform (Ljava/lang/ClassLoader;Ljava/lang/String;Ljava/lang/Class;Ljava/security/ProtectionDomain;[B)[B' witness='java/lang/instrument/ClassFileTransformer' stamp='3.815'/>
+<dependency_failed type='unique_concrete_method_4' ctxk='java/lang/instrument/ClassFileTransformer' x='java.lang.instrument.ClassFileTransformer transform (Ljava/lang/Module;Ljava/lang/ClassLoader;Ljava/lang/String;Ljava/lang/Class;Ljava/security/ProtectionDomain;[B)[B' x2='java/lang/instrument/ClassFileTransformer' x3='java.lang.instrument.ClassFileTransformer transform (Ljava/lang/Module;Ljava/lang/ClassLoader;Ljava/lang/String;Ljava/lang/Class;Ljava/security/ProtectionDomain;[B)[B' witness='java/lang/instrument/ClassFileTransformer' stamp='3.815'/>
+<dependency_failed type='leaf_type' ctxk='java/util/IdentityHashMap' witness='org/hibernate/event/spi/PersistContext$1Impl' stamp='4.005'/>
+<dependency_failed type='leaf_type' ctxk='java/util/IdentityHashMap' witness='org/hibernate/event/spi/PersistContext$1Impl' stamp='4.005'/>
+<dependency_failed type='leaf_type' ctxk='java/util/IdentityHashMap' witness='org/hibernate/event/spi/PersistContext$1Impl' stamp='4.005'/>
+<statistics type='deoptimization'>
+Deoptimization traps recorded:
+   371 (100.0%) total
+  null_check/make_not_entrant/invokevirtual: 2 (0.5%)
+           class_check/maybe_recompile/nop: 24 (6.5%)
+       array_check/maybe_recompile/aastore: 4 (1.1%)
+  intrinsic_or_type_checked_inlining/make_not_entrant/invokestatic: 1 (0.3%)
+  bimorphic_or_optimized_type_check/maybe_recompile/nop: 8 (2.2%)
+     profile_predicate/maybe_recompile/nop: 9 (2.4%)
+                       constraint/none/nop: 261 (70.4%)
+      loop_limit_check/maybe_recompile/nop: 5 (1.3%)
+  speculate_null_assert/make_not_entrant/ifnonnull: 1 (0.3%)
+               unstable_if/reinterpret/nop: 56 (15.1%)
+</statistics>
+<tty_done stamp='5.789'/>
+</tty>
+<hotspot_log_done stamp='5.789'/>
+</hotspot_log>

@@ -1,8 +1,12 @@
 package com.tulipan.ordersapp.sellers.infrastructure.controller;
 
-import java.util.List;
-
+import com.tulipan.ordersapp.sellers.domain.exceptions.SellerNotFoundException;
+import com.tulipan.ordersapp.sellers.domain.model.Seller;
+import com.tulipan.ordersapp.sellers.domain.service.SellerService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,43 +15,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tulipan.ordersapp.sellers.domain.service.SellerService;
-import com.tulipan.ordersapp.sellers.domain.exceptions.SellerNotFoundException;
-import com.tulipan.ordersapp.sellers.domain.model.Seller;
+import java.util.List;
 
 @RestController
 @RequestMapping("/sellers")
 public class SellerController {
-  private SellerService sellerService;
+    private final SellerService sellerService;
 
-  public SellerController(SellerService sellerService) {
-    this.sellerService = sellerService;
-  }
+    public SellerController(SellerService sellerService) {
+        this.sellerService = sellerService;
+    }
 
-  @PostMapping
-  public Seller createSeller(@RequestBody Seller seller) {
-    return sellerService.save(seller);
-  }
+    @PostMapping
+    public ResponseEntity<Seller> createSeller(@RequestBody Seller seller) {
+        Seller createdSeller = sellerService.save(seller);
+        return ResponseEntity.ok(createdSeller);
+    }
 
-  @GetMapping("/{id}")
-  public Seller getSellerById(@PathVariable Long id) {
-    return sellerService.findById(id).orElseThrow(() -> new SellerNotFoundException(id));
-  }
+    @GetMapping("/{id}")
+    public ResponseEntity<Seller> getSellerById(@PathVariable Long id) {
+        Seller seller = sellerService.findById(id).orElseThrow(() -> new SellerNotFoundException(id));
+        return ResponseEntity.ok(seller);
+    }
 
-  @GetMapping
-  public List<Seller> getAllSellers() {
-    return sellerService.findAll();
-  }
+    @GetMapping
+    public ResponseEntity<List<Seller>> getAllSellers() {
+        List<Seller> sellers = sellerService.findAll();
+        return ResponseEntity.ok(sellers);
+    }
 
-  @PutMapping("/{id}")
-  public Seller updateSeller(@PathVariable Long id, @RequestBody Seller seller) {
-    seller.setId(id);
-    return sellerService.update(seller);
-  }
+    @PutMapping("/{id}")
+    public ResponseEntity<Seller> updateSeller(@PathVariable Long id, @RequestBody Seller seller) {
+        seller.setId(id);
+        Seller updatedSeller = sellerService.update(seller);
+        return ResponseEntity.ok(updatedSeller);
+    }
 
-  @DeleteMapping("/{id}")
-  public void deleteSeller(@PathVariable Long id) {
-    Seller seller = sellerService.findById(id).orElseThrow(() -> new SellerNotFoundException(id));
-    sellerService.delete(seller);
-  }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSeller(@PathVariable Long id) {
+        Seller seller = sellerService.findById(id).orElseThrow(() -> new SellerNotFoundException(id));
+        sellerService.delete(seller);
+        return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(SellerNotFoundException.class)
+    public ResponseEntity<String> handleSellerNotFoundException(SellerNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }

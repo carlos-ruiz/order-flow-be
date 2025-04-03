@@ -1,6 +1,5 @@
 package com.tulipan.ordersapp;
 
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,9 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest(classes = OrdersappApplication.class)
 @TestPropertySource(properties = {
-        "spring.jpa.hibernate.ddl-auto=create-drop"
+    "spring.jpa.hibernate.ddl-auto=create-drop"
 })
 @Slf4j
 class BaseEntityTest {
@@ -40,6 +39,7 @@ class BaseEntityTest {
         log.info("Updated at: {}", updatedAt);
 
         Thread.sleep(1000);
+
         entity.setName("Updated Name");
         entity = repository.save(entity);
         log.info("AFTER UPDATE - Created at: {}", entity.getCreatedAt());
