@@ -121,4 +121,19 @@ class PlatformRepositoryAdapterTest {
 
         assertThrows(PlatformNotFoundException.class, () -> platformRepositoryAdapter.update(platform));
     }
+
+    @Test
+    void updatePlatform_ActiveNull() {
+        Platform platform = new Platform(1L, "UpdatedPlatform", 12.0f, 6.0f, null);
+        PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", 10.0f, 5.0f, null);
+
+        when(platformRepository.findById(anyLong())).thenReturn(Optional.of(platformEntity));
+        when(platformRepository.save(any(PlatformEntity.class))).thenReturn(platformEntity);
+
+        Platform updatedPlatform = platformRepositoryAdapter.update(platform);
+
+        assertNotNull(updatedPlatform);
+        assertEquals(platform.getName(), updatedPlatform.getName());
+        assertTrue(updatedPlatform.getActive());
+    }
 }

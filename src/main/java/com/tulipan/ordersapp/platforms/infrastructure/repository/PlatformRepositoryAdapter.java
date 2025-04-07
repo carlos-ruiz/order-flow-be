@@ -66,6 +66,8 @@ public class PlatformRepositoryAdapter {
         entity.setSellerCommission(platform.getSellerCommission());
         if (platform.getActive() != null) {
             entity.setActive(platform.getActive());
+        } else {
+            entity.setActive(true);
         }
         PlatformEntity updatedEntity = platformRepository.save(entity);
         return toModel(updatedEntity);
