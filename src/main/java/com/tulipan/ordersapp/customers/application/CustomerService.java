@@ -1,4 +1,4 @@
-package com.tulipan.ordersapp.customers.domain.service;
+package com.tulipan.ordersapp.customers.application;
 
 import com.tulipan.ordersapp.customers.domain.model.Customer;
 

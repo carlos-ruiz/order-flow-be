@@ -1,8 +1,8 @@
 package com.tulipan.ordersapp.customers.infrastructure.controller;
 
+import com.tulipan.ordersapp.customers.application.CustomerService;
 import com.tulipan.ordersapp.customers.domain.exceptions.CustomerNotFoundException;
 import com.tulipan.ordersapp.customers.domain.model.Customer;
-import com.tulipan.ordersapp.customers.domain.service.CustomerService;
 import com.tulipan.ordersapp.customers.infrastructure.dto.CustomerDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

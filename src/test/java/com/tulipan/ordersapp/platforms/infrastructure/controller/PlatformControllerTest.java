@@ -1,7 +1,7 @@
 package com.tulipan.ordersapp.platforms.infrastructure.controller;
 
+import com.tulipan.ordersapp.platforms.application.PlatformService;
 import com.tulipan.ordersapp.platforms.domain.model.Platform;
-import com.tulipan.ordersapp.platforms.domain.service.PlatformService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

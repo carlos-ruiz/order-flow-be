@@ -2,6 +2,7 @@ package com.tulipan.ordersapp.platforms.infrastructure.repository;
 
 import com.tulipan.ordersapp.platforms.domain.exceptions.PlatformNotFoundException;
 import com.tulipan.ordersapp.platforms.domain.model.Platform;
+import com.tulipan.ordersapp.platforms.domain.repository.PlatformRepository;
 import com.tulipan.ordersapp.platforms.infrastructure.entities.PlatformEntity;
 import org.springframework.stereotype.Component;
 
@@ -9,11 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class PlatformRepositoryAdapter {
-    private final PlatformRepository platformRepository;
+public class PlatformRepositoryAdapter implements PlatformRepository {
+    private final JpaPlatformRepository jpaPlatformRepository;
 
-    public PlatformRepositoryAdapter(PlatformRepository platformRepository) {
-        this.platformRepository = platformRepository;
+    public PlatformRepositoryAdapter(JpaPlatformRepository jpaPlatformRepository) {
+        this.jpaPlatformRepository = jpaPlatformRepository;
     }
 
     private PlatformEntity toEntity(Platform platform) {
@@ -38,28 +39,28 @@ public class PlatformRepositoryAdapter {
 
     public Platform save(Platform platform) {
         PlatformEntity entity = toEntity(platform);
-        PlatformEntity savedEntity = platformRepository.save(entity);
+        PlatformEntity savedEntity = jpaPlatformRepository.save(entity);
         return toModel(savedEntity);
     }
 
     public Optional<Platform> findById(Long id) {
-        return platformRepository.findById(id).map(this::toModel);
+        return jpaPlatformRepository.findById(id).map(this::toModel);
     }
 
     public List<Platform> findAll() {
-        return platformRepository.findAll().stream().map(this::toModel).toList();
+        return jpaPlatformRepository.findAll().stream().map(this::toModel).toList();
     }
 
     public void delete(Platform platform) {
-        platformRepository.delete(toEntity(platform));
+        jpaPlatformRepository.delete(toEntity(platform));
     }
 
     public void deleteById(Long id) {
-        platformRepository.deleteById(id);
+        jpaPlatformRepository.deleteById(id);
     }
 
     public Platform update(Platform platform) {
-        PlatformEntity entity = platformRepository.findById(platform.getId())
+        PlatformEntity entity = jpaPlatformRepository.findById(platform.getId())
             .orElseThrow(() -> new PlatformNotFoundException(platform.getName()));
         entity.setName(platform.getName());
         entity.setCustomerFee(platform.getCustomerFee());
@@ -69,7 +70,7 @@ public class PlatformRepositoryAdapter {
         } else {
             entity.setActive(true);
         }
-        PlatformEntity updatedEntity = platformRepository.save(entity);
+        PlatformEntity updatedEntity = jpaPlatformRepository.save(entity);
         return toModel(updatedEntity);
     }
 

@@ -2,7 +2,6 @@ package com.tulipan.ordersapp.customers.application;
 
 import com.tulipan.ordersapp.OrdersappApplication;
 import com.tulipan.ordersapp.customers.domain.model.Customer;
-import com.tulipan.ordersapp.customers.domain.service.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

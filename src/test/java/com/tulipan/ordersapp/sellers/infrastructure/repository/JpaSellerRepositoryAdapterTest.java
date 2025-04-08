@@ -17,10 +17,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-class SellerRepositoryAdapterTest {
+class JpaSellerRepositoryAdapterTest {
 
     @Mock
-    private SellerRepository sellerRepository;
+    private JpaSellerRepository jpaSellerRepository;
 
     @InjectMocks
     private SellerRepositoryAdapter sellerRepositoryAdapter;
@@ -34,7 +34,7 @@ class SellerRepositoryAdapterTest {
     void save_SellerSuccessfullySaved() {
         Seller seller = Seller.builder().id(1L).name("John").build();
         SellerEntity entity = SellerEntity.builder().id(1L).name("John").build();
-        when(sellerRepository.save(any(SellerEntity.class))).thenReturn(entity);
+        when(jpaSellerRepository.save(any(SellerEntity.class))).thenReturn(entity);
 
         Seller savedSeller = sellerRepositoryAdapter.save(seller);
 
@@ -46,7 +46,7 @@ class SellerRepositoryAdapterTest {
     @Test
     void findById_SellerExists() {
         SellerEntity entity = SellerEntity.builder().id(1L).name("John").build();
-        when(sellerRepository.findById(anyLong())).thenReturn(Optional.of(entity));
+        when(jpaSellerRepository.findById(anyLong())).thenReturn(Optional.of(entity));
 
         Optional<Seller> foundSeller = sellerRepositoryAdapter.findById(1L);
 
@@ -57,7 +57,7 @@ class SellerRepositoryAdapterTest {
 
     @Test
     void findById_SellerDoesNotExist() {
-        when(sellerRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(jpaSellerRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         Optional<Seller> foundSeller = sellerRepositoryAdapter.findById(1L);
 
@@ -70,7 +70,7 @@ class SellerRepositoryAdapterTest {
             SellerEntity.builder().id(1L).name("John").build(),
             SellerEntity.builder().id(2L).name("Jane").build()
         );
-        when(sellerRepository.findAll()).thenReturn(entities);
+        when(jpaSellerRepository.findAll()).thenReturn(entities);
 
         List<Seller> sellers = sellerRepositoryAdapter.findAll();
 
@@ -83,28 +83,28 @@ class SellerRepositoryAdapterTest {
 
     @Test
     void deleteById_SellerSuccessfullyDeleted() {
-        doNothing().when(sellerRepository).deleteById(anyLong());
+        doNothing().when(jpaSellerRepository).deleteById(anyLong());
 
         assertDoesNotThrow(() -> sellerRepositoryAdapter.deleteById(1L));
-        verify(sellerRepository, times(1)).deleteById(1L);
+        verify(jpaSellerRepository, times(1)).deleteById(1L);
     }
 
     @Test
     void delete_SellerSuccessfullyDeleted() {
         Seller seller = Seller.builder().id(1L).name("John").build();
         SellerEntity entity = SellerEntity.builder().id(1L).name("John").build();
-        doNothing().when(sellerRepository).delete(any(SellerEntity.class));
+        doNothing().when(jpaSellerRepository).delete(any(SellerEntity.class));
 
         assertDoesNotThrow(() -> sellerRepositoryAdapter.delete(seller));
-        verify(sellerRepository, times(1)).delete(entity);
+        verify(jpaSellerRepository, times(1)).delete(entity);
     }
 
     @Test
     void update_SellerSuccessfullyUpdated() {
         Seller seller = Seller.builder().id(1L).name("John Updated").build();
         SellerEntity entity = SellerEntity.builder().id(1L).name("John Updated").build();
-        when(sellerRepository.findById(anyLong())).thenReturn(Optional.of(entity));
-        when(sellerRepository.save(any(SellerEntity.class))).thenReturn(entity);
+        when(jpaSellerRepository.findById(anyLong())).thenReturn(Optional.of(entity));
+        when(jpaSellerRepository.save(any(SellerEntity.class))).thenReturn(entity);
 
         Seller updatedSeller = sellerRepositoryAdapter.update(seller);
 
@@ -116,7 +116,7 @@ class SellerRepositoryAdapterTest {
     @Test
     void update_SellerNotFound() {
         Seller seller = Seller.builder().id(1L).name("John Updated").build();
-        when(sellerRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(jpaSellerRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(CustomerNotFoundException.class, () -> sellerRepositoryAdapter.update(seller));
     }

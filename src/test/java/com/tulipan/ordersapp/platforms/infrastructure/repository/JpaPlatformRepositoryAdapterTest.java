@@ -17,10 +17,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-class PlatformRepositoryAdapterTest {
+class JpaPlatformRepositoryAdapterTest {
 
     @Mock
-    private PlatformRepository platformRepository;
+    private JpaPlatformRepository jpaPlatformRepository;
 
     @InjectMocks
     private PlatformRepositoryAdapter platformRepositoryAdapter;
@@ -35,7 +35,7 @@ class PlatformRepositoryAdapterTest {
         Platform platform = new Platform(1L, "Platform1", 10.0f, 5.0f, true);
         PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", 10.0f, 5.0f, true);
 
-        when(platformRepository.save(any(PlatformEntity.class))).thenReturn(platformEntity);
+        when(jpaPlatformRepository.save(any(PlatformEntity.class))).thenReturn(platformEntity);
 
         Platform savedPlatform = platformRepositoryAdapter.save(platform);
 
@@ -47,7 +47,7 @@ class PlatformRepositoryAdapterTest {
     void findById_PlatformExists() {
         PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", 10.0f, 5.0f, true);
 
-        when(platformRepository.findById(anyLong())).thenReturn(Optional.of(platformEntity));
+        when(jpaPlatformRepository.findById(anyLong())).thenReturn(Optional.of(platformEntity));
 
         Optional<Platform> platform = platformRepositoryAdapter.findById(1L);
 
@@ -57,7 +57,7 @@ class PlatformRepositoryAdapterTest {
 
     @Test
     void findById_PlatformDoesNotExist() {
-        when(platformRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(jpaPlatformRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         Optional<Platform> platform = platformRepositoryAdapter.findById(1L);
 
@@ -71,7 +71,7 @@ class PlatformRepositoryAdapterTest {
             new PlatformEntity(2L, "Platform2", 15.0f, 7.0f, false)
         );
 
-        when(platformRepository.findAll()).thenReturn(platformEntities);
+        when(jpaPlatformRepository.findAll()).thenReturn(platformEntities);
 
         List<Platform> platforms = platformRepositoryAdapter.findAll();
 
@@ -83,20 +83,20 @@ class PlatformRepositoryAdapterTest {
     void deletePlatform_Success() {
         Platform platform = new Platform(1L, "Platform1", 10.0f, 5.0f, true);
 
-        doNothing().when(platformRepository).delete(any(PlatformEntity.class));
+        doNothing().when(jpaPlatformRepository).delete(any(PlatformEntity.class));
 
         platformRepositoryAdapter.delete(platform);
 
-        verify(platformRepository, times(1)).delete(any(PlatformEntity.class));
+        verify(jpaPlatformRepository, times(1)).delete(any(PlatformEntity.class));
     }
 
     @Test
     void deleteById_Success() {
-        doNothing().when(platformRepository).deleteById(anyLong());
+        doNothing().when(jpaPlatformRepository).deleteById(anyLong());
 
         platformRepositoryAdapter.deleteById(1L);
 
-        verify(platformRepository, times(1)).deleteById(anyLong());
+        verify(jpaPlatformRepository, times(1)).deleteById(anyLong());
     }
 
     @Test
@@ -104,8 +104,8 @@ class PlatformRepositoryAdapterTest {
         Platform platform = new Platform(1L, "UpdatedPlatform", 12.0f, 6.0f, true);
         PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", 10.0f, 5.0f, true);
 
-        when(platformRepository.findById(anyLong())).thenReturn(Optional.of(platformEntity));
-        when(platformRepository.save(any(PlatformEntity.class))).thenReturn(platformEntity);
+        when(jpaPlatformRepository.findById(anyLong())).thenReturn(Optional.of(platformEntity));
+        when(jpaPlatformRepository.save(any(PlatformEntity.class))).thenReturn(platformEntity);
 
         Platform updatedPlatform = platformRepositoryAdapter.update(platform);
 
@@ -117,7 +117,7 @@ class PlatformRepositoryAdapterTest {
     void updatePlatform_NotFound() {
         Platform platform = new Platform(1L, "UpdatedPlatform", 12.0f, 6.0f, true);
 
-        when(platformRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(jpaPlatformRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(PlatformNotFoundException.class, () -> platformRepositoryAdapter.update(platform));
     }
@@ -127,8 +127,8 @@ class PlatformRepositoryAdapterTest {
         Platform platform = new Platform(1L, "UpdatedPlatform", 12.0f, 6.0f, null);
         PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", 10.0f, 5.0f, null);
 
-        when(platformRepository.findById(anyLong())).thenReturn(Optional.of(platformEntity));
-        when(platformRepository.save(any(PlatformEntity.class))).thenReturn(platformEntity);
+        when(jpaPlatformRepository.findById(anyLong())).thenReturn(Optional.of(platformEntity));
+        when(jpaPlatformRepository.save(any(PlatformEntity.class))).thenReturn(platformEntity);
 
         Platform updatedPlatform = platformRepositoryAdapter.update(platform);
 

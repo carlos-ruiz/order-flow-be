@@ -1,10 +1,9 @@
 package com.tulipan.ordersapp.sellers.infrastructure.repository;
 
+import com.tulipan.ordersapp.sellers.infrastructure.entities.SellerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.tulipan.ordersapp.sellers.infrastructure.entities.SellerEntity;
-
 @Repository
-public interface SellerRepository extends JpaRepository<SellerEntity, Long> {
+public interface JpaSellerRepository extends JpaRepository<SellerEntity, Long> {
 }

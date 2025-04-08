@@ -1,7 +1,6 @@
 package com.tulipan.ordersapp;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
@@ -19,14 +18,14 @@ class OrdersappApplicationTests {
     }
 
     @Test
-    void applicationStartsSuccessfully() {
-        assertDoesNotThrow(() -> SpringApplication.run(OrdersappApplication.class));
-    }
-
-    @Test
     void jpaAuditingEnabled() {
         EnableJpaAuditing annotation = OrdersappApplication.class.getAnnotation(EnableJpaAuditing.class);
         assertNotNull(annotation);
+    }
+
+    @Test
+    void mainMethodStartsApplicationSuccessfully() {
+        assertDoesNotThrow(() -> OrdersappApplication.main(new String[]{}));
     }
 
 }
