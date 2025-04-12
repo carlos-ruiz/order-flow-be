@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
@@ -18,6 +19,7 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @Builder
 @Table(name = "sellers")
+@NoArgsConstructor
 public class SellerEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

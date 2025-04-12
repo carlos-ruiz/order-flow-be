@@ -3,6 +3,7 @@ package com.tulipan.ordersapp.sellers.infrastructure.repository;
 import com.tulipan.ordersapp.customers.domain.exceptions.CustomerNotFoundException;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
 import com.tulipan.ordersapp.sellers.domain.repository.SellerRepository;
+import com.tulipan.ordersapp.sellers.infrastructure.converters.SellerConverter;
 import com.tulipan.ordersapp.sellers.infrastructure.entities.SellerEntity;
 import org.springframework.stereotype.Component;
 
@@ -17,43 +18,21 @@ public class SellerRepositoryAdapter implements SellerRepository {
         this.jpaSellerRepository = jpaSellerRepository;
     }
 
-    private SellerEntity toEntity(Seller seller) {
-        SellerEntity entity = SellerEntity.builder().build();
-        entity.setId(seller.getId());
-        entity.setName(seller.getName());
-        entity.setLastName(seller.getLastName());
-        entity.setAddress(seller.getAddress());
-        entity.setPhone(seller.getPhone());
-        entity.setEmail(seller.getEmail());
-        return entity;
-    }
-
-    private Seller toModel(SellerEntity entity) {
-        Seller seller = Seller.builder().build();
-        seller.setId(entity.getId());
-        seller.setName(entity.getName());
-        seller.setLastName(entity.getLastName());
-        seller.setAddress(entity.getAddress());
-        seller.setPhone(entity.getPhone());
-        seller.setEmail(entity.getEmail());
-        return seller;
-    }
-
     public Seller save(Seller seller) {
-        SellerEntity entity = toEntity(seller);
+        SellerEntity entity = SellerConverter.toEntity(seller);
         SellerEntity savedEntity = jpaSellerRepository.save(entity);
-        return toModel(savedEntity);
+        return SellerConverter.toModel(savedEntity);
     }
 
     public Optional<Seller> findById(Long id) {
         return jpaSellerRepository.findById(id)
-            .map(this::toModel);
+            .map(SellerConverter::toModel);
     }
 
     public List<Seller> findAll() {
         return jpaSellerRepository.findAll()
             .stream()
-            .map(this::toModel)
+            .map(SellerConverter::toModel)
             .toList();
     }
 
@@ -62,7 +41,7 @@ public class SellerRepositoryAdapter implements SellerRepository {
     }
 
     public void delete(Seller seller) {
-        SellerEntity entity = toEntity(seller);
+        SellerEntity entity = SellerConverter.toEntity(seller);
         jpaSellerRepository.delete(entity);
     }
 
@@ -75,6 +54,6 @@ public class SellerRepositoryAdapter implements SellerRepository {
         entity.setPhone(seller.getPhone());
         entity.setEmail(seller.getEmail());
         SellerEntity updatedEntity = jpaSellerRepository.save(entity);
-        return toModel(updatedEntity);
+        return SellerConverter.toModel(updatedEntity);
     }
 }

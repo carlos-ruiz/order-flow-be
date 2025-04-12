@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @RequiredArgsConstructor
@@ -19,9 +21,9 @@ public class PlatformDTO {
     @Size(min = 1, max = 100)
     private String name;
 
-    private Float customerFee;
+    private BigDecimal customerFee;
 
-    private Float sellerCommission;
+    private BigDecimal sellerCommission;
 
     @NotNull
     private Boolean active;

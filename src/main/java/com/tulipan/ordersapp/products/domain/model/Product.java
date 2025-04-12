@@ -18,4 +18,5 @@ public class Product {
     private String color;
     private String size;
     private BigDecimal finalPrice;
+    private String description;
 }

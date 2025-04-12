@@ -17,6 +17,8 @@ public interface OrderItemService {
     Optional<OrderItem> findById(Long id);
 
     List<OrderItem> findAll();
-    // TODO List<OrderItem> findByOrderId(Long orderId);
-    // TODO List<OrderItem> findBySellerId(Long sellerId);
+
+    List<OrderItem> findByOrderId(Long orderId);
+
+    List<OrderItem> findBySellerId(Long sellerId);
 }

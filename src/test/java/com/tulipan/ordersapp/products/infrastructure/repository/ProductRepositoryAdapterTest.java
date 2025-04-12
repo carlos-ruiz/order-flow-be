@@ -49,8 +49,10 @@ class ProductRepositoryAdapterTest {
     void savePersistsAndReturnsProduct() {
         Product product = new Product();
         product.setId(1L);
+        product.setName("product1");
         ProductEntity entity = new ProductEntity();
         entity.setId(1L);
+        entity.setName("product1");
         when(jpaProductRepository.save(any(ProductEntity.class))).thenReturn(entity);
 
         Product result = productRepositoryAdapter.save(product);
@@ -70,6 +72,7 @@ class ProductRepositoryAdapterTest {
     void deleteRemovesProduct() {
         Product product = new Product();
         product.setId(1L);
+        product.setName("product1");
         doNothing().when(jpaProductRepository).delete(any(ProductEntity.class));
 
         assertDoesNotThrow(() -> productRepositoryAdapter.delete(product));
@@ -101,8 +104,10 @@ class ProductRepositoryAdapterTest {
     void updateUpdatesAndReturnsProduct() {
         Product product = new Product();
         product.setId(1L);
+        product.setName("product1");
         ProductEntity entity = new ProductEntity();
         entity.setId(1L);
+        entity.setName("product1");
         when(jpaProductRepository.findById(1L)).thenReturn(Optional.of(entity));
         when(jpaProductRepository.save(any(ProductEntity.class))).thenReturn(entity);
 

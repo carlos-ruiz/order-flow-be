@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +33,8 @@ class JpaPlatformRepositoryAdapterTest {
 
     @Test
     void savePlatform_Success() {
-        Platform platform = new Platform(1L, "Platform1", 10.0f, 5.0f, true);
-        PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", 10.0f, 5.0f, true);
+        Platform platform = new Platform(1L, "Platform1", new BigDecimal("10.0"), new BigDecimal("5.0"), true);
+        PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", new BigDecimal("10.0"), new BigDecimal("5.0"), true);
 
         when(jpaPlatformRepository.save(any(PlatformEntity.class))).thenReturn(platformEntity);
 
@@ -45,7 +46,7 @@ class JpaPlatformRepositoryAdapterTest {
 
     @Test
     void findById_PlatformExists() {
-        PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", 10.0f, 5.0f, true);
+        PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", new BigDecimal("10.0"), new BigDecimal("5.0"), true);
 
         when(jpaPlatformRepository.findById(anyLong())).thenReturn(Optional.of(platformEntity));
 
@@ -67,8 +68,8 @@ class JpaPlatformRepositoryAdapterTest {
     @Test
     void findAllPlatforms_Success() {
         List<PlatformEntity> platformEntities = List.of(
-            new PlatformEntity(1L, "Platform1", 10.0f, 5.0f, true),
-            new PlatformEntity(2L, "Platform2", 15.0f, 7.0f, false)
+            new PlatformEntity(1L, "Platform1", new BigDecimal("10.0"), new BigDecimal("5.0"), true),
+            new PlatformEntity(2L, "Platform2", new BigDecimal("15.0"), new BigDecimal("7.0"), false)
         );
 
         when(jpaPlatformRepository.findAll()).thenReturn(platformEntities);
@@ -81,7 +82,7 @@ class JpaPlatformRepositoryAdapterTest {
 
     @Test
     void deletePlatform_Success() {
-        Platform platform = new Platform(1L, "Platform1", 10.0f, 5.0f, true);
+        Platform platform = new Platform(1L, "Platform1", new BigDecimal("10.0"), new BigDecimal("5.0"), true);
 
         doNothing().when(jpaPlatformRepository).delete(any(PlatformEntity.class));
 
@@ -101,8 +102,8 @@ class JpaPlatformRepositoryAdapterTest {
 
     @Test
     void updatePlatform_Success() {
-        Platform platform = new Platform(1L, "UpdatedPlatform", 12.0f, 6.0f, true);
-        PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", 10.0f, 5.0f, true);
+        Platform platform = new Platform(1L, "UpdatedPlatform", new BigDecimal("12.0"), new BigDecimal("6.0"), true);
+        PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", new BigDecimal("10.0"), new BigDecimal("5.0"), true);
 
         when(jpaPlatformRepository.findById(anyLong())).thenReturn(Optional.of(platformEntity));
         when(jpaPlatformRepository.save(any(PlatformEntity.class))).thenReturn(platformEntity);
@@ -115,7 +116,7 @@ class JpaPlatformRepositoryAdapterTest {
 
     @Test
     void updatePlatform_NotFound() {
-        Platform platform = new Platform(1L, "UpdatedPlatform", 12.0f, 6.0f, true);
+        Platform platform = new Platform(1L, "UpdatedPlatform", new BigDecimal("12.0"), new BigDecimal("6.0"), true);
 
         when(jpaPlatformRepository.findById(anyLong())).thenReturn(Optional.empty());
 
@@ -124,8 +125,8 @@ class JpaPlatformRepositoryAdapterTest {
 
     @Test
     void updatePlatform_ActiveNull() {
-        Platform platform = new Platform(1L, "UpdatedPlatform", 12.0f, 6.0f, null);
-        PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", 10.0f, 5.0f, null);
+        Platform platform = new Platform(1L, "UpdatedPlatform", new BigDecimal("12.0"), new BigDecimal("6.0"), null);
+        PlatformEntity platformEntity = new PlatformEntity(1L, "Platform1", new BigDecimal("10.0"), new BigDecimal("5.0"), null);
 
         when(jpaPlatformRepository.findById(anyLong())).thenReturn(Optional.of(platformEntity));
         when(jpaPlatformRepository.save(any(PlatformEntity.class))).thenReturn(platformEntity);

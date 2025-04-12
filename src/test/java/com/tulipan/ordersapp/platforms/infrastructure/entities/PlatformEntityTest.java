@@ -2,6 +2,8 @@ package com.tulipan.ordersapp.platforms.infrastructure.entities;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlatformEntityTest {
@@ -11,16 +13,16 @@ class PlatformEntityTest {
         PlatformEntity platformEntity = PlatformEntity.builder()
             .id(1L)
             .name("Platform1")
-            .customerFee(10.0f)
-            .sellerCommission(5.0f)
+            .customerFee(new BigDecimal("10.0"))
+            .sellerCommission(new BigDecimal("5.0"))
             .active(true)
             .build();
 
         assertNotNull(platformEntity);
         assertEquals(1L, platformEntity.getId());
         assertEquals("Platform1", platformEntity.getName());
-        assertEquals(10.0f, platformEntity.getCustomerFee());
-        assertEquals(5.0f, platformEntity.getSellerCommission());
+        assertEquals(new BigDecimal("10.0"), platformEntity.getCustomerFee());
+        assertEquals(new BigDecimal("5.0"), platformEntity.getSellerCommission());
         assertTrue(platformEntity.getActive());
     }
 
@@ -29,8 +31,8 @@ class PlatformEntityTest {
         PlatformEntity platformEntity = PlatformEntity.builder()
             .id(1L)
             .name("Platform1")
-            .customerFee(10.0f)
-            .sellerCommission(5.0f)
+            .customerFee(new BigDecimal("10.0"))
+            .sellerCommission(new BigDecimal("5.0"))
             .build();
 
         platformEntity.prePersist();
@@ -43,8 +45,8 @@ class PlatformEntityTest {
         PlatformEntity platformEntity = PlatformEntity.builder()
             .id(1L)
             .name("Platform1")
-            .customerFee(10.0f)
-            .sellerCommission(5.0f)
+            .customerFee(new BigDecimal("10.0"))
+            .sellerCommission(new BigDecimal("5.0"))
             .active(false)
             .build();
 
@@ -58,16 +60,16 @@ class PlatformEntityTest {
         PlatformEntity platformEntity1 = PlatformEntity.builder()
             .id(1L)
             .name("Platform1")
-            .customerFee(10.0f)
-            .sellerCommission(5.0f)
+            .customerFee(new BigDecimal("10.0"))
+            .sellerCommission(new BigDecimal("5.0"))
             .active(true)
             .build();
 
         PlatformEntity platformEntity2 = PlatformEntity.builder()
             .id(1L)
             .name("Platform1")
-            .customerFee(10.0f)
-            .sellerCommission(5.0f)
+            .customerFee(new BigDecimal("10.0"))
+            .sellerCommission(new BigDecimal("5.0"))
             .active(true)
             .build();
 
@@ -79,16 +81,16 @@ class PlatformEntityTest {
         PlatformEntity platformEntity1 = PlatformEntity.builder()
             .id(1L)
             .name("Platform1")
-            .customerFee(10.0f)
-            .sellerCommission(5.0f)
+            .customerFee(new BigDecimal("10.0"))
+            .sellerCommission(new BigDecimal("5.0"))
             .active(true)
             .build();
 
         PlatformEntity platformEntity2 = PlatformEntity.builder()
             .id(2L)
             .name("Platform2")
-            .customerFee(15.0f)
-            .sellerCommission(7.0f)
+            .customerFee(new BigDecimal("15.0"))
+            .sellerCommission(new BigDecimal("7.0"))
             .active(false)
             .build();
 
@@ -100,8 +102,8 @@ class PlatformEntityTest {
         PlatformEntity platformEntity = PlatformEntity.builder()
             .id(1L)
             .name("Platform1")
-            .customerFee(10.0f)
-            .sellerCommission(5.0f)
+            .customerFee(new BigDecimal("10.0"))
+            .sellerCommission(new BigDecimal("5.0"))
             .active(null)
             .build();
 
@@ -115,14 +117,14 @@ class PlatformEntityTest {
         PlatformEntity platformEntity = PlatformEntity.builder().build();
         platformEntity.setId(1L);
         platformEntity.setName("Platform1");
-        platformEntity.setCustomerFee(10.0f);
-        platformEntity.setSellerCommission(5.0f);
+        platformEntity.setCustomerFee(new BigDecimal("10.0"));
+        platformEntity.setSellerCommission(new BigDecimal("5.0"));
         platformEntity.setActive(true);
 
         assertEquals(1L, platformEntity.getId());
         assertEquals("Platform1", platformEntity.getName());
-        assertEquals(10.0f, platformEntity.getCustomerFee());
-        assertEquals(5.0f, platformEntity.getSellerCommission());
+        assertEquals(new BigDecimal("10.0"), platformEntity.getCustomerFee());
+        assertEquals(new BigDecimal("5.0"), platformEntity.getSellerCommission());
         assertTrue(platformEntity.getActive());
     }
 }
