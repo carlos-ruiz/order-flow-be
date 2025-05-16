@@ -3,6 +3,7 @@ package com.tulipan.ordersapp.status.infrastructure.controller;
 import com.tulipan.ordersapp.status.application.StatusService;
 import com.tulipan.ordersapp.status.domain.exceptions.StatusNotFoundException;
 import com.tulipan.ordersapp.status.domain.model.Status;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,7 +52,7 @@ public class StatusController {
     @PostMapping
     public ResponseEntity<Status> createStatus(@RequestBody Status status) {
         Status createdStatus = statusService.save(status);
-        return ResponseEntity.ok(createdStatus);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdStatus);
     }
 
     @GetMapping("/{id}")
