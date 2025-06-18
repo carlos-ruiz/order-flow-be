@@ -7,8 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 @SpringBootTest(classes = OrdersappApplication.class)
 @TestPropertySource(properties = {
@@ -30,22 +32,28 @@ class BaseEntityTest {
     }
 
     @Test
-    void shouldUpdateUpdatedAtOnEntityUpdate() throws InterruptedException {
-        SampleEntity entity = new SampleEntity("Initial Name");
-        entity = repository.save(entity);
+    void shouldUpdateUpdatedAtOnEntityUpdate() {
+        // Save the initial entity
+        SampleEntity entity = repository.save(new SampleEntity("Initial Name"));
         LocalDateTime createdAt = entity.getCreatedAt();
         LocalDateTime updatedAt = entity.getUpdatedAt();
         log.info("Created at: {}", createdAt);
         log.info("Updated at: {}", updatedAt);
 
-        Thread.sleep(1000);
-
+        // Update the entity and wait for the updatedAt timestamp to change
         entity.setName("Updated Name");
-        entity = repository.save(entity);
-        log.info("AFTER UPDATE - Created at: {}", entity.getCreatedAt());
-        log.info("AFTER UPDATE - Updated at: {}", entity.getUpdatedAt());
+        await().atMost(1, TimeUnit.SECONDS).until(() -> {
+            SampleEntity updatedEntity = repository.save(entity);
+            return updatedEntity.getUpdatedAt().isAfter(updatedAt);
+        });
 
-        assertThat(entity.getCreatedAt()).isEqualTo(createdAt);
-        assertThat(entity.getUpdatedAt()).isAfter(updatedAt);
+        // Reload the entity to verify timestamps
+        SampleEntity updatedEntity = repository.findById(entity.getId()).orElseThrow();
+        log.info("AFTER UPDATE - Created at: {}", updatedEntity.getCreatedAt());
+        log.info("AFTER UPDATE - Updated at: {}", updatedEntity.getUpdatedAt());
+
+        // Assertions
+        assertThat(updatedEntity.getCreatedAt()).isEqualTo(createdAt);
+        assertThat(updatedEntity.getUpdatedAt()).isAfter(updatedAt);
     }
 }
