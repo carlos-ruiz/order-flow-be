@@ -20,12 +20,22 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class OrderItemConverterTest {
 
+    private static OrderItem createOrderItem() {
+        OrderItem item = new OrderItem();
+        item.setPrice(new BigDecimal(100));
+        item.setQuantity(2);
+        item.setId(1L);
+        item.setSeller(new Seller(1L, "Seller name", "Seller Last Name", "Seller Address", "Seller phone", "seller@email.com"));
+        item.setOrder(new Order(1L, LocalDateTime.now(), new BigDecimal(10), null, null));
+        item.setProduct(new Product(1L, "Product Name", new BigDecimal(100), "Red", "Small", new BigDecimal(100), "Description"));
+        item.setCustomer(new Customer(1L, "Customer Name", "Customer Last Name", "customer@email.com", "Customer phone", "Customer address", "Customer note"));
+        return item;
+    }
+
     @Test
     void toModel() {
         OrderItemEntity entity = createOrderItemEntity();
-
         OrderItem item = OrderItemConverter.toModel(entity);
-
         assertNotNull(item);
         assertEntityToModelMapping(entity, item);
     }
@@ -74,42 +84,38 @@ class OrderItemConverterTest {
 
     @Test
     void toEntity() {
-        OrderItem item = new OrderItem();
-        item.setPrice(new BigDecimal(100));
-        item.setQuantity(2);
-        item.setId(1L);
-        item.setSeller(new Seller(1L, "Seller name", "Seller Last Name", "Seller Address", "Seller phone", "seller@email.com"));
-        item.setOrder(new Order(1L, LocalDateTime.now(), new BigDecimal(10), null, null));
-        item.setProduct(new Product(1L, "Product Name", new BigDecimal(100), "Red", "Small", new BigDecimal(100), "Description"));
-        item.setCustomer(new Customer(1L, "Customer Name", "Customer Last Name", "customer@email.com", "Customer phone", "Customer address", "Customer note"));
-
+        OrderItem item = createOrderItem();
         OrderItemEntity entity = OrderItemConverter.toEntity(item);
         assertNotNull(entity);
+        assertModelToEntityMapping(item, entity);
+    }
+
+    private void assertModelToEntityMapping(OrderItem item, OrderItemEntity entity) {
         assertNotNull(entity.getProduct());
         assertNotNull(entity.getSeller());
         assertNotNull(entity.getCustomer());
-        assertEquals("Product Name", entity.getProduct().getName());
-        assertEquals("Seller name", entity.getSeller().getName());
-        assertEquals("Customer Name", entity.getCustomer().getName());
-        assertEquals("Customer Last Name", entity.getCustomer().getLastName());
-        assertEquals("Customer note", entity.getCustomer().getNote());
-        assertEquals("Customer address", entity.getCustomer().getAddress());
-        assertEquals("Customer phone", entity.getCustomer().getPhone());
-        assertEquals("Seller phone", entity.getSeller().getPhone());
-        assertEquals("Seller Address", entity.getSeller().getAddress());
-        assertEquals("Seller Last Name", entity.getSeller().getLastName());
-        assertEquals("Seller name", entity.getSeller().getName());
-        assertEquals("Description", entity.getProduct().getDescription());
-        assertEquals("Red", entity.getProduct().getColor());
-        assertEquals("Small", entity.getProduct().getSize());
-        assertEquals(new BigDecimal(100), entity.getProduct().getBasePrice());
-        assertEquals(new BigDecimal(100), entity.getProduct().getFinalPrice());
-        assertEquals(new BigDecimal(100), entity.getPrice());
-        assertEquals(2, entity.getQuantity());
-        assertEquals(1L, entity.getId());
-        assertEquals(1L, entity.getProduct().getId());
-        assertEquals(1L, entity.getSeller().getId());
-        assertEquals(1L, entity.getCustomer().getId());
-        assertEquals(1L, entity.getOrder().getId());
+        assertEquals(item.getProduct().getName(), entity.getProduct().getName());
+        assertEquals(item.getSeller().getName(), entity.getSeller().getName());
+        assertEquals(item.getCustomer().getName(), entity.getCustomer().getName());
+        assertEquals(item.getCustomer().getLastName(), entity.getCustomer().getLastName());
+        assertEquals(item.getCustomer().getNote(), entity.getCustomer().getNote());
+        assertEquals(item.getCustomer().getAddress(), entity.getCustomer().getAddress());
+        assertEquals(item.getCustomer().getPhone(), entity.getCustomer().getPhone());
+        assertEquals(item.getSeller().getPhone(), entity.getSeller().getPhone());
+        assertEquals(item.getSeller().getAddress(), entity.getSeller().getAddress());
+        assertEquals(item.getSeller().getLastName(), entity.getSeller().getLastName());
+        assertEquals(item.getProduct().getDescription(), entity.getProduct().getDescription());
+        assertEquals(item.getProduct().getColor(), entity.getProduct().getColor());
+        assertEquals(item.getProduct().getSize(), entity.getProduct().getSize());
+        assertEquals(item.getProduct().getBasePrice(), entity.getProduct().getBasePrice());
+        assertEquals(item.getProduct().getFinalPrice(), entity.getProduct().getFinalPrice());
+        assertEquals(item.getPrice(), entity.getPrice());
+        assertEquals(item.getQuantity(), entity.getQuantity());
+        assertEquals(item.getId(), entity.getId());
+        assertEquals(item.getProduct().getId(), entity.getProduct().getId());
+        assertEquals(item.getSeller().getId(), entity.getSeller().getId());
+        assertEquals(item.getCustomer().getId(), entity.getCustomer().getId());
+        assertEquals(item.getOrder().getId(), entity.getOrder().getId());
+
     }
 }
