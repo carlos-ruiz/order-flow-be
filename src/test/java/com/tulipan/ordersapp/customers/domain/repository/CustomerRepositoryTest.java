@@ -111,7 +111,10 @@ class CustomerRepositoryTest {
     @Test
     void deleteById_shouldDoNothing_whenCustomerDoesNotExist() {
         Long nonExistentId = 999L;
+        int numberOfCustomers = customerRepository.findAll().size();
         customerRepository.deleteById(nonExistentId);
+        int newNumberOfCustomers = customerRepository.findAll().size();
+        assertEquals(numberOfCustomers, newNumberOfCustomers, "No customers should be deleted when ID does not exist");
         // No exception should be thrown, and no further assertions are needed
     }
 

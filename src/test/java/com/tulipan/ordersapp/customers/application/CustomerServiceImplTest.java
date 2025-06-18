@@ -81,7 +81,10 @@ class CustomerServiceImplTest {
     @Test
     void deleteById_shouldDoNothing_whenCustomerDoesNotExist() {
         Long nonExistentId = 999L;
+        int numberOfCustomers = customerService.findAll().size();
         customerService.deleteById(nonExistentId);
+        int newNumberOfCustomers = customerService.findAll().size();
+        assertEquals(numberOfCustomers, newNumberOfCustomers, "No customers should be deleted when ID does not exist");
     }
 
     @Test
