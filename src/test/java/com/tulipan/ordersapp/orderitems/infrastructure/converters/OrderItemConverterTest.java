@@ -22,6 +22,15 @@ class OrderItemConverterTest {
 
     @Test
     void toModel() {
+        OrderItemEntity entity = createOrderItemEntity();
+
+        OrderItem item = OrderItemConverter.toModel(entity);
+
+        assertNotNull(item);
+        assertEntityToModelMapping(entity, item);
+    }
+
+    private OrderItemEntity createOrderItemEntity() {
         OrderItemEntity entity = new OrderItemEntity();
         entity.setPrice(new BigDecimal(100));
         entity.setQuantity(2);
@@ -30,37 +39,37 @@ class OrderItemConverterTest {
         entity.setOrder(new OrderEntity(1L, LocalDateTime.now(), new BigDecimal(10), null, null));
         entity.setCustomer(new CustomerEntity(1L, "Customer Name", "Customer Lastname", "mail@mail.com", "Customer phone", "Customer address", "Customer note"));
         entity.setProduct(new ProductEntity(1L, "Product Name", new BigDecimal(100), "Red", "Small", new BigDecimal(100), "Description"));
+        return entity;
+    }
 
-        OrderItem item = OrderItemConverter.toModel(entity);
-
-        assertNotNull(item);
+    private void assertEntityToModelMapping(OrderItemEntity entity, OrderItem item) {
         assertNotNull(item.getProduct());
         assertNotNull(item.getSeller());
         assertNotNull(item.getCustomer());
         assertNotNull(item.getOrder());
-        assertEquals("Product Name", item.getProduct().getName());
-        assertEquals("Seller Name", item.getSeller().getName());
-        assertEquals("Customer Name", item.getCustomer().getName());
-        assertEquals("Customer Lastname", item.getCustomer().getLastName());
-        assertEquals("Customer note", item.getCustomer().getNote());
-        assertEquals("Customer address", item.getCustomer().getAddress());
-        assertEquals("Customer phone", item.getCustomer().getPhone());
-        assertEquals("Seller Phone", item.getSeller().getPhone());
-        assertEquals("Seller Address", item.getSeller().getAddress());
-        assertEquals("Seller Lastname", item.getSeller().getLastName());
-        assertEquals("Seller Name", item.getSeller().getName());
-        assertEquals("Description", item.getProduct().getDescription());
-        assertEquals("Red", item.getProduct().getColor());
-        assertEquals("Small", item.getProduct().getSize());
-        assertEquals(new BigDecimal(100), item.getProduct().getBasePrice());
-        assertEquals(new BigDecimal(100), item.getProduct().getFinalPrice());
-        assertEquals(new BigDecimal(100), item.getPrice());
-        assertEquals(2, item.getQuantity());
-        assertEquals(1L, item.getId());
-        assertEquals(1L, item.getProduct().getId());
-        assertEquals(1L, item.getSeller().getId());
-        assertEquals(1L, item.getCustomer().getId());
-        assertEquals(1L, item.getOrder().getId());
+
+        assertEquals(entity.getProduct().getName(), item.getProduct().getName());
+        assertEquals(entity.getSeller().getName(), item.getSeller().getName());
+        assertEquals(entity.getCustomer().getName(), item.getCustomer().getName());
+        assertEquals(entity.getCustomer().getLastName(), item.getCustomer().getLastName());
+        assertEquals(entity.getCustomer().getNote(), item.getCustomer().getNote());
+        assertEquals(entity.getCustomer().getAddress(), item.getCustomer().getAddress());
+        assertEquals(entity.getCustomer().getPhone(), item.getCustomer().getPhone());
+        assertEquals(entity.getSeller().getPhone(), item.getSeller().getPhone());
+        assertEquals(entity.getSeller().getAddress(), item.getSeller().getAddress());
+        assertEquals(entity.getSeller().getLastName(), item.getSeller().getLastName());
+        assertEquals(entity.getProduct().getDescription(), item.getProduct().getDescription());
+        assertEquals(entity.getProduct().getColor(), item.getProduct().getColor());
+        assertEquals(entity.getProduct().getSize(), item.getProduct().getSize());
+        assertEquals(entity.getProduct().getBasePrice(), item.getProduct().getBasePrice());
+        assertEquals(entity.getProduct().getFinalPrice(), item.getProduct().getFinalPrice());
+        assertEquals(entity.getPrice(), item.getPrice());
+        assertEquals(entity.getQuantity(), item.getQuantity());
+        assertEquals(entity.getId(), item.getId());
+        assertEquals(entity.getProduct().getId(), item.getProduct().getId());
+        assertEquals(entity.getSeller().getId(), item.getSeller().getId());
+        assertEquals(entity.getCustomer().getId(), item.getCustomer().getId());
+        assertEquals(entity.getOrder().getId(), item.getOrder().getId());
     }
 
     @Test
