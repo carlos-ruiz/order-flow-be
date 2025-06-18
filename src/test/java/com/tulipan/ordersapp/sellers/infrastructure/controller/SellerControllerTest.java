@@ -1,7 +1,7 @@
 package com.tulipan.ordersapp.sellers.infrastructure.controller;
 
+import com.tulipan.ordersapp.sellers.application.SellerService;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
-import com.tulipan.ordersapp.sellers.domain.service.SellerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

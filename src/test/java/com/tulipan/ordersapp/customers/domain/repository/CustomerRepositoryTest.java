@@ -1,6 +1,7 @@
 package com.tulipan.ordersapp.customers.domain.repository;
 
 import com.tulipan.ordersapp.OrdersappApplication;
+import com.tulipan.ordersapp.customers.domain.exceptions.CustomerNotFoundException;
 import com.tulipan.ordersapp.customers.domain.model.Customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,18 @@ class CustomerRepositoryTest {
         customer = customerRepository.update(customer);
 
         assertNotEquals(name, customer.getName());
+    }
+
+    @Test
+    void update_shouldThrowException_whenCustomerDoesNotExist() {
+        Customer customer = new Customer();
+        customer.setId(999L); // Non-existent ID
+        customer.setName("John");
+        customer.setPhone("1234567892");
+
+        assertThrows(CustomerNotFoundException.class, () -> {
+            customerRepository.update(customer);
+        });
     }
 
     @Test

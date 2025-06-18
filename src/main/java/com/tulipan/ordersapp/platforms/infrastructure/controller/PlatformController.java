@@ -1,8 +1,8 @@
 package com.tulipan.ordersapp.platforms.infrastructure.controller;
 
+import com.tulipan.ordersapp.platforms.application.PlatformService;
 import com.tulipan.ordersapp.platforms.domain.exceptions.PlatformNotFoundException;
 import com.tulipan.ordersapp.platforms.domain.model.Platform;
-import com.tulipan.ordersapp.platforms.domain.service.PlatformService;
 import com.tulipan.ordersapp.platforms.infrastructure.dto.PlatformDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -14,6 +14,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "platforms")
 @Data
@@ -29,9 +31,9 @@ public class PlatformEntity extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
-    private Float customerFee;
+    private BigDecimal customerFee;
 
-    private Float sellerCommission;
+    private BigDecimal sellerCommission;
 
     @Column(nullable = false)
     @Builder.Default

@@ -1,8 +1,8 @@
 package com.tulipan.ordersapp.sellers.infrastructure.controller;
 
+import com.tulipan.ordersapp.sellers.application.SellerService;
 import com.tulipan.ordersapp.sellers.domain.exceptions.SellerNotFoundException;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
-import com.tulipan.ordersapp.sellers.domain.service.SellerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

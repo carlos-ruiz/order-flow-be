@@ -1,21 +1,27 @@
 package com.tulipan.ordersapp.orderitems.domain.model;
 
 import com.tulipan.ordersapp.customers.domain.model.Customer;
+import com.tulipan.ordersapp.orders.domain.model.Order;
+import com.tulipan.ordersapp.products.domain.model.Product;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Data
+@Builder
+//@NoArgsConstructor
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class OrderItem {
     private Long id;
-    private String productName;
-    private Float productPrice; // This is the base price, shown in platform
-    private String productColor;
-    private String productSize;
-    private Float productFinalPrice; // This is the price after tax or discount
     private Integer quantity;
     private Customer customer;
     private Seller seller;
-    // TODO add relationship with Order
-    // TODO add relationship with Status
-
+    private Product product;
+    private BigDecimal price;
+    private Order order;
 }

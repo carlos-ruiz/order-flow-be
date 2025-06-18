@@ -1,7 +1,7 @@
 package com.tulipan.ordersapp.customers.infrastructure.controller;
 
+import com.tulipan.ordersapp.customers.application.CustomerService;
 import com.tulipan.ordersapp.customers.domain.model.Customer;
-import com.tulipan.ordersapp.customers.domain.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -42,9 +42,9 @@ class CustomerControllerTest {
         when(customerService.save(any(Customer.class))).thenReturn(customer);
 
         mockMvc.perform(post("/customers")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\":\"John\",\"lastName\":\"Doe\"}"))
-                .andExpect(status().isCreated());
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"John\",\"lastName\":\"Doe\"}"))
+            .andExpect(status().isCreated());
     }
 
     @Test
@@ -54,7 +54,7 @@ class CustomerControllerTest {
         when(customerService.findById(anyLong())).thenReturn(Optional.of(customer));
 
         mockMvc.perform(get("/customers/1"))
-                .andExpect(status().isOk());
+            .andExpect(status().isOk());
     }
 
     @Test
@@ -62,13 +62,13 @@ class CustomerControllerTest {
         when(customerService.findById(anyLong())).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/customers/1"))
-                .andExpect(status().isNotFound());
+            .andExpect(status().isNotFound());
     }
 
     @Test
     void getAllCustomers() throws Exception {
         mockMvc.perform(get("/customers"))
-                .andExpect(status().isOk());
+            .andExpect(status().isOk());
     }
 
     @Test
@@ -78,15 +78,15 @@ class CustomerControllerTest {
         when(customerService.update(any(Customer.class))).thenReturn(customer);
 
         mockMvc.perform(put("/customers/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\":\"John\",\"lastName\":\"Doe\"}"))
-                .andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"John\",\"lastName\":\"Doe\"}"))
+            .andExpect(status().isOk());
     }
 
     @Test
     void deleteCustomer() throws Exception {
         mockMvc.perform(delete("/customers/1"))
-                .andExpect(status().isNotFound());
+            .andExpect(status().isNotFound());
     }
 
     @Test
@@ -96,7 +96,7 @@ class CustomerControllerTest {
         when(customerService.findById(anyLong())).thenReturn(Optional.of(customer));
 
         mockMvc.perform(delete("/customers/1"))
-                .andExpect(status().isNoContent());
+            .andExpect(status().isNoContent());
     }
 
     @Test
@@ -104,6 +104,6 @@ class CustomerControllerTest {
         when(customerService.findById(anyLong())).thenReturn(Optional.empty());
 
         mockMvc.perform(delete("/customers/1"))
-                .andExpect(status().isNotFound());
+            .andExpect(status().isNotFound());
     }
 }
