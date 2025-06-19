@@ -7,6 +7,7 @@ import com.tulipan.ordersapp.products.infrastructure.entities.ProductEntity;
 import com.tulipan.ordersapp.sellers.infrastructure.entities.SellerEntity;
 import com.tulipan.ordersapp.status.infrastructure.entities.StatusEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -45,7 +46,7 @@ public class OrderItemEntity extends BaseEntity {
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private OrderEntity order;
 
