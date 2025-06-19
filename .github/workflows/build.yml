@@ -37,4 +37,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           # SONAR_HOST_URL is generally not needed for SonarQube Cloud as it's implied
           # by sonar.organization and the SonarQube Cloud scanner
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Orders-Flow-BE -Dsonar.organization=carlos-ruiz -Dsonar.projectName='Orders Flow BE'
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=carlos-ruiz_order-flow-be -Dsonar.organization=carlos-ruiz -Dsonar.projectName='Orders Flow BE'
