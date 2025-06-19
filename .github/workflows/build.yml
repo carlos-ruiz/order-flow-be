@@ -20,19 +20,20 @@ jobs:
         with:
           java-version: 21
           distribution: 'zulu' # Alternative distribution options are available.
-      - name: Cache SonarQube packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-v2-${{ hashFiles('**/pom.xml') }} # Changed key to force new cache
-          restore-keys: ${{ runner.os }}-m2-v2
-      - name: Build and analyze
+            # Remove or comment out both cache steps for a single debug run
+            # - name: Cache SonarQube packages
+            #   uses: actions/cache@v4
+            #   with:
+            #     path: ~/.sonar/cache
+            #     key: ${{ runner.os }}-sonar
+            #     restore-keys: ${{ runner.os }}-sonar
+            # - name: Cache Maven packages
+            #   uses: actions/cache@v4
+            #   with:
+            #     path: ~/.m2
+            #     key: ${{ runner.os }}-m2-v3-${{ hashFiles('**/pom.xml') }} # Changed key again just in case
+          #     restore-keys: ${{ runner.os }}-m2-v3
+      - name: Force Clean Build and Analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           # SONAR_HOST_URL is generally not needed for SonarQube Cloud as it's implied
