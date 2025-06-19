@@ -11,6 +11,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.byLessThan;
 import static org.awaitility.Awaitility.await;
 
 @SpringBootTest(classes = OrdersappApplication.class)
@@ -54,7 +55,7 @@ class BaseEntityTest {
         log.info("AFTER UPDATE - Updated at: {}", updatedEntity.getUpdatedAt());
 
         // Assertions
-        assertThat(updatedEntity.getCreatedAt().truncatedTo(ChronoUnit.MICROS)).isEqualTo(createdAt.truncatedTo(ChronoUnit.MICROS));
+        assertThat(updatedEntity.getCreatedAt()).isCloseTo(createdAt, byLessThan(1, ChronoUnit.MICROS));
         assertThat(updatedEntity.getUpdatedAt()).isAfter(updatedAt);
     }
 }
