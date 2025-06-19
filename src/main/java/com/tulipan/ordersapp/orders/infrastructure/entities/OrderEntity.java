@@ -2,6 +2,7 @@ package com.tulipan.ordersapp.orders.infrastructure.entities;
 
 import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
 import com.tulipan.ordersapp.platforms.infrastructure.entities.PlatformEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,7 +36,6 @@ public class OrderEntity {
     @JoinColumn(name = "platform_id", nullable = false)
     private PlatformEntity platform;
 
-    @OneToMany
-    @JoinColumn(name = "order_id")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItemEntity> orderItems;
 }
