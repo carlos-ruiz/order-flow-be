@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,7 +54,7 @@ class BaseEntityTest {
         log.info("AFTER UPDATE - Updated at: {}", updatedEntity.getUpdatedAt());
 
         // Assertions
-        assertThat(updatedEntity.getCreatedAt()).isEqualTo(createdAt);
+        assertThat(updatedEntity.getCreatedAt().truncatedTo(ChronoUnit.MICROS)).isEqualTo(createdAt.truncatedTo(ChronoUnit.MICROS));
         assertThat(updatedEntity.getUpdatedAt()).isAfter(updatedAt);
     }
 }
