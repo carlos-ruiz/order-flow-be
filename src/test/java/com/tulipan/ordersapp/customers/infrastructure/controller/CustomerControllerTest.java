@@ -91,9 +91,7 @@ class CustomerControllerTest {
 
     @Test
     void deleteCustomer_Success() throws Exception {
-        Customer customer = new Customer();
-        customer.setId(1L);
-        when(customerService.findById(anyLong())).thenReturn(Optional.of(customer));
+        when(customerService.existsById(anyLong())).thenReturn(true);
 
         mockMvc.perform(delete("/customers/1"))
             .andExpect(status().isNoContent());
@@ -101,7 +99,7 @@ class CustomerControllerTest {
 
     @Test
     void deleteCustomer_NotFound() throws Exception {
-        when(customerService.findById(anyLong())).thenReturn(Optional.empty());
+        when(customerService.existsById(anyLong())).thenReturn(false);
 
         mockMvc.perform(delete("/customers/1"))
             .andExpect(status().isNotFound());

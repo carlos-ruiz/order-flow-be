@@ -76,8 +76,10 @@ public class StatusController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStatus(@PathVariable Long id) {
-        Status status = statusService.findById(id).orElseThrow(() -> new StatusNotFoundException(id));
-        statusService.delete(status);
+        if (!statusService.existsById(id)) {
+            throw new StatusNotFoundException(id);
+        }
+        statusService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 

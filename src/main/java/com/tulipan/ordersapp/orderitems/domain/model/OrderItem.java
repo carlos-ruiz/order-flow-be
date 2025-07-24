@@ -4,6 +4,7 @@ import com.tulipan.ordersapp.customers.domain.model.Customer;
 import com.tulipan.ordersapp.orders.domain.model.Order;
 import com.tulipan.ordersapp.products.domain.model.Product;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
+import com.tulipan.ordersapp.status.domain.model.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,6 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-//@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class OrderItem {
@@ -24,4 +24,5 @@ public class OrderItem {
     private Product product;
     private BigDecimal price;
     private Order order;
+    private Status status;
 }

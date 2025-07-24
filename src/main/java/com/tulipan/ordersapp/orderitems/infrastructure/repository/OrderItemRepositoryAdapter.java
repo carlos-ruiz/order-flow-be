@@ -6,12 +6,12 @@ import com.tulipan.ordersapp.orderitems.domain.repository.OrderItemRepository;
 import com.tulipan.ordersapp.orderitems.infrastructure.converters.OrderItemConverter;
 import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
 import com.tulipan.ordersapp.sellers.infrastructure.converters.SellerConverter;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Repository
 public class OrderItemRepositoryAdapter implements OrderItemRepository {
 
     private final JpaOrderItemRepository jpaOrderItemRepository;
@@ -40,11 +40,17 @@ public class OrderItemRepositoryAdapter implements OrderItemRepository {
 
     @Override
     public void delete(OrderItem orderItem) {
+        if (!jpaOrderItemRepository.existsById(orderItem.getId())) {
+            throw new OrderItemNotFoundException(orderItem.getId());
+        }
         jpaOrderItemRepository.deleteById(orderItem.getId());
     }
 
     @Override
     public void deleteById(Long id) {
+        if (!jpaOrderItemRepository.existsById(id)) {
+            throw new OrderItemNotFoundException(id);
+        }
         jpaOrderItemRepository.deleteById(id);
     }
 

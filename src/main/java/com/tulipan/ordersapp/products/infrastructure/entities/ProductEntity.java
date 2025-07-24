@@ -3,6 +3,8 @@ package com.tulipan.ordersapp.products.infrastructure.entities;
 import com.tulipan.ordersapp.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,6 +26,7 @@ import java.math.BigDecimal;
 public class ProductEntity extends BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull

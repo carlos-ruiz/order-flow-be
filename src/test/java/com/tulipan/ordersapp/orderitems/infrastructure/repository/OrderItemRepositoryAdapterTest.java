@@ -4,11 +4,11 @@ import com.tulipan.ordersapp.orderitems.domain.exceptions.OrderItemNotFoundExcep
 import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
 import com.tulipan.ordersapp.orderitems.infrastructure.converters.OrderItemConverter;
 import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class OrderItemRepositoryAdapterTest {
 
     @Mock
@@ -24,11 +25,6 @@ class OrderItemRepositoryAdapterTest {
 
     @InjectMocks
     private OrderItemRepositoryAdapter orderItemRepositoryAdapter;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void savesOrderItemSuccessfully() {
@@ -87,6 +83,7 @@ class OrderItemRepositoryAdapterTest {
         Long id = 1L;
 
         doNothing().when(jpaOrderItemRepository).deleteById(id);
+        when(jpaOrderItemRepository.existsById(id)).thenReturn(true);
 
         orderItemRepositoryAdapter.deleteById(id);
 
@@ -99,6 +96,7 @@ class OrderItemRepositoryAdapterTest {
         orderItem.setId(1L);
 
         doNothing().when(jpaOrderItemRepository).deleteById(orderItem.getId());
+        when(jpaOrderItemRepository.existsById(orderItem.getId())).thenReturn(true);
 
         orderItemRepositoryAdapter.delete(orderItem);
 
