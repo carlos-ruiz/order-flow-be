@@ -1,24 +1,30 @@
 package com.tulipan.ordersapp.customers.infrastructure.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tulipan.ordersapp.customers.application.CustomerService;
 import com.tulipan.ordersapp.customers.domain.model.Customer;
+import com.tulipan.ordersapp.customers.infrastructure.dto.CustomerResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ExtendWith(MockitoExtension.class)
 class CustomerControllerTest {
 
     private MockMvc mockMvc;
@@ -31,7 +37,6 @@ class CustomerControllerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
     }
 
@@ -67,8 +72,16 @@ class CustomerControllerTest {
 
     @Test
     void getAllCustomers() throws Exception {
-        mockMvc.perform(get("/customers"))
-            .andExpect(status().isOk());
+        List<Customer> customers = List.of(new Customer(), new Customer());
+        when(customerService.findAll()).thenReturn(customers);
+        String responseContent = mockMvc.perform(get("/customers"))
+            .andExpect(status().isOk())
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+        ObjectMapper mapper = new ObjectMapper();
+        List<CustomerResponseDTO> customerResponseDTOs = mapper.readValue(responseContent, mapper.getTypeFactory().constructCollectionType(List.class, CustomerResponseDTO.class));
+        assertEquals(2, customerResponseDTOs.size());
     }
 
     @Test

@@ -2,10 +2,7 @@ package com.tulipan.ordersapp.orderitems.infrastructure.converters;
 
 import com.tulipan.ordersapp.customers.infrastructure.converters.CustomerConverter;
 import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
-import com.tulipan.ordersapp.orderitems.infrastructure.dto.OrderItemRequestDTO;
 import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
-import com.tulipan.ordersapp.orders.application.OrderService;
-import com.tulipan.ordersapp.orders.domain.model.Order;
 import com.tulipan.ordersapp.orders.infrastructure.converters.OrderConverter;
 import com.tulipan.ordersapp.products.infrastructure.converters.ProductConverter;
 import com.tulipan.ordersapp.sellers.infrastructure.converters.SellerConverter;
@@ -39,21 +36,5 @@ public class OrderItemConverter {
         orderItemEntity.setOrder(OrderConverter.toEntity(orderItem.getOrder()));
         orderItemEntity.setStatus(StatusConverter.toEntity(orderItem.getStatus()));
         return orderItemEntity;
-    }
-
-    public static OrderItem dtoToModel(OrderItemRequestDTO orderItemRequestDTO, OrderService orderService) {
-        OrderItem orderItem = OrderItem.builder()
-            .quantity(orderItemRequestDTO.getQuantity())
-            .price(orderItemRequestDTO.getPrice())
-//                .order(OrderConverter.toModel(orderItemRequestDTO.getOrder()))
-//                .product(ProductConverter.toModel(orderItemRequestDTO.getProduct()))
-//                .customer(CustomerConverter.toModel(orderItemRequestDTO.getCustomer()))
-//                .seller(SellerConverter.toModel(orderItemRequestDTO.getSeller()))
-            .build();
-        Order order = orderService.findById(orderItemRequestDTO.getOrderId()).orElse(null);
-        if (order != null) {
-            orderItem.setOrder(order);
-        }
-        return orderItem;
     }
 }
