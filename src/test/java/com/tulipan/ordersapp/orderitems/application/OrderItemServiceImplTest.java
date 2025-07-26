@@ -164,7 +164,7 @@ class OrderItemServiceImplTest {
     void save_shouldThrowException_whenQuantityIsNull() {
         assertThrows(IllegalArgumentException.class, () -> {
             orderItemService.save(null, customer.getId(), seller.getId(), product.getId(), BigDecimal.valueOf(150.00), order.getId(), status.getId());
-        });
+        }, "Quantity must be greater than zero");
     }
 
     @Test
