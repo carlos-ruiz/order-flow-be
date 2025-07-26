@@ -1,15 +1,12 @@
 package com.tulipan.ordersapp.orders.infrastructure.entities;
 
-import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
 import com.tulipan.ordersapp.platforms.infrastructure.entities.PlatformEntity;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +15,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -32,12 +28,10 @@ public class OrderEntity {
     private Long id;
 
     private LocalDateTime dateTime;
+
     private BigDecimal discount;
 
     @ManyToOne
     @JoinColumn(name = "platform_id", nullable = false)
     private PlatformEntity platform;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItemEntity> orderItems;
 }

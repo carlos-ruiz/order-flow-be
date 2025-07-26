@@ -2,14 +2,19 @@ package com.tulipan.ordersapp.orderitems.infrastructure.controller;
 
 import com.tulipan.ordersapp.orderitems.application.OrderItemService;
 import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
+import com.tulipan.ordersapp.orderitems.infrastructure.converters.OrderItemConverter;
 import com.tulipan.ordersapp.orderitems.infrastructure.dto.OrderItemRequestDTO;
 import com.tulipan.ordersapp.orderitems.infrastructure.dto.OrderItemResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/order-items")
@@ -35,4 +40,12 @@ public class OrderItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity<List<OrderItemResponseDTO>> getOrderItemsByOrderId(@PathVariable Long orderId) {
+        List<OrderItem> orderItem = orderItemService.findByOrderId(orderId);
+        List<OrderItemResponseDTO> responseDTOs = orderItem.stream()
+            .map(OrderItemConverter::modelToResponseDTO)
+            .toList();
+        return ResponseEntity.ok(responseDTOs);
+    }
 }

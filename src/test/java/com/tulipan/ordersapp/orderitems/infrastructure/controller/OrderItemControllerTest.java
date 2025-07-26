@@ -1,5 +1,6 @@
 package com.tulipan.ordersapp.orderitems.infrastructure.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tulipan.ordersapp.customers.domain.model.Customer;
 import com.tulipan.ordersapp.orderitems.application.OrderItemService;
@@ -20,10 +21,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,7 +42,6 @@ class OrderItemControllerTest {
     private Product product;
     private Status status;
     private Order order;
-    private Platform platform;
 
     @BeforeEach
     void setUp() {
@@ -49,8 +50,8 @@ class OrderItemControllerTest {
         seller = new Seller(2L, "Jane", "Doe", "202 second St", "9876543210", "mail@mail.com");
         product = new Product(3L, "Shampoo", BigDecimal.valueOf(50.00), "N/A", "N/A", BigDecimal.valueOf(50.00), "Shampoo for all hair types");
         status = new Status(1L, "Pending", true);
-        platform = new Platform(1L, "Amazon", BigDecimal.ZERO, BigDecimal.valueOf(10.00), true);
-        order = new Order(4L, LocalDateTime.now(), BigDecimal.ZERO, platform, new ArrayList<>());
+        Platform platform = new Platform(1L, "Amazon", BigDecimal.ZERO, BigDecimal.valueOf(10.00), true);
+        order = new Order(4L, LocalDateTime.now(), BigDecimal.ZERO, platform);
     }
 
     @Test
@@ -86,5 +87,30 @@ class OrderItemControllerTest {
         assertEquals(savedOrderItem.getSeller().getId(), responseDTO.getSellerId());
         assertEquals(savedOrderItem.getProduct().getId(), responseDTO.getProductId());
         assertEquals(savedOrderItem.getOrder().getId(), responseDTO.getOrderId());
+    }
+
+    @Test
+    void findByOrderId() throws Exception {
+        OrderItem orderItem = new OrderItem(4L, 5, customer, seller, product, new BigDecimal("100.00"), order, status);
+        List<OrderItem> orderItems = List.of(orderItem);
+        when(orderItemService.findByOrderId(order.getId())).thenReturn(orderItems);
+
+        String responseContent = mockMvc.perform(get("/order-items/order/4"))
+            .andExpect(status().isOk())
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<OrderItemResponseDTO> itemResponseDTOS = objectMapper.readValue(responseContent, new TypeReference<List<OrderItemResponseDTO>>() {
+        });
+        assertEquals(1, itemResponseDTOS.size());
+        assertEquals(orderItem.getId(), itemResponseDTOS.getFirst().getId());
+        assertEquals(orderItem.getQuantity(), itemResponseDTOS.getFirst().getQuantity());
+        assertEquals(orderItem.getPrice(), itemResponseDTOS.getFirst().getPrice());
+        assertEquals(orderItem.getCustomer().getId(), itemResponseDTOS.getFirst().getCustomerId());
+        assertEquals(orderItem.getSeller().getId(), itemResponseDTOS.getFirst().getSellerId());
+        assertEquals(orderItem.getProduct().getId(), itemResponseDTOS.getFirst().getProductId());
+        assertEquals(orderItem.getOrder().getId(), itemResponseDTOS.getFirst().getOrderId());
     }
 }

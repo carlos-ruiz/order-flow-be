@@ -2,6 +2,7 @@ package com.tulipan.ordersapp.orderitems.infrastructure.converters;
 
 import com.tulipan.ordersapp.customers.infrastructure.converters.CustomerConverter;
 import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
+import com.tulipan.ordersapp.orderitems.infrastructure.dto.OrderItemResponseDTO;
 import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
 import com.tulipan.ordersapp.orders.infrastructure.converters.OrderConverter;
 import com.tulipan.ordersapp.products.infrastructure.converters.ProductConverter;
@@ -36,5 +37,18 @@ public class OrderItemConverter {
         orderItemEntity.setOrder(OrderConverter.toEntity(orderItem.getOrder()));
         orderItemEntity.setStatus(StatusConverter.toEntity(orderItem.getStatus()));
         return orderItemEntity;
+    }
+
+    public static OrderItemResponseDTO modelToResponseDTO(OrderItem orderItem) {
+        return OrderItemResponseDTO.builder()
+            .id(orderItem.getId())
+            .quantity(orderItem.getQuantity())
+            .price(orderItem.getPrice())
+            .customerId(orderItem.getCustomer().getId())
+            .sellerId(orderItem.getSeller().getId())
+            .productId(orderItem.getProduct().getId())
+            .orderId(orderItem.getOrder().getId())
+            .statusId(orderItem.getStatus().getId())
+            .build();
     }
 }

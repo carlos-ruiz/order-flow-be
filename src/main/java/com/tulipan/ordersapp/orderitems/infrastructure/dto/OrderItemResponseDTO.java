@@ -19,4 +19,5 @@ public class OrderItemResponseDTO {
     private Long productId;
     private BigDecimal price;
     private Long orderId;
+    private Long statusId;
 }

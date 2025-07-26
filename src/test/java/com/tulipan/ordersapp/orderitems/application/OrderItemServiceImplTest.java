@@ -28,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,7 +70,7 @@ class OrderItemServiceImplTest {
         customer = new Customer(null, "John", "Doe", "email@example.com", "1234567890", "123 Main St.", "Note");
         customer = customerService.save(customer);
 
-        seller = new Seller(null, "Richard", "Luthning", "302 First Av", "1234567890", "seller@mail.com");
+        seller = new Seller(null, "Richard", "Smith", "302 First Av", "1234567890", "seller@mail.com");
         seller = sellerService.save(seller);
 
         product = new Product(null, "Product Name", BigDecimal.valueOf(100.00), "Negro", "M", BigDecimal.valueOf(120.00), "Product Description");
@@ -81,7 +80,7 @@ class OrderItemServiceImplTest {
         platform = platformService.save(platform);
         log.info("Platform saved: {}", platform);
 
-        order = new Order(null, LocalDateTime.now(), BigDecimal.valueOf(10), platform, new ArrayList<>());
+        order = new Order(null, LocalDateTime.now(), BigDecimal.valueOf(10), platform);
         order = orderService.save(order);
 
         status = new Status(null, "Pending", true);
@@ -155,30 +154,27 @@ class OrderItemServiceImplTest {
 
     @Test
     void save_shouldThrowException_whenQuantityIsInvalid() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            orderItemService.save(0, customer.getId(), seller.getId(), product.getId(), BigDecimal.valueOf(150.00), order.getId(), status.getId());
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+            orderItemService.save(0, customer.getId(), seller.getId(), product.getId(), BigDecimal.valueOf(150.00), order.getId(), status.getId())
+        );
     }
 
     @Test
     void save_shouldThrowException_whenQuantityIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            orderItemService.save(null, customer.getId(), seller.getId(), product.getId(), BigDecimal.valueOf(150.00), order.getId(), status.getId());
-        }, "Quantity must be greater than zero");
+        assertThrows(IllegalArgumentException.class, () ->
+            orderItemService.save(null, customer.getId(), seller.getId(), product.getId(), BigDecimal.valueOf(150.00), order.getId(), status.getId()), "Quantity must be greater than zero");
     }
 
     @Test
     void save_shouldThrowException_whenPriceIsInvalid() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            orderItemService.save(2, customer.getId(), seller.getId(), product.getId(), BigDecimal.ZERO, order.getId(), status.getId());
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+            orderItemService.save(2, customer.getId(), seller.getId(), product.getId(), BigDecimal.ZERO, order.getId(), status.getId()));
     }
 
     @Test
     void save_shouldThrowException_whenPriceIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            orderItemService.save(2, customer.getId(), seller.getId(), product.getId(), null, order.getId(), status.getId());
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+            orderItemService.save(2, customer.getId(), seller.getId(), product.getId(), null, order.getId(), status.getId()));
     }
 
     @Test

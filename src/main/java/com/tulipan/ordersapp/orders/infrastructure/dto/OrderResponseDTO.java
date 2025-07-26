@@ -1,6 +1,5 @@
-package com.tulipan.ordersapp.orders.domain.model;
+package com.tulipan.ordersapp.orders.infrastructure.dto;
 
-import com.tulipan.ordersapp.platforms.domain.model.Platform;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,12 +9,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class Order {
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderResponseDTO {
     private Long id;
     private LocalDateTime dateTime;
     private BigDecimal discount;
-    private Platform platform;
+    private Long platformId;
 }

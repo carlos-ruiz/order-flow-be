@@ -26,7 +26,7 @@ class OrderItemConverterTest {
         item.setQuantity(2);
         item.setId(1L);
         item.setSeller(new Seller(1L, "Seller name", "Seller Last Name", "Seller Address", "Seller phone", "seller@email.com"));
-        item.setOrder(new Order(1L, LocalDateTime.now(), new BigDecimal(10), null, null));
+        item.setOrder(new Order(1L, LocalDateTime.now(), new BigDecimal(10), null));
         item.setProduct(new Product(1L, "Product Name", new BigDecimal(100), "Red", "Small", new BigDecimal(100), "Description"));
         item.setCustomer(new Customer(1L, "Customer Name", "Customer Last Name", "customer@email.com", "Customer phone", "Customer address", "Customer note"));
         return item;
@@ -46,7 +46,7 @@ class OrderItemConverterTest {
         entity.setQuantity(2);
         entity.setId(1L);
         entity.setSeller(new SellerEntity(1L, "Seller Name", "Seller Lastname", "Seller Address", "Seller Phone", "email@email.com"));
-        entity.setOrder(new OrderEntity(1L, LocalDateTime.now(), new BigDecimal(10), null, null));
+        entity.setOrder(new OrderEntity(1L, LocalDateTime.now(), new BigDecimal(10), null));
         entity.setCustomer(new CustomerEntity(1L, "Customer Name", "Customer Lastname", "mail@mail.com", "Customer phone", "Customer address", "Customer note"));
         entity.setProduct(new ProductEntity(1L, "Product Name", new BigDecimal(100), "Red", "Small", new BigDecimal(100), "Description"));
         return entity;

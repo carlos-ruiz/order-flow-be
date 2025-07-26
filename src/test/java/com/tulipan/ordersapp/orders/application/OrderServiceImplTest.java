@@ -2,6 +2,7 @@ package com.tulipan.ordersapp.orders.application;
 
 import com.tulipan.ordersapp.orders.domain.model.Order;
 import com.tulipan.ordersapp.platforms.application.PlatformService;
+import com.tulipan.ordersapp.platforms.domain.exceptions.PlatformNotFoundException;
 import com.tulipan.ordersapp.platforms.domain.model.Platform;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +33,6 @@ class OrderServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        // This method can be used to set up any common test data or configurations
         log.info("Setting up OrderServiceImplTest");
         platform = Platform.builder()
             .name("Amazon")
@@ -59,6 +59,31 @@ class OrderServiceImplTest {
         assertNotNull(savedOrder.getId());
         assertEquals(order.getDateTime(), savedOrder.getDateTime());
         assertEquals(platform.getName(), savedOrder.getPlatform().getName());
+    }
+
+    @Test
+    void testSaveWithPlatformId() {
+        Order savedOrder = orderService.save(order.getDateTime(), order.getDiscount(), platform.getId());
+
+        assertNotNull(savedOrder);
+        assertNotNull(savedOrder.getId());
+        assertEquals(order.getDateTime(), savedOrder.getDateTime());
+        assertEquals(platform.getName(), savedOrder.getPlatform().getName());
+    }
+
+    @Test
+    void testSaveWithNullPlatformId() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            orderService.save(order.getDateTime(), order.getDiscount(), null);
+        }, "Platform ID cannot be null");
+    }
+
+    @Test
+    void testSaveWithNonExistentPlatform() {
+        Long nonExistentPlatformId = 999L; // Assuming this ID does not exist
+        assertThrows(PlatformNotFoundException.class, () -> {
+            orderService.save(order.getDateTime(), order.getDiscount(), nonExistentPlatformId);
+        }, "Platform with ID " + nonExistentPlatformId + " should not exist");
     }
 
     @Test

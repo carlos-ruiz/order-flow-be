@@ -1,7 +1,6 @@
 package com.tulipan.ordersapp.orders.infrastructure.repository;
 
 import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
-import com.tulipan.ordersapp.orderitems.infrastructure.converters.OrderItemConverter;
 import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
 import com.tulipan.ordersapp.orders.domain.exceptions.OrderNotFoundException;
 import com.tulipan.ordersapp.orders.domain.model.Order;
@@ -32,15 +31,12 @@ public class OrderRepositoryAdapter implements OrderRepository {
 
         Platform platform = PlatformConverter.toModel(orderEntity.getPlatform());
         List<OrderItem> items = List.of();
-        if (orderEntity.getOrderItems() != null) {
-            items = orderEntity.getOrderItems().stream().map(OrderItemConverter::toModel).toList();
-        }
+
         return new Order(
             orderEntity.getId(),
             orderEntity.getDateTime(),
             orderEntity.getDiscount(),
-            platform,
-            items
+            platform
         );
     }
 
@@ -51,15 +47,12 @@ public class OrderRepositoryAdapter implements OrderRepository {
 
         PlatformEntity platformEntity = PlatformConverter.toEntity(order.getPlatform());
         List<OrderItemEntity> items = List.of();
-        if (order.getOrderItems() != null) {
-            items = order.getOrderItems().stream().map(OrderItemConverter::toEntity).toList();
-        }
+
         return new OrderEntity(
             order.getId(),
             order.getDateTime(),
             order.getDiscount(),
-            platformEntity,
-            items
+            platformEntity
         );
     }
 
