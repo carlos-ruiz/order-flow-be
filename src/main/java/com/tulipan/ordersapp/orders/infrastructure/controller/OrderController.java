@@ -5,6 +5,7 @@ import com.tulipan.ordersapp.orders.domain.exceptions.OrderNotFoundException;
 import com.tulipan.ordersapp.orders.domain.model.Order;
 import com.tulipan.ordersapp.orders.infrastructure.dto.OrderRequestDTO;
 import com.tulipan.ordersapp.orders.infrastructure.dto.OrderResponseDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -75,7 +77,7 @@ public class OrderController {
         try {
             orderService.deleteById(id);
         } catch (OrderNotFoundException e) {
-            System.err.println("Order with ID " + id + " not found for deletion.");
+            log.error("Order with ID {} not found for deletion.", id);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

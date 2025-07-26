@@ -1,7 +1,5 @@
 package com.tulipan.ordersapp.orders.infrastructure.repository;
 
-import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
-import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
 import com.tulipan.ordersapp.orders.domain.exceptions.OrderNotFoundException;
 import com.tulipan.ordersapp.orders.domain.model.Order;
 import com.tulipan.ordersapp.orders.domain.repository.OrderRepository;
@@ -30,7 +28,6 @@ public class OrderRepositoryAdapter implements OrderRepository {
         }
 
         Platform platform = PlatformConverter.toModel(orderEntity.getPlatform());
-        List<OrderItem> items = List.of();
 
         return new Order(
             orderEntity.getId(),
@@ -46,7 +43,6 @@ public class OrderRepositoryAdapter implements OrderRepository {
         }
 
         PlatformEntity platformEntity = PlatformConverter.toEntity(order.getPlatform());
-        List<OrderItemEntity> items = List.of();
 
         return new OrderEntity(
             order.getId(),
