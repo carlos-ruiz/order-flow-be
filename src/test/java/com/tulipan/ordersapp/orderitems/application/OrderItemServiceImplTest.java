@@ -65,16 +65,25 @@ class OrderItemServiceImplTest {
     private Order order;
     private Status status;
 
+    private Long customerId;
+    private Long sellerId;
+    private Long productId;
+    private Long orderId;
+    private Long statusId;
+
     @BeforeEach
     void setUp() {
         customer = new Customer(null, "John", "Doe", "email@example.com", "1234567890", "123 Main St.", "Note");
         customer = customerService.save(customer);
+        customerId = customer.getId();
 
         seller = new Seller(null, "Richard", "Smith", "302 First Av", "1234567890", "seller@mail.com");
         seller = sellerService.save(seller);
+        sellerId = seller.getId();
 
         product = new Product(null, "Product Name", BigDecimal.valueOf(100.00), "Negro", "M", BigDecimal.valueOf(120.00), "Product Description");
         product = productService.save(product);
+        productId = product.getId();
 
         Platform platform = new Platform(null, "Amazon", BigDecimal.valueOf(10), BigDecimal.valueOf(20), true);
         platform = platformService.save(platform);
@@ -82,9 +91,11 @@ class OrderItemServiceImplTest {
 
         order = new Order(null, LocalDateTime.now(), BigDecimal.valueOf(10), platform);
         order = orderService.save(order);
+        orderId = order.getId();
 
         status = new Status(null, "Pending", true);
         status = statusService.save(status);
+        statusId = status.getId();
     }
 
     @Test
@@ -154,11 +165,6 @@ class OrderItemServiceImplTest {
 
     @Test
     void save_shouldThrowException_whenQuantityIsInvalid() {
-        Long customerId = customer.getId();
-        Long sellerId = seller.getId();
-        Long productId = product.getId();
-        Long orderId = order.getId();
-        Long statusId = status.getId();
         BigDecimal price = BigDecimal.valueOf(150.00);
 
         if (customerId == null || sellerId == null || productId == null || orderId == null || statusId == null) {
@@ -172,11 +178,6 @@ class OrderItemServiceImplTest {
 
     @Test
     void save_shouldThrowException_whenQuantityIsNull() {
-        Long customerId = customer.getId();
-        Long sellerId = seller.getId();
-        Long productId = product.getId();
-        Long orderId = order.getId();
-        Long statusId = status.getId();
         BigDecimal price = BigDecimal.valueOf(150.00);
 
         if (customerId == null || sellerId == null || productId == null || orderId == null || statusId == null) {
@@ -188,11 +189,6 @@ class OrderItemServiceImplTest {
 
     @Test
     void save_shouldThrowException_whenPriceIsInvalid() {
-        Long customerId = customer.getId();
-        Long sellerId = seller.getId();
-        Long productId = product.getId();
-        Long orderId = order.getId();
-        Long statusId = status.getId();
         BigDecimal price = BigDecimal.ZERO;
 
         if (customerId == null || sellerId == null || productId == null || orderId == null || statusId == null) {
@@ -205,47 +201,47 @@ class OrderItemServiceImplTest {
 
     @Test
     void save_shouldThrowException_whenPriceIsNull() {
-        Long customerId = customer.getId();
-        Long sellerId = seller.getId();
-        Long productId = product.getId();
-        Long orderId = order.getId();
-        Long statusId = status.getId();
         assertThrows(IllegalArgumentException.class, () ->
             orderItemService.save(2, customerId, sellerId, productId, null, orderId, statusId), "Price must not be null");
     }
 
     @Test
-    void save_shouldThrowException_whenOrderDoesNotExist() {
+    void save_shouldThrowException_wheOrderDoesNotExist() {
+        BigDecimal price = BigDecimal.valueOf(100.00);
         assertThrows(OrderNotFoundException.class, () -> {
-            orderItemService.save(2, customer.getId(), seller.getId(), product.getId(), BigDecimal.valueOf(100.00), 999L, status.getId()); // Assuming 999L is a non-existing order ID
+            orderItemService.save(2, customerId, sellerId, productId, price, 999L, statusId); // Assuming 999L is a non-existing order ID
         });
     }
 
     @Test
     void save_shouldThrowException_whenProductDoesNotExist() {
+        BigDecimal price = BigDecimal.valueOf(100.00);
         assertThrows(ProductNotFoundException.class, () -> {
-            orderItemService.save(2, customer.getId(), seller.getId(), 999L, BigDecimal.valueOf(100.00), order.getId(), status.getId()); // Assuming 999L is a non-existing product ID
+            orderItemService.save(2, customerId, sellerId, 999L, price, orderId, statusId); // Assuming 999L is a non-existing product ID
         });
     }
 
     @Test
     void save_shouldThrowException_whenCustomerDoesNotExist() {
+        BigDecimal price = BigDecimal.valueOf(100.00);
         assertThrows(CustomerNotFoundException.class, () -> {
-            orderItemService.save(2, 999L, seller.getId(), product.getId(), BigDecimal.valueOf(100.00), order.getId(), status.getId()); // Assuming 999L is a non-existing customer ID
+            orderItemService.save(2, 999L, sellerId, productId, price, 999L, statusId); // Assuming 999L is a non-existing customer ID
         });
     }
 
     @Test
     void save_shouldThrowException_whenSellerDoesNotExist() {
+        BigDecimal price = BigDecimal.valueOf(100.00);
         assertThrows(SellerNotFoundException.class, () -> {
-            orderItemService.save(2, customer.getId(), 999L, product.getId(), BigDecimal.valueOf(100.00), order.getId(), status.getId()); // Assuming 999L is a non-existing seller ID
+            orderItemService.save(2, customerId, 999L, productId, price, orderId, statusId); // Assuming 999L is a non-existing seller ID
         });
     }
 
     @Test
     void save_shouldThrowException_whenStatusDoesNotExist() {
+        BigDecimal price = BigDecimal.valueOf(100.00);
         assertThrows(StatusNotFoundException.class, () -> {
-            orderItemService.save(2, customer.getId(), seller.getId(), product.getId(), BigDecimal.valueOf(100.00), order.getId(), 999L); // Assuming 999L is a non-existing status ID
+            orderItemService.save(2, customerId, sellerId, productId, price, orderId, 999L); // Assuming 999L is a non-existing status ID
         });
     }
 
