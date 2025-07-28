@@ -154,8 +154,13 @@ class OrderItemServiceImplTest {
 
     @Test
     void save_shouldThrowException_whenQuantityIsInvalid() {
+        Long customerId = customer.getId();
+        Long sellerId = seller.getId();
+        Long productId = product.getId();
+        Long orderId = order.getId();
+        Long statusId = status.getId();
         assertThrows(IllegalArgumentException.class, () ->
-            orderItemService.save(0, customer.getId(), seller.getId(), product.getId(), BigDecimal.valueOf(150.00), order.getId(), status.getId())
+            orderItemService.save(0, customerId, sellerId, productId, BigDecimal.valueOf(150.00), orderId, statusId)
         );
     }
 
