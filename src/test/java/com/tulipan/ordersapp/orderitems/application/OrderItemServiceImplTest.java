@@ -225,7 +225,7 @@ class OrderItemServiceImplTest {
     void save_shouldThrowException_whenCustomerDoesNotExist() {
         BigDecimal price = BigDecimal.valueOf(100.00);
         assertThrows(CustomerNotFoundException.class, () -> {
-            orderItemService.save(2, 999L, sellerId, productId, price, 999L, statusId); // Assuming 999L is a non-existing customer ID
+            orderItemService.save(2, 999L, sellerId, productId, price, orderId, statusId); // Assuming 999L is a non-existing customer ID
         });
     }
 
