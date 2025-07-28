@@ -134,4 +134,18 @@ class CustomerRepositoryTest {
         assertTrue(customers.size() >= 2);
     }
 
+    @Test
+    void existsById_shouldReturnTrue_whenCustomerExists() {
+        Customer customer = new Customer();
+        customer.setName("John");
+        customer.setPhone("1234567897");
+        customer.setEmail("email@example.com");
+        customer.setNote("note");
+        customer.setAddress("201 First St.");
+        customer = customerRepository.save(customer);
+
+        boolean exists = customerRepository.existsById(customer.getId());
+        assertTrue(exists, "Customer should exist by ID");
+    }
+
 }

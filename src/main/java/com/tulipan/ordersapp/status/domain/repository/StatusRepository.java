@@ -19,4 +19,6 @@ public interface StatusRepository {
     List<Status> findAll();
 
     List<Status> findAllByIsActive(Boolean isActive);
+
+    boolean existsById(Long id);
 }

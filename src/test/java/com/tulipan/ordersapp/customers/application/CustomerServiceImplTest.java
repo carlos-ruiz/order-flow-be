@@ -120,4 +120,22 @@ class CustomerServiceImplTest {
         List<Customer> customers = customerService.findAll();
         assertTrue(customers.size() >= 2);
     }
+
+    @Test
+    void existsById_shouldReturnTrue_whenCustomerExists() {
+        Customer customer = new Customer();
+        customer.setName("John");
+        customer.setPhone("1234567897");
+        customer = customerService.save(customer);
+
+        boolean exists = customerService.existsById(customer.getId());
+        assertTrue(exists);
+    }
+
+    @Test
+    void existsById_shouldReturnFalse_whenCustomerDoesNotExist() {
+        Long nonExistentId = 999L;
+        boolean exists = customerService.existsById(nonExistentId);
+        assertFalse(exists);
+    }
 }

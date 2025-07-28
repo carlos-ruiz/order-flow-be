@@ -62,4 +62,9 @@ public class StatusServiceImpl implements StatusService {
     public List<Status> findAllByIsActive(Boolean isActive) {
         return statusRepository.findAllByIsActive(isActive);
     }
+
+    @Override
+    public boolean existsById(Long id) {
+        return statusRepository.existsById(id);
+    }
 }

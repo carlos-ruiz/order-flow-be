@@ -21,4 +21,6 @@ public interface StatusService {
     List<Status> findAll();
 
     List<Status> findAllByIsActive(Boolean isActive);
+
+    boolean existsById(Long id);
 }

@@ -2,10 +2,12 @@ package com.tulipan.ordersapp.orderitems.infrastructure.converters;
 
 import com.tulipan.ordersapp.customers.infrastructure.converters.CustomerConverter;
 import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
+import com.tulipan.ordersapp.orderitems.infrastructure.dto.OrderItemResponseDTO;
 import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
 import com.tulipan.ordersapp.orders.infrastructure.converters.OrderConverter;
 import com.tulipan.ordersapp.products.infrastructure.converters.ProductConverter;
 import com.tulipan.ordersapp.sellers.infrastructure.converters.SellerConverter;
+import com.tulipan.ordersapp.status.infrastructure.converters.StatusConverter;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -20,6 +22,7 @@ public class OrderItemConverter {
         orderItem.setCustomer(CustomerConverter.toModel(orderItemEntity.getCustomer()));
         orderItem.setProduct(ProductConverter.toModel(orderItemEntity.getProduct()));
         orderItem.setOrder(OrderConverter.toModel(orderItemEntity.getOrder()));
+        orderItem.setStatus(StatusConverter.toModel(orderItemEntity.getStatus()));
         return orderItem;
     }
 
@@ -32,6 +35,20 @@ public class OrderItemConverter {
         orderItemEntity.setCustomer(CustomerConverter.toEntity(orderItem.getCustomer()));
         orderItemEntity.setProduct(ProductConverter.toEntity(orderItem.getProduct()));
         orderItemEntity.setOrder(OrderConverter.toEntity(orderItem.getOrder()));
+        orderItemEntity.setStatus(StatusConverter.toEntity(orderItem.getStatus()));
         return orderItemEntity;
+    }
+
+    public static OrderItemResponseDTO modelToResponseDTO(OrderItem orderItem) {
+        return OrderItemResponseDTO.builder()
+            .id(orderItem.getId())
+            .quantity(orderItem.getQuantity())
+            .price(orderItem.getPrice())
+            .customerId(orderItem.getCustomer().getId())
+            .sellerId(orderItem.getSeller().getId())
+            .productId(orderItem.getProduct().getId())
+            .orderId(orderItem.getOrder().getId())
+            .statusId(orderItem.getStatus().getId())
+            .build();
     }
 }

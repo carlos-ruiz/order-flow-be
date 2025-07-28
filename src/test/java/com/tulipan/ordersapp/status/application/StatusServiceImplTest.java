@@ -130,4 +130,13 @@ class StatusServiceImplTest {
         assertEquals(1, activeStatuses.size(), "There should be one active status");
 
     }
+
+    @Test
+    void existsById() {
+        boolean exists = statusService.existsById(savedStatus.getId());
+        assertTrue(exists, "Status should exist by ID");
+
+        boolean notExists = statusService.existsById(0L);
+        assertFalse(notExists, "Status should not exist for non-existing ID");
+    }
 }

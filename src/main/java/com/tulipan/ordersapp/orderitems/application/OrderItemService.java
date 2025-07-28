@@ -2,6 +2,7 @@ package com.tulipan.ordersapp.orderitems.application;
 
 import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,4 +22,6 @@ public interface OrderItemService {
     List<OrderItem> findByOrderId(Long orderId);
 
     List<OrderItem> findBySellerId(Long sellerId);
+
+    OrderItem save(Integer quantity, Long customerId, Long sellerId, Long productId, BigDecimal price, Long orderId, Long statusId);
 }

@@ -59,4 +59,9 @@ public class StatusRepositoryAdapter implements StatusRepository {
             .map(StatusConverter::toModel)
             .toList();
     }
+
+    @Override
+    public boolean existsById(Long id) {
+        return jpaStatusRepository.existsById(id);
+    }
 }

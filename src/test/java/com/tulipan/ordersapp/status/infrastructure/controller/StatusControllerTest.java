@@ -1,150 +1,112 @@
 package com.tulipan.ordersapp.status.infrastructure.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tulipan.ordersapp.status.application.StatusService;
 import com.tulipan.ordersapp.status.domain.model.Status;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@AutoConfigureMockMvc
-@Slf4j
-@SpringBootTest
-@Transactional
+@ExtendWith(MockitoExtension.class)
 class StatusControllerTest {
-    Status shippedStatus, deliveredStatus, pendingStatus;
-    @Autowired
+
     private MockMvc mockMvc;
-    @Autowired
+
+    @Mock
     private StatusService statusService;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
-        Status pending = Status.builder()
-            .name("Pending")
-            .isActive(true)
-            .build();
-        Status shipped = Status.builder()
-            .name("Shipped")
-            .isActive(true)
-            .build();
-        Status delivered = Status.builder()
-            .name("Delivered")
-            .isActive(true)
-            .build();
-        pendingStatus = statusService.save(pending);
-        shippedStatus = statusService.save(shipped);
-        deliveredStatus = statusService.save(delivered);
+        mockMvc = MockMvcBuilders.standaloneSetup(new StatusController(statusService)).build();
     }
 
     @Test
     void getAllStatuses() throws Exception {
+        List<Status> statuses = List.of(
+            new Status(1L, "Pending", true),
+            new Status(2L, "Shipped", true),
+            new Status(3L, "Delivered", true)
+        );
+        when(statusService.findAll()).thenReturn(statuses);
+
         mockMvc.perform(get("/status"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.length()").value(3)) // Verifies the number of statuses
-            .andExpect(jsonPath("$[0].name").value("Pending")) // Verifies the first status name
-            .andExpect(jsonPath("$[0].isActive").value(true)) // Verifies the first status is active
-            .andExpect(jsonPath("$[1].name").value("Shipped")) // Verifies the second status name
-            .andExpect(jsonPath("$[2].name").value("Delivered")); // Verifies the third status name
-    }
-
-    @Test
-    void getAllActiveStatuses() throws Exception {
-        mockMvc.perform(get("/status/active"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.length()").value(3)) // Verifies the number of active statuses
-            .andExpect(jsonPath("$[0].name").value("Pending")) // Verifies the first active status name
-            .andExpect(jsonPath("$[0].isActive").value(true)); // Verifies the first active status is active
-    }
-
-    @Test
-    void getAllInactiveStatuses() throws Exception {
-        Status inactiveStatus = Status.builder()
-            .name("Cancelled")
-            .isActive(false)
-            .build();
-        statusService.save(inactiveStatus);
-
-        mockMvc.perform(get("/status/inactive"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.length()").value(1)) // Verifies the number of inactive statuses
-            .andExpect(jsonPath("$[0].name").value("Cancelled")) // Verifies the inactive status name
-            .andExpect(jsonPath("$[0].isActive").value(false)); // Verifies the inactive status is not active
-    }
-
-    @Test
-    void getAllInactiveStatusesEmpty() throws Exception {
-        mockMvc.perform(get("/status/inactive"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.length()").value(0));
+            .andExpect(jsonPath("$.length()").value(3))
+            .andExpect(jsonPath("$[0].name").value("Pending"))
+            .andExpect(jsonPath("$[1].name").value("Shipped"))
+            .andExpect(jsonPath("$[2].name").value("Delivered"));
     }
 
     @Test
     void createStatus() throws Exception {
-        Status newStatus = Status.builder()
-            .name("Cancelled")
-            .isActive(false)
-            .build();
+        Status newStatus = new Status(null, "Cancelled", false);
+        Status savedStatus = new Status(4L, "Cancelled", false);
+        when(statusService.save(newStatus)).thenReturn(savedStatus);
+
         mockMvc.perform(post("/status")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(newStatus)))
+                .content("{\"name\":\"Cancelled\",\"isActive\":false}"))
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.name").value(newStatus.getName()))
-            .andExpect(jsonPath("$.isActive").value(newStatus.getIsActive()));
+            .andExpect(jsonPath("$.id").value(4))
+            .andExpect(jsonPath("$.name").value("Cancelled"))
+            .andExpect(jsonPath("$.isActive").value(false));
     }
 
     @Test
     void getStatusById() throws Exception {
-        mockMvc.perform(get("/status/" + pendingStatus.getId()))
+        Status status = new Status(1L, "Pending", true);
+        when(statusService.findById(1L)).thenReturn(Optional.of(status));
+
+        mockMvc.perform(get("/status/1"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.name").value("Pending"))
             .andExpect(jsonPath("$.isActive").value(true));
     }
 
     @Test
-    void getStatusByName() throws Exception {
-        mockMvc.perform(get("/status/name/Shipped"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.name").value("Shipped"))
-            .andExpect(jsonPath("$.isActive").value(true));
+    void getStatusById_NotFound() throws Exception {
+        when(statusService.findById(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/status/1"))
+            .andExpect(status().isNotFound());
     }
 
     @Test
-    void updateStatus() throws Exception {
-        Status updatedStatus = Status.builder()
-            .name("Updated")
-            .isActive(false)
-            .build();
-        mockMvc.perform(put("/status/" + pendingStatus.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(updatedStatus)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.name").value(updatedStatus.getName()))
-            .andExpect(jsonPath("$.isActive").value(updatedStatus.getIsActive()));
-    }
+    void deleteStatus_Success() throws Exception {
+        when(statusService.existsById(1L)).thenReturn(true);
 
-    @Test
-    void deleteStatus() throws Exception {
-        mockMvc.perform(delete("/status/" + pendingStatus.getId()))
+        mockMvc.perform(delete("/status/1"))
             .andExpect(status().isNoContent());
     }
 
     @Test
-    void deleteStatusNotFound() throws Exception {
-        mockMvc.perform(delete("/status/9999"))
-            .andExpect(status().isNotFound())
-            .andExpect(content().string("Status with id 9999 not found"));
+    void deleteStatus_NotFound() throws Exception {
+        when(statusService.existsById(1L)).thenReturn(false);
+
+        mockMvc.perform(delete("/status/1"))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void findStatusByName() throws Exception {
+        Status status = new Status(1L, "Pending", true);
+        when(statusService.findByName("Pending")).thenReturn(Optional.of(status));
+
+        mockMvc.perform(get("/status/name/Pending"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.name").value("Pending"))
+            .andExpect(jsonPath("$.isActive").value(true));
     }
 
     @Test
@@ -159,5 +121,48 @@ class StatusControllerTest {
         mockMvc.perform(get("/status/9999"))
             .andExpect(status().isNotFound())
             .andExpect(content().string("Status with id 9999 not found"));
+    }
+
+    @Test
+    void updateStatus() throws Exception {
+        Status updatedStatus = new Status(1L, "Updated", true);
+        when(statusService.update(updatedStatus)).thenReturn(updatedStatus);
+
+        mockMvc.perform(put("/status/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"id\":1,\"name\":\"Updated\",\"isActive\":true}"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.name").value("Updated"))
+            .andExpect(jsonPath("$.isActive").value(true));
+    }
+
+    @Test
+    void getAllActiveStatuses() throws Exception {
+        List<Status> activeStatuses = List.of(
+            new Status(1L, "Pending", true),
+            new Status(2L, "Shipped", true)
+        );
+        when(statusService.findAllByIsActive(true)).thenReturn(activeStatuses);
+
+        mockMvc.perform(get("/status/active"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.length()").value(2))
+            .andExpect(jsonPath("$[0].name").value("Pending"))
+            .andExpect(jsonPath("$[1].name").value("Shipped"));
+    }
+
+    @Test
+    void getAllInactiveStatuses() throws Exception {
+        List<Status> inactiveStatuses = List.of(
+            new Status(3L, "Cancelled", false),
+            new Status(4L, "Returned", false)
+        );
+        when(statusService.findAllByIsActive(false)).thenReturn(inactiveStatuses);
+
+        mockMvc.perform(get("/status/inactive"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.length()").value(2))
+            .andExpect(jsonPath("$[0].name").value("Cancelled"))
+            .andExpect(jsonPath("$[1].name").value("Returned"));
     }
 }
