@@ -102,7 +102,7 @@ class OrderItemControllerTest {
             .getContentAsString();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        List<OrderItemResponseDTO> itemResponseDTOS = objectMapper.readValue(responseContent, new TypeReference<List<OrderItemResponseDTO>>() {
+        List<OrderItemResponseDTO> itemResponseDTOS = objectMapper.readValue(responseContent, new TypeReference<>() {
         });
         assertEquals(1, itemResponseDTOS.size());
         assertEquals(orderItem.getId(), itemResponseDTOS.getFirst().getId());

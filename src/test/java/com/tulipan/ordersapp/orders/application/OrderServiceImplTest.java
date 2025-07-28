@@ -73,17 +73,17 @@ class OrderServiceImplTest {
 
     @Test
     void testSaveWithNullPlatformId() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            orderService.save(order.getDateTime(), order.getDiscount(), null);
-        }, "Platform ID cannot be null");
+        LocalDateTime dateTime = order.getDateTime();
+        BigDecimal discount = order.getDiscount();
+        assertThrows(IllegalArgumentException.class, () -> orderService.save(dateTime, discount, null), "Platform ID cannot be null");
     }
 
     @Test
     void testSaveWithNonExistentPlatform() {
         Long nonExistentPlatformId = 999L; // Assuming this ID does not exist
-        assertThrows(PlatformNotFoundException.class, () -> {
-            orderService.save(order.getDateTime(), order.getDiscount(), nonExistentPlatformId);
-        }, "Platform with ID " + nonExistentPlatformId + " should not exist");
+        LocalDateTime dateTime = order.getDateTime();
+        BigDecimal discount = order.getDiscount();
+        assertThrows(PlatformNotFoundException.class, () -> orderService.save(dateTime, discount, nonExistentPlatformId), "Platform with ID " + nonExistentPlatformId + " should not exist");
     }
 
     @Test

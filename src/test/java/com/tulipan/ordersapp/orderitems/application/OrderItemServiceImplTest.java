@@ -159,27 +159,59 @@ class OrderItemServiceImplTest {
         Long productId = product.getId();
         Long orderId = order.getId();
         Long statusId = status.getId();
+        BigDecimal price = BigDecimal.valueOf(150.00);
+
+        if (customerId == null || sellerId == null || productId == null || orderId == null || statusId == null) {
+            throw new IllegalArgumentException("Customer, Seller, Product, Order, and Status IDs must not be null");
+        }
+
         assertThrows(IllegalArgumentException.class, () ->
-            orderItemService.save(0, customerId, sellerId, productId, BigDecimal.valueOf(150.00), orderId, statusId)
+            orderItemService.save(0, customerId, sellerId, productId, price, orderId, statusId)
         );
     }
 
     @Test
     void save_shouldThrowException_whenQuantityIsNull() {
-        assertThrows(IllegalArgumentException.class, () ->
-            orderItemService.save(null, customer.getId(), seller.getId(), product.getId(), BigDecimal.valueOf(150.00), order.getId(), status.getId()), "Quantity must be greater than zero");
+        Long customerId = customer.getId();
+        Long sellerId = seller.getId();
+        Long productId = product.getId();
+        Long orderId = order.getId();
+        Long statusId = status.getId();
+        BigDecimal price = BigDecimal.valueOf(150.00);
+
+        if (customerId == null || sellerId == null || productId == null || orderId == null || statusId == null) {
+            throw new IllegalArgumentException("Customer, Seller, Product, Order, and Status IDs must not be null");
+        }
+
+        assertThrows(IllegalArgumentException.class, () -> orderItemService.save(null, customerId, sellerId, productId, price, orderId, statusId), "Quantity must be greater than zero");
     }
 
     @Test
     void save_shouldThrowException_whenPriceIsInvalid() {
+        Long customerId = customer.getId();
+        Long sellerId = seller.getId();
+        Long productId = product.getId();
+        Long orderId = order.getId();
+        Long statusId = status.getId();
+        BigDecimal price = BigDecimal.ZERO;
+
+        if (customerId == null || sellerId == null || productId == null || orderId == null || statusId == null) {
+            throw new IllegalArgumentException("Customer, Seller, Product, Order, and Status IDs must not be null");
+        }
+
         assertThrows(IllegalArgumentException.class, () ->
-            orderItemService.save(2, customer.getId(), seller.getId(), product.getId(), BigDecimal.ZERO, order.getId(), status.getId()));
+            orderItemService.save(2, customerId, sellerId, productId, price, orderId, statusId));
     }
 
     @Test
     void save_shouldThrowException_whenPriceIsNull() {
+        Long customerId = customer.getId();
+        Long sellerId = seller.getId();
+        Long productId = product.getId();
+        Long orderId = order.getId();
+        Long statusId = status.getId();
         assertThrows(IllegalArgumentException.class, () ->
-            orderItemService.save(2, customer.getId(), seller.getId(), product.getId(), null, order.getId(), status.getId()));
+            orderItemService.save(2, customerId, sellerId, productId, null, orderId, statusId), "Price must not be null");
     }
 
     @Test
