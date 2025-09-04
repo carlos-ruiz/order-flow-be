@@ -65,6 +65,7 @@ public class ProductRepositoryAdapter implements ProductRepository {
             .color(entity.getColor())
             .size(entity.getSize())
             .finalPrice(entity.getFinalPrice())
+            .description(entity.getDescription())
             .build();
     }
 
@@ -76,6 +77,7 @@ public class ProductRepositoryAdapter implements ProductRepository {
             .color(product.getColor())
             .size(product.getSize())
             .finalPrice(product.getFinalPrice())
+            .description(product.getDescription())
             .build();
     }
 }
