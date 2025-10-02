@@ -48,4 +48,13 @@ public class OrderItemController {
             .toList();
         return ResponseEntity.ok(responseDTOs);
     }
+
+    @GetMapping
+    public ResponseEntity<List<OrderItemResponseDTO>> getAllOrderItems() {
+        List<OrderItem> orderItems = orderItemService.findAll();
+        List<OrderItemResponseDTO> responseDTOs = orderItems.stream()
+            .map(OrderItemConverter::modelToResponseDTO)
+            .toList();
+        return ResponseEntity.ok(responseDTOs);
+    }
 }
