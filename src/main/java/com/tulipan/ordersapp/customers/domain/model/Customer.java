@@ -17,4 +17,6 @@ public class Customer {
     private String phone;
     private String address;
     private String note;
+    @Builder.Default
+    private Boolean active = true;
 }

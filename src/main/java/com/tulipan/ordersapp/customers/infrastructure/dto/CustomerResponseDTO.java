@@ -17,4 +17,5 @@ public class CustomerResponseDTO {
     private String phone;
     private String address;
     private String note;
+    private Boolean active;
 }

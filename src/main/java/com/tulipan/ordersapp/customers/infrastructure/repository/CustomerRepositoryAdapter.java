@@ -3,42 +3,24 @@ package com.tulipan.ordersapp.customers.infrastructure.repository;
 import com.tulipan.ordersapp.customers.domain.exceptions.CustomerNotFoundException;
 import com.tulipan.ordersapp.customers.domain.model.Customer;
 import com.tulipan.ordersapp.customers.domain.repository.CustomerRepository;
+import com.tulipan.ordersapp.customers.infrastructure.converters.CustomerConverter;
 import com.tulipan.ordersapp.customers.infrastructure.entities.CustomerEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+import static com.tulipan.ordersapp.customers.infrastructure.converters.CustomerConverter.toEntity;
+import static com.tulipan.ordersapp.customers.infrastructure.converters.CustomerConverter.toModel;
+
+@Slf4j
 @Component
 public class CustomerRepositoryAdapter implements CustomerRepository {
     private final JpaCustomerRepository jpaCustomerRepository;
 
     public CustomerRepositoryAdapter(JpaCustomerRepository repository) {
         this.jpaCustomerRepository = repository;
-    }
-
-    private CustomerEntity toEntity(Customer customer) {
-        CustomerEntity entity = new CustomerEntity();
-        entity.setId(customer.getId());
-        entity.setName(customer.getName());
-        entity.setLastName(customer.getLastName());
-        entity.setAddress(customer.getAddress());
-        entity.setPhone(customer.getPhone());
-        entity.setEmail(customer.getEmail());
-        entity.setNote(customer.getNote());
-        return entity;
-    }
-
-    private Customer toModel(CustomerEntity entity) {
-        Customer customer = new Customer();
-        customer.setId(entity.getId());
-        customer.setName(entity.getName());
-        customer.setLastName(entity.getLastName());
-        customer.setAddress(entity.getAddress());
-        customer.setPhone(entity.getPhone());
-        customer.setEmail(entity.getEmail());
-        customer.setNote(entity.getNote());
-        return customer;
     }
 
     public Customer save(Customer customer) {
@@ -49,13 +31,13 @@ public class CustomerRepositoryAdapter implements CustomerRepository {
 
     public Optional<Customer> findById(Long id) {
         return jpaCustomerRepository.findById(id)
-            .map(this::toModel);
+            .map(CustomerConverter::toModel);
     }
 
     public List<Customer> findAll() {
         return jpaCustomerRepository.findAll()
             .stream()
-            .map(this::toModel)
+            .map(CustomerConverter::toModel)
             .toList();
     }
 
@@ -74,14 +56,11 @@ public class CustomerRepositoryAdapter implements CustomerRepository {
     }
 
     public Customer update(Customer customer) {
+        log.info("Updating customer {}", customer);
         CustomerEntity entity = jpaCustomerRepository.findById(customer.getId())
             .orElseThrow(() -> new CustomerNotFoundException(customer.getId()));
-        entity.setName(customer.getName());
-        entity.setLastName(customer.getLastName());
-        entity.setAddress(customer.getAddress());
-        entity.setPhone(customer.getPhone());
-        entity.setEmail(customer.getEmail());
-        entity.setNote(customer.getNote());
+        customer.setId(entity.getId());
+        entity = toEntity(customer);
         CustomerEntity updatedEntity = jpaCustomerRepository.save(entity);
         return toModel(updatedEntity);
     }

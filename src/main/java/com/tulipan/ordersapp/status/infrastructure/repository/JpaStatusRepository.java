@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface JpaStatusRepository extends JpaRepository<StatusEntity, Long> {
     Optional<StatusEntity> findByName(String name);
 
-    List<StatusEntity> findAllByIsActive(Boolean isActive);
+    List<StatusEntity> findAllByActive(Boolean active);
 }

@@ -13,7 +13,7 @@ public class StatusConverter {
         Status status = new Status();
         status.setId(statusEntity.getId());
         status.setName(statusEntity.getName());
-        status.setIsActive(statusEntity.getIsActive());
+        status.setActive(statusEntity.getActive());
         return status;
     }
 
@@ -24,7 +24,7 @@ public class StatusConverter {
         StatusEntity statusEntity = new StatusEntity();
         statusEntity.setId(status.getId());
         statusEntity.setName(status.getName());
-        statusEntity.setIsActive(status.getIsActive());
+        statusEntity.setActive(status.getActive());
         return statusEntity;
     }
 }

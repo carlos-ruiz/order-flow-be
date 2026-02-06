@@ -18,6 +18,7 @@ public class CustomerConverter {
             .phone(customerEntity.getPhone())
             .address(customerEntity.getAddress())
             .note(customerEntity.getNote())
+            .active(customerEntity.getActive())
             .build();
     }
 
@@ -33,6 +34,7 @@ public class CustomerConverter {
         customerEntity.setPhone(customer.getPhone());
         customerEntity.setAddress(customer.getAddress());
         customerEntity.setNote(customer.getNote());
+        customerEntity.setActive(customer.getActive());
         return customerEntity;
     }
 }

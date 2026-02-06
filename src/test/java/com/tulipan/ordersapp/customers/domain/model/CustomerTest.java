@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CustomerTest {
     @Test
     void customerAllArgsConstructor_shouldInitializeFieldsCorrectly() {
-        Customer customer = new Customer(1L, "John", "Doe", "john@mail.com", "1234567890", "123 Main St.", "This is a note.");
+        Customer customer = new Customer(1L, "John", "Doe", "john@mail.com", "1234567890", "123 Main St.", "This is a note.", true);
 
         assertEquals(1L, customer.getId());
         assertEquals("John", customer.getName());
@@ -40,8 +40,8 @@ class CustomerTest {
 
     @Test
     void customerEqualsAndHashCode_shouldBeConsistent() {
-        Customer customer1 = new Customer(1L, "John", "Doe", "john@mail.com", "1234567890", "123 Main St.", "This is a note.");
-        Customer customer2 = new Customer(1L, "John", "Doe", "john@mail.com", "1234567890", "123 Main St.", "This is a note.");
+        Customer customer1 = new Customer(1L, "John", "Doe", "john@mail.com", "1234567890", "123 Main St.", "This is a note.", true);
+        Customer customer2 = new Customer(1L, "John", "Doe", "john@mail.com", "1234567890", "123 Main St.", "This is a note.", true);
 
         assertEquals(customer1, customer2);
         assertEquals(customer1.hashCode(), customer2.hashCode());
@@ -49,7 +49,7 @@ class CustomerTest {
 
     @Test
     void customerToString_shouldReturnCorrectFormat() {
-        Customer customer = new Customer(1L, "John", "Doe", "john@mail.com", "1234567890", "123 Main St.", "This is a note.");
+        Customer customer = new Customer(1L, "John", "Doe", "john@mail.com", "1234567890", "123 Main St.", "This is a note.", true);
         String expected = "Customer(id=1, name=John, lastName=Doe, email=john@mail.com, phone=1234567890, address=123 Main St., note=This is a note.)";
 
         assertEquals(expected, customer.toString());

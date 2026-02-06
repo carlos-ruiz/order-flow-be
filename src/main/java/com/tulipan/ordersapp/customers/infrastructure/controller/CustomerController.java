@@ -30,21 +30,10 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<CustomerResponseDTO> createCustomer(@RequestBody CustomerRequestDTO customerRequest) {
-        Customer customer = Customer.builder()
-            .name(customerRequest.getName())
-            .email(customerRequest.getEmail())
-            .phone(customerRequest.getPhone())
-            .address(customerRequest.getAddress())
-            .build();
+        Customer customer = toModel(customerRequest);
 
         Customer savedCustomer = customerService.save(customer);
-        CustomerResponseDTO responseDTO = CustomerResponseDTO.builder()
-            .id(savedCustomer.getId())
-            .name(savedCustomer.getName())
-            .email(savedCustomer.getEmail())
-            .phone(savedCustomer.getPhone())
-            .address(savedCustomer.getAddress())
-            .build();
+        CustomerResponseDTO responseDTO = toResponseDTO(savedCustomer);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
@@ -52,13 +41,7 @@ public class CustomerController {
     public ResponseEntity<CustomerResponseDTO> getCustomerById(@PathVariable Long id) {
         Customer customer = customerService.findById(id)
             .orElseThrow(() -> new CustomerNotFoundException(id));
-        CustomerResponseDTO customerResponseDTO = CustomerResponseDTO.builder()
-            .id(customer.getId())
-            .name(customer.getName())
-            .email(customer.getEmail())
-            .phone(customer.getPhone())
-            .address(customer.getAddress())
-            .build();
+        CustomerResponseDTO customerResponseDTO = toResponseDTO(customer);
         return new ResponseEntity<>(customerResponseDTO, HttpStatus.OK);
     }
 
@@ -66,34 +49,17 @@ public class CustomerController {
     public ResponseEntity<List<CustomerResponseDTO>> getAllCustomers() {
         List<Customer> customers = customerService.findAll();
         List<CustomerResponseDTO> customerResponseDTOs = customers.stream()
-            .map(customer -> CustomerResponseDTO.builder()
-                .id(customer.getId())
-                .name(customer.getName())
-                .email(customer.getEmail())
-                .phone(customer.getPhone())
-                .address(customer.getAddress())
-                .build())
+            .map(this::toResponseDTO)
             .toList();
         return ResponseEntity.ok(customerResponseDTOs);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomerResponseDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerRequestDTO customerRequestDTO) {
-        Customer customer = Customer.builder()
-            .name(customerRequestDTO.getName())
-            .email(customerRequestDTO.getEmail())
-            .phone(customerRequestDTO.getPhone())
-            .address(customerRequestDTO.getAddress())
-            .build();
+        Customer customer = toModel(customerRequestDTO);
         customer.setId(id);
         Customer updatedCustomer = customerService.update(customer);
-        CustomerResponseDTO customerResponseDTO = CustomerResponseDTO.builder()
-            .id(updatedCustomer.getId())
-            .name(updatedCustomer.getName())
-            .email(updatedCustomer.getEmail())
-            .phone(updatedCustomer.getPhone())
-            .address(updatedCustomer.getAddress())
-            .build();
+        CustomerResponseDTO customerResponseDTO = toResponseDTO(updatedCustomer);
         return ResponseEntity.ok(customerResponseDTO);
     }
 
@@ -109,5 +75,30 @@ public class CustomerController {
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<String> handleCustomerNotFoundException(CustomerNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    private CustomerResponseDTO toResponseDTO(Customer customer) {
+        return CustomerResponseDTO.builder()
+            .id(customer.getId())
+            .name(customer.getName())
+            .lastName(customer.getLastName())
+            .email(customer.getEmail())
+            .phone(customer.getPhone())
+            .address(customer.getAddress())
+            .note(customer.getNote())
+            .active(customer.getActive())
+            .build();
+    }
+
+    private Customer toModel(CustomerRequestDTO customerRequestDTO) {
+        return Customer.builder()
+            .name(customerRequestDTO.getName())
+            .lastName(customerRequestDTO.getLastName())
+            .email(customerRequestDTO.getEmail())
+            .phone(customerRequestDTO.getPhone())
+            .address(customerRequestDTO.getAddress())
+            .note(customerRequestDTO.getNote())
+            .active(customerRequestDTO.getActive())
+            .build();
     }
 }

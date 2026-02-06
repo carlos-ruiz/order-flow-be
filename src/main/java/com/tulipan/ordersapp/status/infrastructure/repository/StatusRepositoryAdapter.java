@@ -53,8 +53,8 @@ public class StatusRepositoryAdapter implements StatusRepository {
     }
 
     @Override
-    public List<Status> findAllByIsActive(Boolean isActive) {
-        return jpaStatusRepository.findAllByIsActive(isActive)
+    public List<Status> findAllByActive(Boolean active) {
+        return jpaStatusRepository.findAllByActive(active)
             .stream()
             .map(StatusConverter::toModel)
             .toList();

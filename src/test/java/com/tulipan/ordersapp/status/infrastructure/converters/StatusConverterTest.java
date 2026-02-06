@@ -13,14 +13,14 @@ class StatusConverterTest {
         StatusEntity statusEntity = new StatusEntity();
         statusEntity.setId(1L);
         statusEntity.setName("Pending");
-        statusEntity.setIsActive(true);
+        statusEntity.setActive(true);
 
         Status status = StatusConverter.toModel(statusEntity);
 
         assertNotNull(status);
         assertEquals(1L, status.getId());
         assertEquals("Pending", status.getName());
-        assertTrue(status.getIsActive());
+        assertTrue(status.getActive());
     }
 
     @Test
@@ -34,14 +34,14 @@ class StatusConverterTest {
         Status status = new Status();
         status.setId(2L);
         status.setName("Shipped");
-        status.setIsActive(false);
+        status.setActive(false);
 
         StatusEntity statusEntity = StatusConverter.toEntity(status);
 
         assertNotNull(statusEntity);
         assertEquals(2L, statusEntity.getId());
         assertEquals("Shipped", statusEntity.getName());
-        assertFalse(statusEntity.getIsActive());
+        assertFalse(statusEntity.getActive());
     }
 
     @Test

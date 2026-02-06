@@ -23,13 +23,17 @@ class StatusServiceImplTest {
 
     private Status savedStatus;
 
+    private static Status createStatus() {
+        return Status.builder()
+            .name("Pending")
+            .active(true)
+            .build();
+    }
+
     @BeforeEach
     void setUp() {
         log.info("Setting up test data");
-        Status status = Status.builder()
-            .name("Pending")
-            .isActive(true)
-            .build();
+        Status status = createStatus();
         savedStatus = statusService.save(status);
         log.info("Saved status: {}", savedStatus);
     }
@@ -41,7 +45,7 @@ class StatusServiceImplTest {
         assertNotNull(statusFound, "Status should not be null");
         assertEquals(savedStatus.getId(), statusFound.getId(), "IDs should match");
         assertEquals(savedStatus.getName(), statusFound.getName(), "Names should match");
-        assertEquals(savedStatus.getIsActive(), statusFound.getIsActive(), "Active status should match");
+        assertEquals(savedStatus.getActive(), statusFound.getActive(), "Active status should match");
     }
 
     @Test
@@ -51,14 +55,14 @@ class StatusServiceImplTest {
         assertNotNull(statusFound);
         assertEquals(savedStatus.getId(), statusFound.getId());
         assertEquals(savedStatus.getName(), statusFound.getName());
-        assertEquals(savedStatus.getIsActive(), statusFound.getIsActive());
+        assertEquals(savedStatus.getActive(), statusFound.getActive());
     }
 
     @Test
     void save() {
         assertNotNull(savedStatus);
         assertEquals("Pending", savedStatus.getName());
-        assertEquals(true, savedStatus.getIsActive());
+        assertEquals(true, savedStatus.getActive());
     }
 
     @Test
@@ -66,7 +70,7 @@ class StatusServiceImplTest {
         Status updatedStatus = Status.builder()
             .id(savedStatus.getId())
             .name("Completed")
-            .isActive(false)
+            .active(false)
             .build();
 
         Status statusUpdated = statusService.update(updatedStatus);
@@ -74,7 +78,7 @@ class StatusServiceImplTest {
         assertNotNull(statusUpdated);
         assertEquals(savedStatus.getId(), statusUpdated.getId());
         assertEquals(updatedStatus.getName(), statusUpdated.getName());
-        assertEquals(updatedStatus.getIsActive(), statusUpdated.getIsActive());
+        assertEquals(updatedStatus.getActive(), statusUpdated.getActive());
     }
 
     @Test
@@ -82,7 +86,7 @@ class StatusServiceImplTest {
         Status updatedStatus = Status.builder()
             .id(0L)
             .name("Completed")
-            .isActive(false)
+            .active(false)
             .build();
 
         assertThrows(StatusNotFoundException.class, () -> statusService.update(updatedStatus));
@@ -105,13 +109,10 @@ class StatusServiceImplTest {
 
     @Test
     void findAll() {
-        Status status1 = Status.builder()
-            .name("Pending")
-            .isActive(true)
-            .build();
+        Status status1 = createStatus();
         Status status2 = Status.builder()
             .name("Completed")
-            .isActive(false)
+            .active(false)
             .build();
 
         statusService.save(status1);
@@ -121,11 +122,11 @@ class StatusServiceImplTest {
     }
 
     @Test
-    void findAllByIsActive() {
-        List<Status> activeStatuses = statusService.findAllByIsActive(true);
+    void findAllByActive() {
+        List<Status> activeStatuses = statusService.findAllByActive(true);
         assertFalse(activeStatuses.isEmpty(), "Active statuses should not be empty");
         for (Status status : activeStatuses) {
-            assertTrue(status.getIsActive(), "Status should be active");
+            assertTrue(status.getActive(), "Status should be active");
         }
         assertEquals(1, activeStatuses.size(), "There should be one active status");
 
