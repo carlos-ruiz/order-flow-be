@@ -17,7 +17,8 @@ public class SellerConverter {
             sellerEntity.getLastName(),
             sellerEntity.getAddress(),
             sellerEntity.getPhone(),
-            sellerEntity.getEmail()
+            sellerEntity.getEmail(),
+            sellerEntity.getActive()
         );
     }
 
@@ -32,6 +33,7 @@ public class SellerConverter {
         sellerEntity.setAddress(seller.getAddress());
         sellerEntity.setPhone(seller.getPhone());
         sellerEntity.setEmail(seller.getEmail());
+        sellerEntity.setActive(seller.getActive());
         return sellerEntity;
     }
 }

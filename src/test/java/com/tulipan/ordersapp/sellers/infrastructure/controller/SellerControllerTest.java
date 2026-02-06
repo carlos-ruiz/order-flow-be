@@ -51,6 +51,14 @@ class SellerControllerTest {
     }
 
     @Test
+    void createSeller_DuplicateEmail_ReturnsBadRequest() throws Exception {
+        mockMvc.perform(post("/sellers")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"Seller1\", \"phone\":\"1234567890\"}"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void getSellerById_SellerExists() throws Exception {
         Seller seller = Seller.builder().id(1L).name("Seller1").build();
         when(sellerService.findById(anyLong())).thenReturn(Optional.of(seller));

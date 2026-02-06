@@ -47,7 +47,7 @@ class OrderItemControllerTest {
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(new OrderItemController(orderItemService)).build();
         customer = new Customer(1L, "John", "Doe", "mail@mail.com", "1234567890", "123 Main St", "Note");
-        seller = new Seller(2L, "Jane", "Doe", "202 second St", "9876543210", "mail@mail.com");
+        seller = new Seller(2L, "Jane", "Doe", "202 second St", "9876543210", "mail@mail.com", true);
         product = new Product(3L, "Shampoo", BigDecimal.valueOf(50.00), "N/A", "N/A", BigDecimal.valueOf(50.00), "Shampoo for all hair types");
         status = new Status(1L, "Pending", true);
         Platform platform = new Platform(1L, "Amazon", BigDecimal.ZERO, BigDecimal.valueOf(10.00), true);
