@@ -50,7 +50,7 @@ class CustomerTest {
     @Test
     void customerToString_shouldReturnCorrectFormat() {
         Customer customer = new Customer(1L, "John", "Doe", "john@mail.com", "1234567890", "123 Main St.", "This is a note.", true);
-        String expected = "Customer(id=1, name=John, lastName=Doe, email=john@mail.com, phone=1234567890, address=123 Main St., note=This is a note.)";
+        String expected = "Customer(id=1, name=John, lastName=Doe, email=john@mail.com, phone=1234567890, address=123 Main St., note=This is a note., active=true)";
 
         assertEquals(expected, customer.toString());
     }
