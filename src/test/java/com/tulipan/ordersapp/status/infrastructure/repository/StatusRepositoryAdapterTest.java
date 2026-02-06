@@ -21,10 +21,7 @@ class StatusRepositoryAdapterTest {
 
     @Test
     void findById() {
-        Status statusEntity = Status.builder()
-            .name("Pending")
-            .isActive(true)
-            .build();
+        Status statusEntity = createStatus();
 
         Status savedEntity = statusRepositoryAdapter.save(statusEntity);
         Optional<Status> statusFound = statusRepositoryAdapter.findById(savedEntity.getId());
@@ -32,16 +29,13 @@ class StatusRepositoryAdapterTest {
         assert statusFound.isPresent();
         assertEquals(savedEntity.getId(), statusFound.get().getId());
         assertEquals("Pending", statusFound.get().getName());
-        assertEquals(true, statusFound.get().getIsActive());
+        assertEquals(true, statusFound.get().getActive());
     }
 
     @Test
     void findByName() {
         String name = "Pending";
-        Status entity = Status.builder()
-            .name(name)
-            .isActive(true)
-            .build();
+        Status entity = createStatus();
         statusRepositoryAdapter.save(entity);
 
         Optional<Status> statusFound = statusRepositoryAdapter.findByName(name);
@@ -49,30 +43,24 @@ class StatusRepositoryAdapterTest {
 
         assert statusFound.isPresent();
         assertEquals(name, statusFound.get().getName());
-        assertEquals(true, statusFound.get().getIsActive());
+        assertEquals(true, statusFound.get().getActive());
     }
 
     @Test
     void save() {
-        Status status = Status.builder()
-            .name("Pending")
-            .isActive(true)
-            .build();
+        Status status = createStatus();
 
         Status saved = statusRepositoryAdapter.save(status);
         log.info("Saved entity: {}", saved);
 
         assertNotNull(saved.getId());
         assertEquals(status.getName(), saved.getName());
-        assertEquals(status.getIsActive(), saved.getIsActive());
+        assertEquals(status.getActive(), saved.getActive());
     }
 
     @Test
     void deleteById() {
-        Status status = Status.builder()
-            .name("Pending")
-            .isActive(true)
-            .build();
+        Status status = createStatus();
 
         Status saved = statusRepositoryAdapter.save(status);
         statusRepositoryAdapter.deleteById(saved.getId());
@@ -83,10 +71,7 @@ class StatusRepositoryAdapterTest {
 
     @Test
     void delete() {
-        Status status = Status.builder()
-            .name("Pending")
-            .isActive(true)
-            .build();
+        Status status = createStatus();
 
         Status saved = statusRepositoryAdapter.save(status);
         statusRepositoryAdapter.delete(saved);
@@ -97,13 +82,10 @@ class StatusRepositoryAdapterTest {
 
     @Test
     void findAll() {
-        Status statusEntity1 = Status.builder()
-            .name("Pending")
-            .isActive(true)
-            .build();
+        Status statusEntity1 = createStatus();
         Status statusEntity2 = Status.builder()
             .name("Completed")
-            .isActive(false)
+            .active(false)
             .build();
 
         statusRepositoryAdapter.save(statusEntity1);
@@ -116,20 +98,17 @@ class StatusRepositoryAdapterTest {
     }
 
     @Test
-    void findAllByIsActive() {
-        Status statusEntity1 = Status.builder()
-            .name("Pending")
-            .isActive(true)
-            .build();
+    void findAllByActive() {
+        Status statusEntity1 = createStatus();
         Status statusEntity2 = Status.builder()
             .name("Completed")
-            .isActive(false)
+            .active(false)
             .build();
 
         statusRepositoryAdapter.save(statusEntity1);
         statusRepositoryAdapter.save(statusEntity2);
 
-        List<Status> activeStatuses = statusRepositoryAdapter.findAllByIsActive(true);
+        List<Status> activeStatuses = statusRepositoryAdapter.findAllByActive(true);
         log.info("Active statuses: {}", activeStatuses);
 
         assertEquals(1, activeStatuses.size());
@@ -138,19 +117,16 @@ class StatusRepositoryAdapterTest {
 
     @Test
     void findAllByIsInactive() {
-        Status statusEntity1 = Status.builder()
-            .name("Pending")
-            .isActive(true)
-            .build();
+        Status statusEntity1 = createStatus();
         Status statusEntity2 = Status.builder()
             .name("Completed")
-            .isActive(false)
+            .active(false)
             .build();
 
         statusRepositoryAdapter.save(statusEntity1);
         statusRepositoryAdapter.save(statusEntity2);
 
-        List<Status> inactiveStatuses = statusRepositoryAdapter.findAllByIsActive(false);
+        List<Status> inactiveStatuses = statusRepositoryAdapter.findAllByActive(false);
         log.info("Inactive statuses: {}", inactiveStatuses);
 
         assertEquals(1, inactiveStatuses.size());
@@ -158,10 +134,17 @@ class StatusRepositoryAdapterTest {
     }
 
     @Test
-    void findAllByIsActive_EmptyList() {
-        List<Status> activeStatuses = statusRepositoryAdapter.findAllByIsActive(true);
+    void findAllByActive_EmptyList() {
+        List<Status> activeStatuses = statusRepositoryAdapter.findAllByActive(true);
         log.info("Active statuses: {}", activeStatuses);
 
         assertTrue(activeStatuses.isEmpty(), "Expected empty list of active statuses");
+    }
+
+    private Status createStatus() {
+        return Status.builder()
+            .name("Pending")
+            .active(true)
+            .build();
     }
 }

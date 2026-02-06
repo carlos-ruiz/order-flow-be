@@ -56,11 +56,11 @@ class StatusControllerTest {
 
         mockMvc.perform(post("/status")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"Cancelled\",\"isActive\":false}"))
+                .content("{\"name\":\"Cancelled\",\"active\":false}"))
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.id").value(4))
             .andExpect(jsonPath("$.name").value("Cancelled"))
-            .andExpect(jsonPath("$.isActive").value(false));
+            .andExpect(jsonPath("$.active").value(false));
     }
 
     @Test
@@ -71,7 +71,7 @@ class StatusControllerTest {
         mockMvc.perform(get("/status/1"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.name").value("Pending"))
-            .andExpect(jsonPath("$.isActive").value(true));
+            .andExpect(jsonPath("$.active").value(true));
     }
 
     @Test
@@ -106,7 +106,7 @@ class StatusControllerTest {
         mockMvc.perform(get("/status/name/Pending"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.name").value("Pending"))
-            .andExpect(jsonPath("$.isActive").value(true));
+            .andExpect(jsonPath("$.active").value(true));
     }
 
     @Test
@@ -130,10 +130,10 @@ class StatusControllerTest {
 
         mockMvc.perform(put("/status/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":1,\"name\":\"Updated\",\"isActive\":true}"))
+                .content("{\"id\":1,\"name\":\"Updated\",\"active\":true}"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.name").value("Updated"))
-            .andExpect(jsonPath("$.isActive").value(true));
+            .andExpect(jsonPath("$.active").value(true));
     }
 
     @Test
@@ -142,7 +142,7 @@ class StatusControllerTest {
             new Status(1L, "Pending", true),
             new Status(2L, "Shipped", true)
         );
-        when(statusService.findAllByIsActive(true)).thenReturn(activeStatuses);
+        when(statusService.findAllByActive(true)).thenReturn(activeStatuses);
 
         mockMvc.perform(get("/status/active"))
             .andExpect(status().isOk())
@@ -157,7 +157,7 @@ class StatusControllerTest {
             new Status(3L, "Cancelled", false),
             new Status(4L, "Returned", false)
         );
-        when(statusService.findAllByIsActive(false)).thenReturn(inactiveStatuses);
+        when(statusService.findAllByActive(false)).thenReturn(inactiveStatuses);
 
         mockMvc.perform(get("/status/inactive"))
             .andExpect(status().isOk())

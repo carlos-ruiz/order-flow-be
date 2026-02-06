@@ -35,16 +35,16 @@ public class StatusController {
 
     @GetMapping("/active")
     public ResponseEntity<List<Status>> getAllActiveStatuses() {
-        List<Status> statuses = statusService.findAllByIsActive(true).stream()
-            .map(status -> new Status(status.getId(), status.getName(), status.getIsActive()))
+        List<Status> statuses = statusService.findAllByActive(true).stream()
+            .map(status -> new Status(status.getId(), status.getName(), status.getActive()))
             .toList();
         return ResponseEntity.ok(statuses);
     }
 
     @GetMapping("/inactive")
     public ResponseEntity<List<Status>> getAllInactiveStatuses() {
-        List<Status> statuses = statusService.findAllByIsActive(false).stream()
-            .map(status -> new Status(status.getId(), status.getName(), status.getIsActive()))
+        List<Status> statuses = statusService.findAllByActive(false).stream()
+            .map(status -> new Status(status.getId(), status.getName(), status.getActive()))
             .toList();
         return ResponseEntity.ok(statuses);
     }

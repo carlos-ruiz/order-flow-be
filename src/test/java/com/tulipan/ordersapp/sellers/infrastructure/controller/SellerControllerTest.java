@@ -1,5 +1,6 @@
 package com.tulipan.ordersapp.sellers.infrastructure.controller;
 
+import com.tulipan.ordersapp.GlobalExceptionHandler;
 import com.tulipan.ordersapp.sellers.application.SellerService;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -34,7 +36,9 @@ class SellerControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(sellerController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(sellerController)
+            .setControllerAdvice(new GlobalExceptionHandler())
+            .build();
     }
 
     @Test
@@ -51,11 +55,12 @@ class SellerControllerTest {
     }
 
     @Test
-    void createSeller_DuplicateEmail_ReturnsBadRequest() throws Exception {
+    void createSeller_DuplicateEmail_ReturnsConflict() throws Exception {
+        when(sellerService.save(any())).thenThrow(new DataIntegrityViolationException("Duplicate entry"));
         mockMvc.perform(post("/sellers")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"Seller1\", \"phone\":\"1234567890\"}"))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isConflict());
     }
 
     @Test

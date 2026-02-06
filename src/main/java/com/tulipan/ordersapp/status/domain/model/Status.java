@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class Status {
     private Long id;
     private String name;
-    private Boolean isActive;
+    private Boolean active;
 }

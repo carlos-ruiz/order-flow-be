@@ -73,7 +73,7 @@ class OrderItemServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        customer = new Customer(null, "John", "Doe", "email@example.com", "1234567890", "123 Main St.", "Note");
+        customer = new Customer(null, "John", "Doe", "email@example.com", "1234567890", "123 Main St.", "Note", true);
         customer = customerService.save(customer);
         customerId = customer.getId();
 

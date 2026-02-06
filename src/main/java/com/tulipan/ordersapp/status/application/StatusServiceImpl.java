@@ -39,7 +39,7 @@ public class StatusServiceImpl implements StatusService {
             .orElseThrow(() -> new StatusNotFoundException(status.getId()));
         StatusEntity statusEntity = StatusConverter.toEntity(existingStatus);
         statusEntity.setName(status.getName());
-        statusEntity.setIsActive(status.getIsActive());
+        statusEntity.setActive(status.getActive());
         return statusRepository.save(StatusConverter.toModel(statusEntity));
     }
 
@@ -59,8 +59,8 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
-    public List<Status> findAllByIsActive(Boolean isActive) {
-        return statusRepository.findAllByIsActive(isActive);
+    public List<Status> findAllByActive(Boolean active) {
+        return statusRepository.findAllByActive(active);
     }
 
     @Override

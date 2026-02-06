@@ -53,6 +53,7 @@ public class SellerRepositoryAdapter implements SellerRepository {
         entity.setAddress(seller.getAddress());
         entity.setPhone(seller.getPhone());
         entity.setEmail(seller.getEmail());
+        entity.setActive(seller.getActive());
         SellerEntity updatedEntity = jpaSellerRepository.save(entity);
         return SellerConverter.toModel(updatedEntity);
     }
