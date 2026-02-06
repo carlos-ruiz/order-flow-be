@@ -77,7 +77,7 @@ class OrderItemServiceImplTest {
         customer = customerService.save(customer);
         customerId = customer.getId();
 
-        seller = new Seller(null, "Richard", "Smith", "302 First Av", "1234567890", "seller@mail.com");
+        seller = new Seller(null, "Richard", "Smith", "302 First Av", "1234567890", "seller@mail.com", true);
         seller = sellerService.save(seller);
         sellerId = seller.getId();
 

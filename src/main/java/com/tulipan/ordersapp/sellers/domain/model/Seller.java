@@ -16,4 +16,6 @@ public class Seller {
     private String address;
     private String phone;
     private String email;
+    @Builder.Default
+    private Boolean active = true;
 }

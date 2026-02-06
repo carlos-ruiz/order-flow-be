@@ -1,30 +1,35 @@
 package com.tulipan.ordersapp;
 
+import com.tulipan.ordersapp.customers.domain.exceptions.CustomerNotFoundException;
+import com.tulipan.ordersapp.platforms.domain.exceptions.PlatformNotFoundException;
+import com.tulipan.ordersapp.sellers.domain.exceptions.SellerNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.tulipan.ordersapp.customers.domain.exceptions.CustomerNotFoundException;
-import com.tulipan.ordersapp.platforms.domain.exceptions.PlatformNotFoundException;
-import com.tulipan.ordersapp.sellers.domain.exceptions.SellerNotFoundException;
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(SellerNotFoundException.class)
-  public ResponseEntity<String> handleSellerNotFound(SellerNotFoundException e) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-  }
+    @ExceptionHandler(SellerNotFoundException.class)
+    public ResponseEntity<String> handleSellerNotFound(SellerNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 
-  @ExceptionHandler(CustomerNotFoundException.class)
-  public ResponseEntity<String> handleCustomerNotFound(CustomerNotFoundException e) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-  }
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<String> handleCustomerNotFound(CustomerNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 
-  @ExceptionHandler(PlatformNotFoundException.class)
-  public ResponseEntity<String> handlePlatformNotFound(PlatformNotFoundException e) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-  }
+    @ExceptionHandler(PlatformNotFoundException.class)
+    public ResponseEntity<String> handlePlatformNotFound(PlatformNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> handleDataIntegrityViolation(DataIntegrityViolationException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Registro duplicado: el email o teléfono ya existen.");
+    }
 
 }

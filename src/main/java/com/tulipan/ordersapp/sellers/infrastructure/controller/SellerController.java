@@ -3,6 +3,7 @@ package com.tulipan.ordersapp.sellers.infrastructure.controller;
 import com.tulipan.ordersapp.sellers.application.SellerService;
 import com.tulipan.ordersapp.sellers.domain.exceptions.SellerNotFoundException;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/sellers")
 public class SellerController {
@@ -28,6 +30,7 @@ public class SellerController {
 
     @PostMapping
     public ResponseEntity<Seller> createSeller(@RequestBody Seller seller) {
+        log.info("Creating new seller: {}", seller);
         Seller createdSeller = sellerService.save(seller);
         return ResponseEntity.ok(createdSeller);
     }
