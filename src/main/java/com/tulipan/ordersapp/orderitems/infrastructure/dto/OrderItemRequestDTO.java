@@ -15,8 +15,9 @@ public class OrderItemRequestDTO {
     private Integer quantity;
     private Long customerId;
     private Long sellerId;
-    private Long productId;
+    private String product;
     private BigDecimal price;
+    private BigDecimal tax;
     private Long orderId;
     private Long statusId;
 }

@@ -27,14 +27,14 @@ public class OrderItemController {
 
     @PostMapping
     public ResponseEntity<OrderItemResponseDTO> createOrderItem(@RequestBody OrderItemRequestDTO orderItemRequestDTO) {
-        OrderItem savedOrderItem = orderItemService.save(orderItemRequestDTO.getQuantity(), orderItemRequestDTO.getCustomerId(), orderItemRequestDTO.getSellerId(), orderItemRequestDTO.getProductId(), orderItemRequestDTO.getPrice(), orderItemRequestDTO.getOrderId(), orderItemRequestDTO.getStatusId());
+        OrderItem savedOrderItem = orderItemService.save(orderItemRequestDTO.getQuantity(), orderItemRequestDTO.getCustomerId(), orderItemRequestDTO.getSellerId(), orderItemRequestDTO.getPrice(), orderItemRequestDTO.getProduct(), orderItemRequestDTO.getTax(), orderItemRequestDTO.getOrderId(), orderItemRequestDTO.getStatusId());
         OrderItemResponseDTO responseDTO = OrderItemResponseDTO.builder()
             .id(savedOrderItem.getId())
             .quantity(savedOrderItem.getQuantity())
             .price(savedOrderItem.getPrice())
             .customerId(savedOrderItem.getCustomer().getId())
             .sellerId(savedOrderItem.getSeller().getId())
-            .productId(savedOrderItem.getProduct().getId())
+            .product(savedOrderItem.getProduct())
             .orderId(savedOrderItem.getOrder().getId())
             .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);

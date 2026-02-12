@@ -8,9 +8,6 @@ import com.tulipan.ordersapp.orderitems.domain.repository.OrderItemRepository;
 import com.tulipan.ordersapp.orders.application.OrderService;
 import com.tulipan.ordersapp.orders.domain.exceptions.OrderNotFoundException;
 import com.tulipan.ordersapp.orders.domain.model.Order;
-import com.tulipan.ordersapp.products.application.ProductService;
-import com.tulipan.ordersapp.products.domain.ProductNotFoundException;
-import com.tulipan.ordersapp.products.domain.model.Product;
 import com.tulipan.ordersapp.sellers.application.SellerService;
 import com.tulipan.ordersapp.sellers.domain.exceptions.SellerNotFoundException;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
@@ -28,15 +25,13 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     private final OrderItemRepository repository;
     private final OrderService orderService;
-    private final ProductService productService;
     private final CustomerService customerService;
     private final SellerService sellerService;
     private final StatusService statusService;
 
-    public OrderItemServiceImpl(OrderItemRepository repository, OrderService orderService, ProductService productService, CustomerService customerService, SellerService sellerService, StatusService statusService) {
+    public OrderItemServiceImpl(OrderItemRepository repository, OrderService orderService, CustomerService customerService, SellerService sellerService, StatusService statusService) {
         this.repository = repository;
         this.orderService = orderService;
-        this.productService = productService;
         this.customerService = customerService;
         this.sellerService = sellerService;
         this.statusService = statusService;
@@ -83,15 +78,14 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public OrderItem save(Integer quantity, Long customerId, Long sellerId, Long productId, BigDecimal price, Long orderId, Long statusId) {
+    public OrderItem save(Integer quantity, Long customerId, Long sellerId, BigDecimal price, String product, BigDecimal tax, Long orderId, Long statusId) {
         Order order = orderService.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
-        Product product = productService.findById(productId).orElseThrow(() -> new ProductNotFoundException(productId));
         Customer customer = customerService.findById(customerId).orElseThrow(() -> new CustomerNotFoundException(customerId));
         Seller seller = sellerService.findById(sellerId).orElseThrow(() -> new SellerNotFoundException(sellerId));
         Status status = null;
 
         if (statusId == null) {
-            status = statusService.findByName("Pending").orElse(new Status(null, "Pending", true));
+            status = statusService.findByName("Processing").orElse(new Status(null, "Processing", true));
             status = statusService.save(status);
         } else {
             status = statusService.findById(statusId).orElseThrow(() -> new StatusNotFoundException(statusId));
@@ -103,6 +97,10 @@ public class OrderItemServiceImpl implements OrderItemService {
         if (price == null || price.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Price must be greater than zero");
         }
+        if (product == null || product.isEmpty()) {
+            throw new IllegalArgumentException("Product must not be empty");
+        }
+
         OrderItem orderItem = OrderItem.builder()
             .quantity(quantity)
             .price(price)
@@ -111,6 +109,7 @@ public class OrderItemServiceImpl implements OrderItemService {
             .customer(customer)
             .seller(seller)
             .status(status)
+            .tax(tax)
             .build();
         return repository.save(orderItem);
     }

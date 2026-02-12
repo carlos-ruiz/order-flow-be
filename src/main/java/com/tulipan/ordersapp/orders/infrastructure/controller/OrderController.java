@@ -33,26 +33,16 @@ public class OrderController {
         if (orderRequestDTO.getPlatformId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        Order savedOrder = orderService.save(orderRequestDTO.getDateTime(), orderRequestDTO.getDiscount(), orderRequestDTO.getPlatformId());
-        OrderResponseDTO responseDTO = OrderResponseDTO.builder()
-            .id(savedOrder.getId())
-            .dateTime(savedOrder.getDateTime())
-            .discount(savedOrder.getDiscount())
-            .platformId(savedOrder.getPlatform().getId())
-            .build();
+        Order savedOrder = orderService.save(orderRequestDTO.getDateTime(), orderRequestDTO.getDiscount(), orderRequestDTO.getPlatformId(), orderRequestDTO.getStatusId());
+        OrderResponseDTO responseDTO = OrderResponseDTO.fromOrder(savedOrder);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
         List<Order> orders = orderService.findAll();
         List<OrderResponseDTO> responseDTOs = orders.stream()
-            .map(order -> OrderResponseDTO.builder()
-                .id(order.getId())
-                .dateTime(order.getDateTime())
-                .discount(order.getDiscount())
-                .platformId(order.getPlatform().getId())
-                .build())
+            .map(OrderResponseDTO::fromOrder)
             .toList();
         return ResponseEntity.ok(responseDTOs);
     }

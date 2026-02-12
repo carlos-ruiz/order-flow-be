@@ -23,5 +23,5 @@ public interface OrderItemService {
 
     List<OrderItem> findBySellerId(Long sellerId);
 
-    OrderItem save(Integer quantity, Long customerId, Long sellerId, Long productId, BigDecimal price, Long orderId, Long statusId);
+    OrderItem save(Integer quantity, Long customerId, Long sellerId, BigDecimal price, String product, BigDecimal tax, Long orderId, Long statusId);
 }

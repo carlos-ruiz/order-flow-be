@@ -58,12 +58,12 @@ class OrderControllerTest {
 
     @Test
     void createOrder() throws Exception {
-        when(orderService.save(any(LocalDateTime.class), any(BigDecimal.class), any(Long.class)))
+        when(orderService.save(any(LocalDateTime.class), any(BigDecimal.class), any(Long.class), any(Long.class)))
             .thenReturn(order);
 
         String response = mockMvc.perform(post("/orders")
                 .contentType("application/json")
-                .content("{\"dateTime\":\"2023-10-01T10:00:00\",\"discount\":0,\"platformId\":1}"))
+                .content("{\"dateTime\":\"2023-10-01T10:00:00\",\"discount\":0,\"platformId\":1, \"statusId\":1}"))
             .andExpect(status().isCreated())
             .andReturn()
             .getResponse()
@@ -91,7 +91,7 @@ class OrderControllerTest {
     void findAllOrders() throws Exception {
         when(orderService.findAll()).thenReturn(List.of(order));
 
-        String response = mockMvc.perform(get("/orders/all"))
+        String response = mockMvc.perform(get("/orders"))
             .andExpect(status().isOk())
             .andReturn()
             .getResponse()

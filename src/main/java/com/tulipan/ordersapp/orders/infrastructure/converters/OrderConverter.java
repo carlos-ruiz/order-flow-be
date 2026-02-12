@@ -3,6 +3,7 @@ package com.tulipan.ordersapp.orders.infrastructure.converters;
 import com.tulipan.ordersapp.orders.domain.model.Order;
 import com.tulipan.ordersapp.orders.infrastructure.entities.OrderEntity;
 import com.tulipan.ordersapp.platforms.infrastructure.converters.PlatformConverter;
+import com.tulipan.ordersapp.status.infrastructure.converters.StatusConverter;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -16,6 +17,7 @@ public class OrderConverter {
         order.setDateTime(orderEntity.getDateTime());
         order.setDiscount(orderEntity.getDiscount());
         order.setPlatform(PlatformConverter.toModel(orderEntity.getPlatform()));
+        order.setStatus(StatusConverter.toModel(orderEntity.getStatus()));
         return order;
     }
 
@@ -28,6 +30,7 @@ public class OrderConverter {
         orderEntity.setDateTime(order.getDateTime());
         orderEntity.setDiscount(order.getDiscount());
         orderEntity.setPlatform(PlatformConverter.toEntity(order.getPlatform()));
+        orderEntity.setStatus(StatusConverter.toEntity(order.getStatus()));
         return orderEntity;
     }
 
