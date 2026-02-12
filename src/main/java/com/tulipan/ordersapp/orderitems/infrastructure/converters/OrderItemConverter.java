@@ -5,7 +5,6 @@ import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
 import com.tulipan.ordersapp.orderitems.infrastructure.dto.OrderItemResponseDTO;
 import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
 import com.tulipan.ordersapp.orders.infrastructure.converters.OrderConverter;
-import com.tulipan.ordersapp.products.infrastructure.converters.ProductConverter;
 import com.tulipan.ordersapp.sellers.infrastructure.converters.SellerConverter;
 import com.tulipan.ordersapp.status.infrastructure.converters.StatusConverter;
 import lombok.experimental.UtilityClass;
@@ -20,7 +19,7 @@ public class OrderItemConverter {
         orderItem.setQuantity(orderItemEntity.getQuantity());
         orderItem.setSeller(SellerConverter.toModel(orderItemEntity.getSeller()));
         orderItem.setCustomer(CustomerConverter.toModel(orderItemEntity.getCustomer()));
-        orderItem.setProduct(ProductConverter.toModel(orderItemEntity.getProduct()));
+        orderItem.setProduct(orderItemEntity.getProduct());
         orderItem.setOrder(OrderConverter.toModel(orderItemEntity.getOrder()));
         orderItem.setStatus(StatusConverter.toModel(orderItemEntity.getStatus()));
         return orderItem;
@@ -33,7 +32,7 @@ public class OrderItemConverter {
         orderItemEntity.setQuantity(orderItem.getQuantity());
         orderItemEntity.setSeller(SellerConverter.toEntity(orderItem.getSeller()));
         orderItemEntity.setCustomer(CustomerConverter.toEntity(orderItem.getCustomer()));
-        orderItemEntity.setProduct(ProductConverter.toEntity(orderItem.getProduct()));
+        orderItemEntity.setProduct(orderItem.getProduct());
         orderItemEntity.setOrder(OrderConverter.toEntity(orderItem.getOrder()));
         orderItemEntity.setStatus(StatusConverter.toEntity(orderItem.getStatus()));
         return orderItemEntity;
@@ -46,7 +45,7 @@ public class OrderItemConverter {
             .price(orderItem.getPrice())
             .customerId(orderItem.getCustomer().getId())
             .sellerId(orderItem.getSeller().getId())
-            .productId(orderItem.getProduct().getId())
+            .product(orderItem.getProduct())
             .orderId(orderItem.getOrder().getId())
             .statusId(orderItem.getStatus().getId())
             .build();

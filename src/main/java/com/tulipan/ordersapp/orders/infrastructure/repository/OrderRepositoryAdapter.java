@@ -8,8 +8,12 @@ import com.tulipan.ordersapp.orders.infrastructure.entities.OrderEntity;
 import com.tulipan.ordersapp.platforms.domain.model.Platform;
 import com.tulipan.ordersapp.platforms.infrastructure.converters.PlatformConverter;
 import com.tulipan.ordersapp.platforms.infrastructure.entities.PlatformEntity;
+import com.tulipan.ordersapp.status.domain.model.Status;
+import com.tulipan.ordersapp.status.infrastructure.converters.StatusConverter;
+import com.tulipan.ordersapp.status.infrastructure.entities.StatusEntity;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,12 +32,15 @@ public class OrderRepositoryAdapter implements OrderRepository {
         }
 
         Platform platform = PlatformConverter.toModel(orderEntity.getPlatform());
+        Status status = StatusConverter.toModel(orderEntity.getStatus());
 
         return new Order(
             orderEntity.getId(),
             orderEntity.getDateTime(),
             orderEntity.getDiscount(),
-            platform
+            platform,
+            orderEntity.getTotalAmount(),
+            status
         );
     }
 
@@ -43,12 +50,15 @@ public class OrderRepositoryAdapter implements OrderRepository {
         }
 
         PlatformEntity platformEntity = PlatformConverter.toEntity(order.getPlatform());
-
+        StatusEntity status = StatusConverter.toEntity(order.getStatus());
         return new OrderEntity(
             order.getId(),
             order.getDateTime(),
             order.getDiscount(),
-            platformEntity
+            platformEntity,
+            order.getTotalAmount(),
+            Collections.emptyList(),
+            status
         );
     }
 

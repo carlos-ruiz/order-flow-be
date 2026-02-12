@@ -58,7 +58,7 @@ class OrderRepositoryAdapterTest {
         Order order = orderRepositoryAdapter.toModel(null);
         assertNull(order);
     }
-    
+
     @Test
     void testToEntity() {
         LocalDateTime now = LocalDateTime.now();
@@ -69,7 +69,7 @@ class OrderRepositoryAdapterTest {
             .sellerCommission(BigDecimal.TEN)
             .active(true)
             .build();
-        Order order = new Order(1L, now, BigDecimal.ZERO, platform);
+        Order order = new Order(1L, now, BigDecimal.ZERO, platform, BigDecimal.ZERO);
         OrderEntity orderEntity = orderRepositoryAdapter.toEntity(order);
         assertEquals(1L, orderEntity.getId());
         assertEquals(now, orderEntity.getDateTime());
@@ -89,7 +89,7 @@ class OrderRepositoryAdapterTest {
     @Test
     void testToEntityWithNullPlatform() {
         LocalDateTime now = LocalDateTime.now();
-        Order order = new Order(1L, now, BigDecimal.ZERO, null);
+        Order order = new Order(1L, now, BigDecimal.ZERO, null, BigDecimal.ZERO);
         OrderEntity orderEntity = orderRepositoryAdapter.toEntity(order);
         assertNull(orderEntity.getPlatform());
     }
@@ -144,7 +144,7 @@ class OrderRepositoryAdapterTest {
             .sellerCommission(BigDecimal.TEN)
             .active(true)
             .build();
-        Order order = new Order(1L, now, BigDecimal.ZERO, platform);
+        Order order = new Order(1L, now, BigDecimal.ZERO, platform, BigDecimal.ZERO);
         OrderEntity orderEntity = orderRepositoryAdapter.toEntity(order);
 
         when(jpaOrderRepository.save(orderEntity)).thenReturn(orderEntity);
@@ -168,7 +168,7 @@ class OrderRepositoryAdapterTest {
             .sellerCommission(BigDecimal.TEN)
             .active(true)
             .build();
-        Order order = new Order(1L, now, BigDecimal.ZERO, platform);
+        Order order = new Order(1L, now, BigDecimal.ZERO, platform, BigDecimal.ZERO);
         OrderEntity orderEntity = orderRepositoryAdapter.toEntity(order);
 
         when(jpaOrderRepository.save(orderEntity)).thenReturn(orderEntity);
@@ -201,7 +201,7 @@ class OrderRepositoryAdapterTest {
     @Test
     void testDelete() {
         Long id = 1L;
-        Order order = new Order(id, LocalDateTime.now(), BigDecimal.ZERO, null);
+        Order order = new Order(id, LocalDateTime.now(), BigDecimal.ZERO, null, BigDecimal.ZERO);
         when(jpaOrderRepository.existsById(id)).thenReturn(true);
 
         orderRepositoryAdapter.delete(order);
@@ -212,7 +212,7 @@ class OrderRepositoryAdapterTest {
     @Test
     void testDelete_whenNotExists() {
         Long id = 1L;
-        Order order = new Order(id, LocalDateTime.now(), BigDecimal.ZERO, null);
+        Order order = new Order(id, LocalDateTime.now(), BigDecimal.ZERO, null, BigDecimal.ZERO);
         when(jpaOrderRepository.existsById(id)).thenReturn(false);
 
         assertThrows(OrderNotFoundException.class, () -> orderRepositoryAdapter.delete(order));
