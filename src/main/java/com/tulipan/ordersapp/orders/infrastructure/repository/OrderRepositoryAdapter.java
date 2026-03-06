@@ -1,5 +1,8 @@
 package com.tulipan.ordersapp.orders.infrastructure.repository;
 
+import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
+import com.tulipan.ordersapp.orderitems.infrastructure.converters.OrderItemConverter;
+import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
 import com.tulipan.ordersapp.orders.domain.exceptions.OrderNotFoundException;
 import com.tulipan.ordersapp.orders.domain.model.Order;
 import com.tulipan.ordersapp.orders.domain.repository.OrderRepository;
@@ -33,15 +36,20 @@ public class OrderRepositoryAdapter implements OrderRepository {
 
         Platform platform = PlatformConverter.toModel(orderEntity.getPlatform());
         Status status = StatusConverter.toModel(orderEntity.getStatus());
+        List<OrderItemEntity> orderItems = orderEntity.getOrderItems();
+        List<OrderItem> orderItemModels = orderItems.stream()
+            .map(OrderItemConverter::toModel)
+            .toList();
 
-        return new Order(
-            orderEntity.getId(),
-            orderEntity.getDateTime(),
-            orderEntity.getDiscount(),
-            platform,
-            orderEntity.getTotalAmount(),
-            status
-        );
+        return Order.builder()
+            .id(orderEntity.getId())
+            .dateTime(orderEntity.getDateTime())
+            .discount(orderEntity.getDiscount())
+            .platform(platform)
+            .totalAmount(orderEntity.getTotalAmount())
+            .status(status)
+            .orderItems(orderItemModels)
+            .build();
     }
 
     protected OrderEntity toEntity(Order order) {

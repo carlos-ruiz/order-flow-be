@@ -205,7 +205,14 @@ class OrderItemServiceImplTest {
     @Test
     void save_shouldThrowException_whenProductDoesNotExist() {
         assertThrows(IllegalArgumentException.class, () -> {
-            orderItemService.save(2, customerId, sellerId, price, null, tax, orderId, statusId); // Assuming 999L is a non-existing product ID
+            orderItemService.save(2, customerId, sellerId, price, null, tax, orderId, statusId);
+        });
+    }
+
+    @Test
+    void save_shouldThrowException_whenProductIsEmpty() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            orderItemService.save(2, customerId, sellerId, price, "", tax, orderId, statusId);
         });
     }
 

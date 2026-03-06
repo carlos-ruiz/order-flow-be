@@ -63,4 +63,16 @@ public class OrderEntity {
         this.totalAmount = totalAmount;
         this.orderItems = new ArrayList<>();
     }
+
+    public String toString() {
+        return "OrderEntity{" +
+            "id=" + id +
+            ", dateTime=" + dateTime +
+            ", discount=" + discount +
+            ", platform=" + (platform != null ? platform.getName() : null) +
+            ", totalAmount=" + totalAmount +
+            ", status=" + (status != null ? status.getName() : null) +
+            ", orderItems=" + orderItems +
+            '}';
+    }
 }

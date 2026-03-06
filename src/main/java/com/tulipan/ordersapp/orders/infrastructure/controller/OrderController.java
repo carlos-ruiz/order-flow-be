@@ -51,12 +51,7 @@ public class OrderController {
     public ResponseEntity<OrderResponseDTO> getOrderById(@PathVariable Long id) {
         return orderService.findById(id)
             .map(order -> {
-                OrderResponseDTO responseDTO = OrderResponseDTO.builder()
-                    .id(order.getId())
-                    .dateTime(order.getDateTime())
-                    .discount(order.getDiscount())
-                    .platformId(order.getPlatform().getId())
-                    .build();
+                OrderResponseDTO responseDTO = OrderResponseDTO.fromOrder(order);
                 return ResponseEntity.ok(responseDTO);
             })
             .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());

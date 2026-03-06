@@ -54,4 +54,18 @@ public class OrderItemEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "seller_id")
     private SellerEntity seller;
+
+    public String toString() {
+        return "OrderItemEntity{" +
+            "id=" + id +
+            ", quantity=" + quantity +
+            ", price=" + price +
+            ", note='" + note + '\'' +
+            ", product='" + product + '\'' +
+            ", status=" + (status != null ? status.getName() : null) +
+            ", orderId=" + (order != null ? order.getId() : null) +
+            ", customerId=" + (customer != null ? customer.getId() : null) +
+            ", sellerId=" + (seller != null ? seller.getId() : null) +
+            '}';
+    }
 }

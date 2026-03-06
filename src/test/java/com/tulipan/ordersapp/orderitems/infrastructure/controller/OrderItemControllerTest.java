@@ -118,4 +118,25 @@ class OrderItemControllerTest {
         assertEquals(orderItem.getProduct(), itemResponseDTOS.getFirst().getProduct());
         assertEquals(orderItem.getOrder().getId(), itemResponseDTOS.getFirst().getOrderId());
     }
+
+    @Test
+    void findAllOrderItems() throws Exception {
+        OrderItem orderItem = new OrderItem(4L, 5, customer, seller, product, price, tax, order, status);
+        OrderItem orderItem2 = new OrderItem(5L, 3, customer, seller, product, price, tax, order, status);
+        List<OrderItem> orderItems = List.of(orderItem, orderItem2);
+        when(orderItemService.findAll()).thenReturn(orderItems);
+
+        String responseContent = mockMvc.perform(get("/order-items"))
+            .andExpect(status().isOk())
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<OrderItemResponseDTO> itemResponseDTOS = objectMapper.readValue(responseContent, new TypeReference<>() {
+        });
+        assertEquals(2, itemResponseDTOS.size());
+        assertEquals(orderItem.getId(), itemResponseDTOS.get(0).getId());
+        assertEquals(orderItem2.getId(), itemResponseDTOS.get(1).getId());
+    }
 }
