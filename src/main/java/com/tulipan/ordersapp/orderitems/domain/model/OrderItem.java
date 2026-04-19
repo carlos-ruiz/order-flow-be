@@ -2,7 +2,6 @@ package com.tulipan.ordersapp.orderitems.domain.model;
 
 import com.tulipan.ordersapp.customers.domain.model.Customer;
 import com.tulipan.ordersapp.orders.domain.model.Order;
-import com.tulipan.ordersapp.products.domain.model.Product;
 import com.tulipan.ordersapp.sellers.domain.model.Seller;
 import com.tulipan.ordersapp.status.domain.model.Status;
 import lombok.AllArgsConstructor;
@@ -21,8 +20,9 @@ public class OrderItem {
     private Integer quantity;
     private Customer customer;
     private Seller seller;
-    private Product product;
+    private String product;
     private BigDecimal price;
+    private BigDecimal tax;
     private Order order;
     private Status status;
 }

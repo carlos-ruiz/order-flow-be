@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface OrderService {
     Order save(Order order);
 
-    Order save(LocalDateTime dateTime, BigDecimal discount, Long platformId);
+    Order save(LocalDateTime dateTime, BigDecimal discount, Long platformId, Long statusId);
 
     Order update(Order order);
 

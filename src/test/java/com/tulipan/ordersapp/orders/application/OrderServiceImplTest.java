@@ -4,6 +4,8 @@ import com.tulipan.ordersapp.orders.domain.model.Order;
 import com.tulipan.ordersapp.platforms.application.PlatformService;
 import com.tulipan.ordersapp.platforms.domain.exceptions.PlatformNotFoundException;
 import com.tulipan.ordersapp.platforms.domain.model.Platform;
+import com.tulipan.ordersapp.status.application.StatusService;
+import com.tulipan.ordersapp.status.domain.model.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,8 +30,13 @@ class OrderServiceImplTest {
     @Autowired
     private PlatformService platformService;
 
+    @Autowired
+    private StatusService statusService;
+
     private Platform platform;
+    private Status status;
     private Order order;
+    private Long statusId;
 
     @BeforeEach
     void setUp() {
@@ -42,12 +49,18 @@ class OrderServiceImplTest {
             .build();
         platform = platformService.save(platform);
 
+        status = new Status(null, "Pending", true);
+        status = statusService.save(status);
+        statusId = status.getId();
+
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
         order = Order.builder()
             .dateTime(LocalDateTime.parse("2025-07-24T10:00:00", formatter))
             .platform(platform)
             .discount(BigDecimal.ZERO)
+            .status(status)
             .build();
     }
 
@@ -63,7 +76,7 @@ class OrderServiceImplTest {
 
     @Test
     void testSaveWithPlatformId() {
-        Order savedOrder = orderService.save(order.getDateTime(), order.getDiscount(), platform.getId());
+        Order savedOrder = orderService.save(order.getDateTime(), order.getDiscount(), platform.getId(), status.getId());
 
         assertNotNull(savedOrder);
         assertNotNull(savedOrder.getId());
@@ -75,7 +88,7 @@ class OrderServiceImplTest {
     void testSaveWithNullPlatformId() {
         LocalDateTime dateTime = order.getDateTime();
         BigDecimal discount = order.getDiscount();
-        assertThrows(IllegalArgumentException.class, () -> orderService.save(dateTime, discount, null), "Platform ID cannot be null");
+        assertThrows(IllegalArgumentException.class, () -> orderService.save(dateTime, discount, null, statusId), "Platform ID cannot be null");
     }
 
     @Test
@@ -83,7 +96,7 @@ class OrderServiceImplTest {
         Long nonExistentPlatformId = 999L; // Assuming this ID does not exist
         LocalDateTime dateTime = order.getDateTime();
         BigDecimal discount = order.getDiscount();
-        assertThrows(PlatformNotFoundException.class, () -> orderService.save(dateTime, discount, nonExistentPlatformId), "Platform with ID " + nonExistentPlatformId + " should not exist");
+        assertThrows(PlatformNotFoundException.class, () -> orderService.save(dateTime, discount, nonExistentPlatformId, statusId), "Platform with ID " + nonExistentPlatformId + " should not exist");
     }
 
     @Test
@@ -136,6 +149,7 @@ class OrderServiceImplTest {
         Order anotherOrder = Order.builder()
             .dateTime(LocalDateTime.now())
             .platform(platform)
+            .status(status)
             .discount(BigDecimal.ZERO)
             .build();
         orderService.save(anotherOrder);

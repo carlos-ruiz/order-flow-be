@@ -5,6 +5,9 @@ import com.tulipan.ordersapp.orders.domain.repository.OrderRepository;
 import com.tulipan.ordersapp.platforms.application.PlatformService;
 import com.tulipan.ordersapp.platforms.domain.exceptions.PlatformNotFoundException;
 import com.tulipan.ordersapp.platforms.domain.model.Platform;
+import com.tulipan.ordersapp.status.application.StatusService;
+import com.tulipan.ordersapp.status.domain.exceptions.StatusNotFoundException;
+import com.tulipan.ordersapp.status.domain.model.Status;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,10 +19,12 @@ import java.util.Optional;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository repository;
     private final PlatformService platformService;
+    private final StatusService statusService;
 
-    public OrderServiceImpl(OrderRepository repository, PlatformService platformService) {
+    public OrderServiceImpl(OrderRepository repository, PlatformService platformService, StatusService statusService) {
         this.repository = repository;
         this.platformService = platformService;
+        this.statusService = statusService;
     }
 
     @Override
@@ -28,18 +33,26 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order save(LocalDateTime dateTime, BigDecimal discount, Long platformId) {
+    public Order save(LocalDateTime dateTime, BigDecimal discount, Long platformId, Long statusId) {
         if (platformId == null) {
             throw new IllegalArgumentException("Platform ID cannot be null");
+        }
+
+        if (statusId == null) {
+            throw new IllegalArgumentException("Status ID cannot be null");
         }
 
         Platform platform = platformService.findById(platformId)
             .orElseThrow(() -> new PlatformNotFoundException(platformId));
 
+        Status status = statusService.findById(statusId)
+            .orElseThrow(() -> new StatusNotFoundException(statusId));
+
         Order order = Order.builder()
             .dateTime(dateTime)
             .discount(discount)
             .platform(platform)
+            .status(status)
             .build();
 
         return repository.save(order);

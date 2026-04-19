@@ -1,5 +1,8 @@
 package com.tulipan.ordersapp.orders.infrastructure.repository;
 
+import com.tulipan.ordersapp.orderitems.domain.model.OrderItem;
+import com.tulipan.ordersapp.orderitems.infrastructure.converters.OrderItemConverter;
+import com.tulipan.ordersapp.orderitems.infrastructure.entities.OrderItemEntity;
 import com.tulipan.ordersapp.orders.domain.exceptions.OrderNotFoundException;
 import com.tulipan.ordersapp.orders.domain.model.Order;
 import com.tulipan.ordersapp.orders.domain.repository.OrderRepository;
@@ -8,8 +11,12 @@ import com.tulipan.ordersapp.orders.infrastructure.entities.OrderEntity;
 import com.tulipan.ordersapp.platforms.domain.model.Platform;
 import com.tulipan.ordersapp.platforms.infrastructure.converters.PlatformConverter;
 import com.tulipan.ordersapp.platforms.infrastructure.entities.PlatformEntity;
+import com.tulipan.ordersapp.status.domain.model.Status;
+import com.tulipan.ordersapp.status.infrastructure.converters.StatusConverter;
+import com.tulipan.ordersapp.status.infrastructure.entities.StatusEntity;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,13 +35,21 @@ public class OrderRepositoryAdapter implements OrderRepository {
         }
 
         Platform platform = PlatformConverter.toModel(orderEntity.getPlatform());
+        Status status = StatusConverter.toModel(orderEntity.getStatus());
+        List<OrderItemEntity> orderItems = orderEntity.getOrderItems();
+        List<OrderItem> orderItemModels = orderItems.stream()
+            .map(OrderItemConverter::toModel)
+            .toList();
 
-        return new Order(
-            orderEntity.getId(),
-            orderEntity.getDateTime(),
-            orderEntity.getDiscount(),
-            platform
-        );
+        return Order.builder()
+            .id(orderEntity.getId())
+            .dateTime(orderEntity.getDateTime())
+            .discount(orderEntity.getDiscount())
+            .platform(platform)
+            .totalAmount(orderEntity.getTotalAmount())
+            .status(status)
+            .orderItems(orderItemModels)
+            .build();
     }
 
     protected OrderEntity toEntity(Order order) {
@@ -43,12 +58,15 @@ public class OrderRepositoryAdapter implements OrderRepository {
         }
 
         PlatformEntity platformEntity = PlatformConverter.toEntity(order.getPlatform());
-
+        StatusEntity status = StatusConverter.toEntity(order.getStatus());
         return new OrderEntity(
             order.getId(),
             order.getDateTime(),
             order.getDiscount(),
-            platformEntity
+            platformEntity,
+            order.getTotalAmount(),
+            Collections.emptyList(),
+            status
         );
     }
 
