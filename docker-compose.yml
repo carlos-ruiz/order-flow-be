@@ -37,10 +37,12 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
     networks:
-      - app-network
+      - jenkins-network
 
 networks:
   app-network:
+    driver: bridge
+  jenkins-network:
     driver: bridge
 
 volumes:
