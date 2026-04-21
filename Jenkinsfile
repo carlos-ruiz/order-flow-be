@@ -42,6 +42,7 @@ pipeline {
                         aws elasticbeanstalk update-environment \
                             --environment-name Orders-app-env \
                             --version-label $VERSION_LABEL
+                            --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=SERVER_PORT,Value=8080
                     '''
                     awaitDeploymentCompletion('Orders-app-env')
                 }
