@@ -42,8 +42,24 @@ pipeline {
                         aws elasticbeanstalk update-environment \
                             --environment-name Orders-app-env \
                             --version-label $VERSION_LABEL
+                            --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=SERVER_PORT,Value=8080
+
+                        echo "Waiting for deployment to complete..."
+                        for i in $(seq 1 24); do
+                            STATUS=$(aws elasticbeanstalk describe-environments \\
+                                --environment-names Orders-app-env \\
+                                --query "Environments[0].Status" \\
+                                --output text)
+                            echo "Current status: $STATUS"
+                            if [ "$STATUS" = "Ready" ]; then
+                                echo "Deployment complete"
+                                exit 0
+                            fi
+                            sleep 15
+                        done
+                        echo "Deployment timed out"
+                        exit 1
                     '''
-                    awaitDeploymentCompletion('Orders-app-env')
                 }
             }
         }
