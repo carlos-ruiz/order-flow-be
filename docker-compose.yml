@@ -41,6 +41,9 @@ services:
       - "8081:8080"
       - "50000:50000"
     restart: always
+    environment:
+      - TZ=America/Mexico_City  # ✅ sets timezone at container level
+      - JAVA_OPTS=-Duser.timezone=America/Mexico_City  # ✅ sets it for the JVM
     volumes:
       - jenkins_home:/var/jenkins_home
     networks:
