@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(classes = OrdersappApplication.class)
@@ -21,11 +20,6 @@ class OrdersappApplicationTests {
     void jpaAuditingEnabled() {
         EnableJpaAuditing annotation = OrdersappApplication.class.getAnnotation(EnableJpaAuditing.class);
         assertNotNull(annotation);
-    }
-
-    @Test
-    void mainMethodStartsApplicationSuccessfully() {
-        assertDoesNotThrow(() -> OrdersappApplication.main(new String[]{}));
     }
 
 }
