@@ -24,7 +24,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                withAWS(credentials: 'aws-credentials', region: 'us-west-1') {
+                withAWS(credentials: 'aws-eb-credentials', region: 'us-west-1') {
                     awsEbApp(
                             applicationName: 'orders-app',
                             environmentName: 'Orders-app-env',
