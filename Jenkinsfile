@@ -1,6 +1,6 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
-    agent { docker { image 'maven:3.9.14-eclipse-temurin-21-alpine' } }
+    agent any
     stages {
         stage('Test') {
             steps {
@@ -26,10 +26,10 @@ pipeline {
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-west-1') {
                     awsEbApp(
-                        applicationName: 'orders-app',
-                        environmentName: 'Orders-app-env',
-                        includes: 'target/*.jar',
-                        versionLabel: "${env.BUILD_NUMBER}-${new Date().format('yyyyMMdd-HHmmss')}"
+                            applicationName: 'orders-app',
+                            environmentName: 'Orders-app-env',
+                            includes: 'target/*.jar',
+                            versionLabel: "${env.BUILD_NUMBER}-${new Date().format('yyyyMMdd-HHmmss')}"
                     )
                 }
             }
