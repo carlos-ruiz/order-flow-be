@@ -67,9 +67,9 @@ pipeline {
                                 --option-settings \
                                 Namespace=aws:elasticbeanstalk:application:environment,OptionName=SPRING_PROFILES_ACTIVE,Value=prod \
                                 Namespace=aws:elasticbeanstalk:application:environment,OptionName=PORT,Value=8080 \
-                                Namespace=aws:elasticbeanstalk:application:environment,OptionName=SPRING_DATASOURCE_URL,Value=$DB_URL \
-                                Namespace=aws:elasticbeanstalk:application:environment,OptionName=SPRING_DATASOURCE_USERNAME,Value=$DB_USER \
-                                Namespace=aws:elasticbeanstalk:application:environment,OptionName=SPRING_DATASOURCE_PASSWORD,Value=$DB_PASS
+                                Namespace=aws:elasticbeanstalk:application:environment,OptionName=MYSQL_FULL_URL_PROD,Value=$DB_URL \
+                                Namespace=aws:elasticbeanstalk:application:environment,OptionName=MYSQL_USER_PROD,Value=$DB_USER \
+                                Namespace=aws:elasticbeanstalk:application:environment,OptionName=MYSQL_PASSWORD_PROD,Value=$DB_PASS
 
                             echo "Waiting for deployment to complete..."
                             for i in $(seq 1 24); do
