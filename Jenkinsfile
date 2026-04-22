@@ -1,6 +1,9 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
     agent any
+    options {
+        timeout(time: 10, unit: 'MINUTES')  // ✅ aborts automatically if exceeded
+    }
     stages {
         stage('Test') {
             steps {
