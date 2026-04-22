@@ -6,6 +6,13 @@ pipeline {
     }
     stages {
         stage('Test') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'development'
+                }
+                beforeAgent true  // ✅ skips the stage entirely without allocating a node
+            }
             steps {
                 sh 'mvn clean test'
             }
@@ -17,6 +24,13 @@ pipeline {
         }
 
         stage('Package') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'development'
+                }
+                beforeAgent true  // ✅ skips the stage entirely without allocating a node
+            }
             steps {
                 sh 'mvn package -DskipTests'
             }
