@@ -1,8 +1,18 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
     agent any
+    options {
+        timeout(time: 10, unit: 'MINUTES')  // ✅ aborts automatically if exceeded
+    }
     stages {
         stage('Test') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'development'
+                }
+                beforeAgent true  // ✅ skips the stage entirely without allocating a node
+            }
             steps {
                 sh 'mvn clean test'
             }
@@ -14,6 +24,13 @@ pipeline {
         }
 
         stage('Package') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'development'
+                }
+                beforeAgent true  // ✅ skips the stage entirely without allocating a node
+            }
             steps {
                 sh 'mvn package -DskipTests'
             }
