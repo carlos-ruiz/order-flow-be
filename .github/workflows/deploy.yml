@@ -86,7 +86,7 @@ jobs:
           VERSION_LABEL="${{ github.run_number }}-$(date +%Y%m%d-%H%M%S)"
           JAR_FILE=$(ls target/*.jar | head -1)
 
-          aws s3 cp $JAR_FILE s3://$S3_BUCKET/deployments/$VERSION_LABEL.jar
+          aws s3 cp $JAR_FILE s3://$S3_BUCKET/deployments/$VERSION_LABEL.jar --acl bucket-owner-full-control
 
           aws elasticbeanstalk create-application-version \
               --application-name $EB_APP_NAME \
