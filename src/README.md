@@ -1,26 +1,86 @@
-## Orders Flow Project
+## Orders Flow — Backend API
 
-Orders Flow Project is an Spring Boot application to provide an API for interacting with the application and do all business logic related to the application. Another client application should implement this functionality.
+Spring Boot REST API for managing orders, customers, sellers, platforms, and order items. Designed to be consumed by a separate client application.
 
-### Getting Started
-#### Required dependencies
+### Tech Stack
+
+- Java 21
+- Spring Boot 3.4.3
+- Spring Data JPA + MySQL 9.2
+- Lombok
+- SpringDoc OpenAPI (Swagger UI)
+- JaCoCo (80% line/branch coverage enforced)
+- Docker + Docker Compose
+
+### Prerequisites
+
 - JDK 21
 - Maven
 - Docker
 
-Create a `.env` file in the root path of your application with the following variables
-1. MYSQL_DATABASE: Which is the name of the database used by your application
-2. MYSQL_PASSWORD: The password for the database
+### Local Setup
 
-`NOTE: these variables could be whatever you want, the first time you run the application, the database will be created using those values`
+**Step 1.** Create a `.env` file in the project root:
 
-We have a `docker-compose.yml` file in the root path of your application with the MYSQL image we need to host the Database. So we would need to have a Docker installed.
+```env
+MYSQL_ROOT_PASSWORD=your_root_password
+MYSQL_DATABASE=your_database_name
+```
 
-### Steps to Running the application
+**Step 2.** Start the database:
 
-Run the following commands from the root path of your application
+```bash
+docker compose up -d
+```
 
-1. Execute the docker-compose.yml, command `docker compose up -d`
-2. Install Maven dependencies, command `./mvnw clean install`
-3. Run the application, command `./mvnw spring-boot:run`
+**Step 3.** Run the application:
 
+```bash
+./mvnw spring-boot:run
+```
+
+The app starts on `http://localhost:8080`. Swagger UI is available at `http://localhost:8080/swagger-ui.html`.
+
+### Running with Docker (full stack)
+
+Builds the app image and starts both MySQL and the API together:
+
+```bash
+docker compose up --build
+```
+
+This uses the `docker` Spring profile, which reads database config from the environment variables defined in `.env`.
+
+### Running Tests
+
+```bash
+./mvnw clean test
+```
+
+JaCoCo enforces a minimum of **80% line and branch coverage**. The build will fail if coverage drops below this threshold.
+
+### Spring Profiles
+
+| Profile  | Used when                                       |
+|----------|-------------------------------------------------|
+| `local`  | Running directly on your machine with a local DB |
+| `docker` | Running inside Docker Compose                   |
+| `prod`   | Deployed to AWS Elastic Beanstalk               |
+
+### API Resources
+
+| Resource    | Base path      |
+|-------------|----------------|
+| Customers   | `/customers`   |
+| Orders      | `/orders`      |
+| Order Items | `/order-items` |
+| Sellers     | `/sellers`     |
+| Platforms   | `/platforms`   |
+| Status      | `/status`      |
+
+### CI/CD
+
+GitHub Actions pipeline on `.github/workflows/deploy.yml`:
+
+- **All pushes to `main` or `development`**: runs tests and builds the JAR
+- **Pushes to `main` only**: deploys to AWS Elastic Beanstalk (`prod` environment) via OIDC role assumption — no long-lived AWS credentials stored
